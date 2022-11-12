@@ -12,6 +12,7 @@ ThemeData getApplicationLightTheme() {
     primaryColorDark: ColorManager.darkBlue,
     // disabledColor: ColorManager.gray,
     scaffoldBackgroundColor: ColorManager.darkWhite,
+    backgroundColor: ColorManager.white,
     // card theme
     cardTheme: _getLightCardTheme(),
     // app bar theme
@@ -32,6 +33,8 @@ ThemeData getApplicationLightTheme() {
     checkboxTheme: _getCheckboxTheme(),
     // bottom navigation bar theme
     bottomNavigationBarTheme: _getBottomNavigationBarTheme(),
+    // text theme
+    textTheme: _getTextTheme(),
   );
 }
 
@@ -121,7 +124,14 @@ BottomNavigationBarThemeData _getBottomNavigationBarTheme() {
     elevation: AppSize.s0,
   );
 }
-
+// text theme
+TextTheme _getTextTheme() {
+  return TextTheme(
+    displayLarge: getBoldStyle(color: ColorManager.lightBlue, fontSize: FontSize.s32),
+    displayMedium: getBoldStyle(color: ColorManager.lightBlue, fontSize: FontSize.s22),
+    labelSmall: getRegularStyle(color: ColorManager.gray, fontSize: FontSize.s14)
+  );
+}
 
 
 

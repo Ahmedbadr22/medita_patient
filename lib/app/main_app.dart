@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 import 'package:medita_patient/app/presentation/manager/theme_manager.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,6 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: RouteGenerator.getRoute,
+      initialRoute: Routes.splashRoute,
       theme: getApplicationLightTheme(),
     );
   }

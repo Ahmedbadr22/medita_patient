@@ -33,9 +33,11 @@ class AppPadding {
 }
 
 class AppSize {
+  static const double logoWidth = 300.0;
   static const double s0 = 0.0;
   static const double s4 = 4.0;
   static const double s8 = 8.0;
+  static const double s10 = 10.0;
   static const double s12 = 12.0;
   static const double s14 = 14.0;
   static const double s16 = 16.0;
@@ -47,4 +49,21 @@ class AppSize {
   static const double s28 = 28.0;
   static const double s30 = 30.0;
   static const double s32 = 32.0;
+  static const double s34 = 34.0;
+  static const double s36 = 36.0;
+  static const double s38 = 38.0;
+  static const double s40 = 40.0;
+  static const double s120 = 120.0;
+  static const double s130 = 130.0;
+  static const double defaultPadding = s16;
+}
+
+class ButtonSize {
+  static const double height = 50.0;
+  static const double infinityWidth = double.infinity;
+}
+
+class TimeValue {
+  static const int onBoardingPageChangeDuration = 2;
+  static const int splashScreenDelayTime = 5;
 }
