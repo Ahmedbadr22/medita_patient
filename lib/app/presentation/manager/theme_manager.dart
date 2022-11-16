@@ -50,6 +50,7 @@ CardTheme _getLightCardTheme() {
 // app bar theme
 AppBarTheme _getLightAppBarTheme() {
   return AppBarTheme(
+    iconTheme: const IconThemeData(color: Colors.black),
     elevation: AppSize.s0,
     backgroundColor: ColorManager.white,
     systemOverlayStyle: const SystemUiOverlayStyle(
@@ -127,8 +128,8 @@ BottomNavigationBarThemeData _getBottomNavigationBarTheme() {
 // text theme
 TextTheme _getTextTheme() {
   return TextTheme(
-    displayLarge: getBoldStyle(color: ColorManager.lightBlue, fontSize: FontSize.s32),
-    displayMedium: getBoldStyle(color: ColorManager.lightBlue, fontSize: FontSize.s22),
+    displayLarge: getBoldStyle(color: ColorManager.darkBlack, fontSize: FontSize.s32),
+    displayMedium: getBoldStyle(color: ColorManager.darkBlack, fontSize: FontSize.s22),
     labelSmall: getRegularStyle(color: ColorManager.gray, fontSize: FontSize.s14)
   );
 }

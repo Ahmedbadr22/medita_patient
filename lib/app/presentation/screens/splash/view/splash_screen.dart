@@ -51,14 +51,12 @@ class _SplashScreenState extends State<SplashScreen> {
           children: <Expanded> [
             Expanded(
               flex: 3,
-              child: Column(
-                children: [
-                  SvgPicture.asset(
-                    brightness == Brightness.dark ? ImageAsset.blackLogoImagePath : ImageAsset.whiteLogoImagePath ,
-                    width: AppSize.logoWidth,
-                  ),
-                ],
-              ),
+              child: Center(
+                child: SvgPicture.asset(
+                  brightness == Brightness.dark ? ImageAsset.blackLogoImagePath : ImageAsset.whiteLogoImagePath ,
+                  width: AppSize.splashLogoWidth,
+                ),
+              )
             ),
             const Expanded(
               flex: 1,

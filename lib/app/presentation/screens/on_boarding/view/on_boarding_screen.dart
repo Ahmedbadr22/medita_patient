@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medita_patient/app/data/models/on_boarding_screen_object.dart';
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
+import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
 import 'package:medita_patient/app/presentation/screens/on_boarding/view_model/on_boarding_view_model.dart';
@@ -33,6 +34,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     super.dispose();
   }
 
+  void navigateToAuthenticationScreen() {
+    Navigator.pushReplacementNamed(context, Routes.authenticationRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -51,14 +56,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         appBar: AppBar(
           title: SvgPicture.asset(
             ImageAsset.blackLogoImagePath,
-            height: AppSize.s130,
+            height: AppSize.s50,
           ),
           centerTitle: false,
           actions: <TextButton>[
             TextButton(
-              onPressed: () {
-                // TODO: Navigate to the sign in screen
-              },
+              onPressed: navigateToAuthenticationScreen,
               child: const Text(StringManager.skip),
             )
           ],
@@ -106,7 +109,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               curve: Curves.fastOutSlowIn,
                             );
                           } else {
-                            // TODO: navigate to sign in screen (when sign in screen completed)
+                            navigateToAuthenticationScreen();
                           }
                         },
                         child: Text(onBoardingScreenObject.currentOnBoardingItemIndex != onBoardingScreenObject.numberOfOnBoardingItems - 1 ? StringManager.next : StringManager.getStarted),
