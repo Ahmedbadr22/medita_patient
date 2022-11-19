@@ -16,37 +16,16 @@ class MainScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     PageController pageController = PageController();
 
-    List<String> doctorSpeciality= ["All", "General", "Dentist", "Nutritionist", "Pediatric"];
+    List<String> doctorSpeciality = [
+      "All",
+      "General",
+      "Dentist",
+      "Nutritionist",
+      "Pediatric"
+    ];
 
     return Scaffold(
-      appBar: AppBar(
-        titleSpacing: AppSize.s16,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: <Widget>[
-            const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://lovehairstyles.com/wp-content/uploads/2022/05/tp-best-mens-hairstyles.jpg"),
-              radius: AppSize.s25,
-            ),
-            const SizedBox(width: AppSize.s10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Text>[
-                Text(
-                  StringManager.goodMorning,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                const Text("Ahmed Badr"),
-              ],
-            ),
-          ],
-        ),
-        actions: <IconButton>[
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
-        ],
-      ),
+      appBar: appBarSection(context),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -89,26 +68,41 @@ class MainScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: <Widget>[
-                    const SectionHeader(title: StringManager.doctorSpeciality, buttonText: StringManager.seeAll),
-                    const SizedBox(height: AppSize.s10,),
+                    const SectionHeader(
+                        title: StringManager.doctorSpeciality,
+                        buttonText: StringManager.seeAll),
+                    const SizedBox(
+                      height: AppSize.s10,
+                    ),
                     SizedBox(
                       height: AppSize.s200,
                       child: GridView.count(
                         physics: const BouncingScrollPhysics(),
                         crossAxisCount: 4,
                         children: const <SpecialityButton>[
-                          SpecialityButton(title: 'General', icon: Icons.person),
-                          SpecialityButton(title: 'Dentist', icon: Icons.network_wifi),
-                          SpecialityButton(title: 'Ophthal..', icon: Icons.remove_red_eye),
-                          SpecialityButton(title: 'Nutrition..', icon: Icons.apple),
-                          SpecialityButton(title: 'Neurolo..', icon: Icons.confirmation_num_rounded),
-                          SpecialityButton(title: 'Pediatic', icon: Icons.child_friendly),
-                          SpecialityButton(title: 'Radiolo..', icon: Icons.width_full),
-                          SpecialityButton(title: 'More', icon: Icons.more_horiz),
+                          SpecialityButton(
+                              title: 'General', icon: Icons.person),
+                          SpecialityButton(
+                              title: 'Dentist', icon: Icons.network_wifi),
+                          SpecialityButton(
+                              title: 'Ophthal..', icon: Icons.remove_red_eye),
+                          SpecialityButton(
+                              title: 'Nutrition..', icon: Icons.apple),
+                          SpecialityButton(
+                              title: 'Neurolo..',
+                              icon: Icons.confirmation_num_rounded),
+                          SpecialityButton(
+                              title: 'Pediatic', icon: Icons.child_friendly),
+                          SpecialityButton(
+                              title: 'Radiolo..', icon: Icons.width_full),
+                          SpecialityButton(
+                              title: 'More', icon: Icons.more_horiz),
                         ],
                       ),
                     ),
-                    const SectionHeader(title: StringManager.topDoctors, buttonText: StringManager.seeAll),
+                    const SectionHeader(
+                        title: StringManager.topDoctors,
+                        buttonText: StringManager.seeAll),
                     SizedBox(
                       height: AppSize.s50,
                       child: ListView.separated(
@@ -117,13 +111,26 @@ class MainScreen extends StatelessWidget {
                         itemBuilder: (_, int index) {
                           var name = doctorSpeciality[index];
                           return FilterChip(
-                            label: Text(name, style: TextStyle(color: index == 0 ? Colors.white : Colors.black),), onSelected: (bool value) {  },
-                            backgroundColor: index == 0 ? Theme.of(context).primaryColor : Colors.transparent,
-                            shape: StadiumBorder(side: BorderSide(color: Theme.of(context).primaryColor, width: 2)),
+                            label: Text(
+                              name,
+                              style: TextStyle(
+                                  color:
+                                      index == 0 ? Colors.white : Colors.black),
+                            ),
+                            onSelected: (bool value) {},
+                            backgroundColor: index == 0
+                                ? Theme.of(context).primaryColor
+                                : Colors.transparent,
+                            shape: StadiumBorder(
+                                side: BorderSide(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2)),
                           );
                         },
                         separatorBuilder: (_, __) {
-                          return const SizedBox(width: AppSize.s10,);
+                          return const SizedBox(
+                            width: AppSize.s10,
+                          );
                         },
                       ),
                     )
@@ -134,41 +141,37 @@ class MainScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: AppSize.s70,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(AppSize.s20), // adjust to your liking
-            topRight: Radius.circular(AppSize.s20), // adjust to your liking
-          ),
-          color: ColorManager.white, // put the color here
-        ),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: StringManager.home,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
-              label: StringManager.appointments,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.schedule),
-              label: StringManager.schedule,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.article_outlined),
-              label: StringManager.articles,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: StringManager.profile,
-            ),
-          ],
-        ),
-      ),
     );
   }
+}
+
+AppBar appBarSection(BuildContext context) {
+  return AppBar(
+    titleSpacing: AppSize.s16,
+    automaticallyImplyLeading: false,
+    title: Row(
+      children: <Widget>[
+        const CircleAvatar(
+          backgroundImage: NetworkImage(
+              "https://lovehairstyles.com/wp-content/uploads/2022/05/tp-best-mens-hairstyles.jpg"),
+          radius: AppSize.s25,
+        ),
+        const SizedBox(width: AppSize.s10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Text>[
+            Text(
+              StringManager.goodMorning,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const Text("Ahmed Badr"),
+          ],
+        ),
+      ],
+    ),
+    actions: <IconButton>[
+      IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+      IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
+    ],
+  );
 }

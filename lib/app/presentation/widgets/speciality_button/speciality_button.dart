@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../../manager/values_manager.dart';
 
 class SpecialityButton extends StatelessWidget {
-  const SpecialityButton({Key? key, required this.title, required this.icon}) : super(key: key);
+  const SpecialityButton({Key? key, required this.title, required this.icon})
+      : super(key: key);
 
   final String title;
   final IconData icon;
@@ -15,17 +15,21 @@ class SpecialityButton extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppSize.s50),
-              color: Theme.of(context).primaryColor.withOpacity(0.2)
-          ),
+              color: Theme.of(context).primaryColor.withOpacity(0.2)),
           child: Padding(
             padding: const EdgeInsets.all(AppPadding.p4),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(icon, color: Theme.of(context).primaryColor,),
+              icon: Icon(
+                icon,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
         ),
-        const SizedBox(height: AppSize.s10,),
+        const SizedBox(
+          height: AppSize.s10,
+        ),
         Text(title)
       ],
     );

@@ -26,9 +26,8 @@ ThemeData getApplicationLightTheme() {
     // input decoration theme
     inputDecorationTheme: _getInputDecorationTheme(),
     // text selection theme
-    textSelectionTheme: const TextSelectionThemeData(
-      cursorColor: ColorManager.darkBlack
-    ),
+    textSelectionTheme:
+        const TextSelectionThemeData(cursorColor: ColorManager.darkBlack),
     // checkbox theme
     checkboxTheme: _getCheckboxTheme(),
     // bottom navigation bar theme
@@ -47,6 +46,7 @@ CardTheme _getLightCardTheme() {
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s8))),
   );
 }
+
 // app bar theme
 AppBarTheme _getLightAppBarTheme() {
   return AppBarTheme(
@@ -54,13 +54,14 @@ AppBarTheme _getLightAppBarTheme() {
     elevation: AppSize.s0,
     backgroundColor: ColorManager.white,
     systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: ColorManager.white,
-        statusBarIconBrightness: Brightness.dark,
+      statusBarColor: ColorManager.white,
+      statusBarIconBrightness: Brightness.dark,
     ),
     titleTextStyle:
         getMediumStyle(fontSize: FontSize.s20, color: ColorManager.darkBlack),
   );
 }
+
 // elevated button theme
 ElevatedButtonThemeData _getElevatedButtonTheme() {
   return ElevatedButtonThemeData(
@@ -71,6 +72,7 @@ ElevatedButtonThemeData _getElevatedButtonTheme() {
           disabledBackgroundColor: ColorManager.darkBlue,
           disabledForegroundColor: ColorManager.white));
 }
+
 // outlined button theme
 OutlinedButtonThemeData _getOutlinedButtonTheme() {
   return OutlinedButtonThemeData(
@@ -80,6 +82,7 @@ OutlinedButtonThemeData _getOutlinedButtonTheme() {
     ),
   );
 }
+
 // text button theme
 TextButtonThemeData _getTextButtonTheme() {
   return TextButtonThemeData(
@@ -88,6 +91,7 @@ TextButtonThemeData _getTextButtonTheme() {
     ),
   );
 }
+
 // input decoration theme
 InputDecorationTheme _getInputDecorationTheme() {
   return const InputDecorationTheme(
@@ -109,40 +113,38 @@ InputDecorationTheme _getInputDecorationTheme() {
     ),
   );
 }
+
 // checkbox theme
 CheckboxThemeData _getCheckboxTheme() {
   return const CheckboxThemeData(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(AppSize.s4)))
-  );
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(AppSize.s4))));
 }
+
 // bottom navigation theme
 BottomNavigationBarThemeData _getBottomNavigationBarTheme() {
-  return const BottomNavigationBarThemeData(
+  return BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     backgroundColor: ColorManager.white,
     unselectedItemColor: ColorManager.gray,
     selectedItemColor: ColorManager.lightBlue,
     elevation: AppSize.s0,
+    unselectedLabelStyle:
+        getRegularStyle(fontSize: FontSize.s12, color: ColorManager.gray),
+    // selectedItemColor: SharedColors.orangeColor,
+    selectedLabelStyle:
+        getRegularStyle(fontSize: FontSize.s12, color: ColorManager.lightBlue),
   );
 }
+
 // text theme
 TextTheme _getTextTheme() {
   return TextTheme(
-    displayLarge: getBoldStyle(color: ColorManager.darkBlack, fontSize: FontSize.s32),
-    displayMedium: getBoldStyle(color: ColorManager.darkBlack, fontSize: FontSize.s22),
-    labelSmall: getRegularStyle(color: ColorManager.gray, fontSize: FontSize.s14)
+    displayLarge:
+        getBoldStyle(color: ColorManager.darkBlack, fontSize: FontSize.s32),
+    displayMedium:
+        getBoldStyle(color: ColorManager.darkBlack, fontSize: FontSize.s22),
+    labelSmall:
+        getRegularStyle(color: ColorManager.gray, fontSize: FontSize.s14),
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -36,9 +36,7 @@ class SignInScreen extends StatelessWidget {
               Column(
                 children: const <Widget>[
                   MainTextInputField(
-                    prefixIcon: Icon(Icons.email),
-                    hint: StringManager.email
-                  ),
+                      prefixIcon: Icon(Icons.email), hint: StringManager.email),
                   SizedBox(height: AppSize.s10),
                   MainTextInputField(
                     prefixIcon: Icon(Icons.lock),
@@ -60,11 +58,11 @@ class SignInScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   child: const Text(StringManager.signIn),
-                  onPressed: () => navigateToMainScreen(context),
+                  onPressed: () => navigateToNavigationScreen(context),
                 ),
               ),
               TextButton(
-                onPressed: (){},
+                onPressed: () {},
                 child: const Text(StringManager.forgotPassword),
               ),
               const SizedBox(height: AppSize.s10),
@@ -101,7 +99,10 @@ class SignInScreen extends StatelessWidget {
     Navigator.pushReplacementNamed(context, Routes.signUpRoute);
   }
 
-  void navigateToMainScreen(BuildContext context) {
-    Navigator.popAndPushNamed(context, Routes.mainRoute);
+  // void navigateToMainScreen(BuildContext context) {
+  //   Navigator.popAndPushNamed(context, Routes.mainRoute);
+  // }
+  void navigateToNavigationScreen(BuildContext context) {
+    Navigator.pushReplacementNamed(context, Routes.navigationRoute);
   }
 }
