@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
 import 'package:medita_patient/app/presentation/widgets/fake_search_button/fake_search_button.dart';
@@ -170,7 +171,11 @@ AppBar appBarSection(BuildContext context) {
       ],
     ),
     actions: <IconButton>[
-      IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+      IconButton(onPressed: () {
+        Navigator.pushNamed(context, Routes.nearHospitals);
+      },
+        icon: const Icon(Icons.notifications),
+      ),
       IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
     ],
   );

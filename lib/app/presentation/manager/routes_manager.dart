@@ -4,6 +4,7 @@ import 'package:medita_patient/app/presentation/screens/appointment/appointment_
 import 'package:medita_patient/app/presentation/screens/articals/articals_screen.dart';
 import 'package:medita_patient/app/presentation/screens/main/view/main_screen.dart';
 import 'package:medita_patient/app/presentation/screens/navigarion/navigation_screen.dart';
+import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/near_hospitals_screen.dart';
 import 'package:medita_patient/app/presentation/screens/on_boarding/view/on_boarding_screen.dart';
 import 'package:medita_patient/app/presentation/screens/profile/profile_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/schedule_screen.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const scheduleRoute = "/scheduleRoute";
   static const articalsRoute = "/articalsRoute";
   static const profileRoute = "/profileRoute";
+  static const nearHospitals = "/nearHospitals";
 }
 
 class RouteGenerator {
@@ -53,6 +55,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ArticalsScreen());
       case Routes.profileRoute:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case Routes.nearHospitals:
+        return MaterialPageRoute(builder: (_) => const NearHospitalsScreen());
       default:
         return MaterialPageRoute(builder: (_) => unDefinedRoute());
     }

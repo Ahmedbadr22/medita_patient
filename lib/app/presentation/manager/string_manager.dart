@@ -28,8 +28,9 @@ class StringManager {
   static const searchHospitals = "Search Top Hospitals";
   static const pharmacy = "Pharmacy";
   static const orderMedicines = "Order Medicines ";
-  static const eConsultion = "eConsultion";
-  static const getTele = "Get Tele consult with us ";
+  static const nearHospitals = "Near Hospitals ";
+  static const hospitalName = "Temple University";
+
 
   // bottom navigation view
   static const home = "Home";
