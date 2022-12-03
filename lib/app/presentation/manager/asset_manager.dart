@@ -9,22 +9,23 @@ class ImageAsset {
   static const appleLogoSvg = "$_mainSvgPath/apple_logo.svg";
   static const facebookLogoSvg = "$_mainSvgPath/facebook_logo.svg";
   static const googleLogoSvg = "$_mainSvgPath/google_logo.svg";
+  // icons
+  static const outlinedBellSvg = "$_mainIconPath/bell_outlined.svg";
+  static const outlinedClockCircleSvg = "$_mainIconPath/clock_circle_outlined.svg";
+  static const outlinedEyeClosedSvg = "$_mainIconPath/eye_closed_outlined.svg";
+  static const outlinedEyeSvg = "$_mainIconPath/eye_outlined.svg";
+  static const outlinedFileTextSvg = "$_mainIconPath/file_text_outlined.svg";
+  static const outlinedHeartSvg = "$_mainIconPath/heart_outlined.svg";
+  static const outlinedHomeSvg = "$_mainIconPath/home_outlined.svg";
+  static const outlinedEmailSvg = "$_mainIconPath/letter_outlined.svg";
+  static const outlinedLockPasswordSvg = "$_mainIconPath/lock_password_outlined.svg";
+  static const outlinedMagnifierSvg = "$_mainIconPath/magnifier_outlined.svg";
+  static const outlinedMenuDotsCircleSvg = "$_mainIconPath/menu_dots_circle_outlined.svg";
+  static const filledStareSvg = "$_mainIconPath/star_filled.svg";
+  static const outlinedStethoscopeSvg = "$_mainIconPath/stethoscope_outlined.svg";
+  static const outlinedUserRoundedSvg = "$_mainIconPath/user_rounded_outlined.svg";
   // images
-  static const doctor1 = "$_mainImagePath/doctor_1.jpg";
   static const onBoardingImage1 = "$_mainImagePath/on_boarding_1.png";
   static const onBoardingImage4 = "$_mainImagePath/on_boarding_4.jpg";
-  static const doctorModel = "$_mainImagePath/doctor_model.png";
-  //icons
-  static const homeIcon = "$_mainIconPath/home_icon.svg";
-  static const articalsIcon = "$_mainIconPath/articals_icon.svg";
-  static const personIcon = "$_mainIconPath/person_icon.svg";
-  static const calendarIcon = "$_mainIconPath/calendar_icon.svg";
-  static const historyIcon = "$_mainIconPath/history_icon.svg";
-  static const notificationIcon = "$_mainIconPath/notification_icon.svg";
-  static const heartIcon = "$_mainIconPath/heart_icon.svg";
-  static const stethoscopeIcon = "$_mainIconPath/stethoscope.svg";
-  static const doctorBagIcon = "$_mainIconPath/doctor_bag.svg";
-  static const doctorIcon = "$_mainIconPath/doctor.svg";
-  static const doctor2Icon = "$_mainIconPath/doctor2.svg";
-  static const doctor3Icon = "$_mainIconPath/doctor3.svg";
+  static const doctorModel = "$_mainImagePath/doctor_model.jpg";
 }

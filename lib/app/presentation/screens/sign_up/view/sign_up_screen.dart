@@ -7,6 +7,7 @@ import '../../../manager/string_manager.dart';
 import '../../../manager/values_manager.dart';
 import '../../../widgets/authentication_divider/authentication_divider.dart';
 import '../../../widgets/social_authentication_button/icon_authentication_button.dart';
+import '../../../widgets/svg_icon_button/svg_icon_button.dart';
 import '../../../widgets/text_input_field/main_text_input_field.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -34,22 +35,28 @@ class SignUpScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSize.s20),
               Column(
-                children: const <Widget> [
-                  SizedBox(height: AppSize.s10),
+                children: <Widget> [
+                  const SizedBox(height: AppSize.s10),
                   MainTextInputField(
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
                     hint: StringManager.email,
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   MainTextInputField(
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.remove_red_eye),
+                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
+                    suffixIcon: SvgIconButton(
+                      svgPath: ImageAsset.outlinedEyeClosedSvg,
+                      onPressed: (){},
+                    ),
                     hint: StringManager.password,
                   ),
-                  SizedBox(height: AppSize.s10),
+                  const SizedBox(height: AppSize.s10),
                   MainTextInputField(
-                    prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: Icon(Icons.remove_red_eye),
+                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
+                    suffixIcon: SvgIconButton(
+                      svgPath: ImageAsset.outlinedEyeClosedSvg,
+                      onPressed: (){},
+                    ),
                     hint: StringManager.confirmPassword,
                   ),
                 ],
@@ -69,8 +76,7 @@ class SignUpScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const <IconAuthenticationButton>[
-                  IconAuthenticationButton(
-                      iconPath: ImageAsset.facebookLogoSvg),
+                  IconAuthenticationButton(iconPath: ImageAsset.facebookLogoSvg),
                   IconAuthenticationButton(iconPath: ImageAsset.googleLogoSvg),
                   IconAuthenticationButton(iconPath: ImageAsset.appleLogoSvg),
                 ],
@@ -78,7 +84,7 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(height: AppSize.s20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: <Widget> [
                   const Text(StringManager.haveAnAccount),
                   TextButton(
                     onPressed: () => navigateToSignInScreen(context),

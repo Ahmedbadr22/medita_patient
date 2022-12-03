@@ -34,13 +34,23 @@ class SignInScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSize.s20),
               Column(
-                children: const <Widget>[
+                children: <Widget>[
                   MainTextInputField(
-                      prefixIcon: Icon(Icons.email), hint: StringManager.email),
-                  SizedBox(height: AppSize.s10),
+                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
+                    hint: StringManager.email,
+                  ),
+                  const SizedBox(height: AppSize.s10),
                   MainTextInputField(
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: Icon(Icons.remove_red_eye),
+                    prefixIcon:
+                        SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
+                    suffixIcon: IconButton(
+                      icon: SvgPicture.asset(
+                        ImageAsset.outlinedEyeClosedSvg,
+                        height: 24,
+                        width: 24,
+                      ),
+                      onPressed: () {},
+                    ),
                     hint: StringManager.password,
                   ),
                 ],

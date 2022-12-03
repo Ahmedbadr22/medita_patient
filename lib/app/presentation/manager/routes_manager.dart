@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/screens/appointment/appointment_scree.dart';
-import 'package:medita_patient/app/presentation/screens/articals/articals_screen.dart';
 import 'package:medita_patient/app/presentation/screens/main/view/main_screen.dart';
-import 'package:medita_patient/app/presentation/screens/navigarion/navigation_screen.dart';
-import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/near_hospitals_screen.dart';
+import 'package:medita_patient/app/presentation/screens/navigation/view/navigation_screen.dart';
+import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/view/near_hospitals_screen.dart';
 import 'package:medita_patient/app/presentation/screens/on_boarding/view/on_boarding_screen.dart';
 import 'package:medita_patient/app/presentation/screens/profile/profile_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/schedule_screen.dart';
@@ -12,6 +11,7 @@ import 'package:medita_patient/app/presentation/screens/sign_in/view/sign_in_scr
 import 'package:medita_patient/app/presentation/screens/sign_up/view/sign_up_screen.dart';
 import 'package:medita_patient/app/presentation/screens/splash/view/splash_screen.dart';
 
+import '../screens/articles/articles_screen.dart';
 import '../screens/authentication/view/authentication_screen.dart';
 
 class Routes {
@@ -25,7 +25,7 @@ class Routes {
   static const navigationRoute = "/navigationRoute";
   static const appointmentRoute = "/appointmentRoute";
   static const scheduleRoute = "/scheduleRoute";
-  static const articalsRoute = "/articalsRoute";
+  static const articlesRoute = "/articlesRoute";
   static const profileRoute = "/profileRoute";
   static const nearHospitals = "/nearHospitals";
 }
@@ -46,13 +46,13 @@ class RouteGenerator {
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => const MainScreen());
       case Routes.navigationRoute:
-        return MaterialPageRoute(builder: (_) => const NavigationSceen());
+        return MaterialPageRoute(builder: (_) => const NavigationScreen());
       case Routes.appointmentRoute:
         return MaterialPageRoute(builder: (_) => const AppointmentScreen());
       case Routes.scheduleRoute:
         return MaterialPageRoute(builder: (_) => const ScheduleScreen());
-      case Routes.articalsRoute:
-        return MaterialPageRoute(builder: (_) => const ArticalsScreen());
+      case Routes.articlesRoute:
+        return MaterialPageRoute(builder: (_) => const ArticlesScreen());
       case Routes.profileRoute:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case Routes.nearHospitals:

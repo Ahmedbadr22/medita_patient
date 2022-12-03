@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
 
-class ArticalsScreen extends StatefulWidget {
-  const ArticalsScreen({super.key});
+class ArticlesScreen extends StatefulWidget {
+  const ArticlesScreen({super.key});
 
   @override
-  State<ArticalsScreen> createState() => _ArticalsScreenState();
+  State<ArticlesScreen> createState() => _ArticlesScreenState();
 }
 
-class _ArticalsScreenState extends State<ArticalsScreen> {
+class _ArticlesScreenState extends State<ArticlesScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: ColorManager.white,
       body: Center(
           child: Text(
-        'Articals Screen',
+        'Articles Screen',
         style: TextStyle(fontSize: 30, color: ColorManager.darkBlue),
       )),
     );

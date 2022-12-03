@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
+import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 
 import '../../manager/color_manager.dart';
 
@@ -20,10 +23,10 @@ class FakeSearchButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget> [
               Row(
-                children: const <Widget> [
-                  Icon(Icons.search),
-                  SizedBox(width: 10,),
-                  Text("Search")
+                children: <Widget> [
+                  SvgPicture.asset(ImageAsset.outlinedMagnifierSvg),
+                  const SizedBox(width: 10,),
+                  const Text(StringManager.search)
                 ],
               ),
               const Icon(Icons.filter_list)

@@ -30,12 +30,13 @@ class StringManager {
   static const orderMedicines = "Order Medicines ";
   static const nearHospitals = "Near Hospitals ";
   static const hospitalName = "Temple University";
+  static const search = "Search";
 
 
   // bottom navigation view
   static const home = "Home";
   static const appointments = "Appointments";
-  static const schedule = "Schedule";
+  static const history = "History";
   static const articles = "Articles";
   static const profile = "Profile";
   // social media
