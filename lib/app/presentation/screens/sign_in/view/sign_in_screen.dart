@@ -1,19 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medita_patient/app/app/di.dart';
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
+import 'package:medita_patient/app/presentation/screens/sign_in/view_model/sign_in_view_model.dart';
 import 'package:medita_patient/app/presentation/widgets/text_input_field/main_text_input_field.dart';
 
 import '../../../widgets/authentication_divider/authentication_divider.dart';
 import '../../../widgets/social_authentication_button/icon_authentication_button.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
+  final TextEditingController _emailTextEditingController =
+      TextEditingController();
+  final TextEditingController _passwordTextEditingController =
+      TextEditingController();
+  final GlobalKey _formKey = GlobalKey<FormState>();
+
+  _bind() {
+    _viewModel.start();
+    _emailTextEditingController.addListener(
+        () => _viewModel.setEmail(_emailTextEditingController.text));
+    _passwordTextEditingController.addListener(
+        () => _viewModel.setPassword(_passwordTextEditingController.text));
+  }
+
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return getContent();
+  }
+
+  Scaffold getContent() {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Theme.of(context).backgroundColor,
@@ -33,27 +65,51 @@ class SignInScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: AppSize.s20),
-              Column(
-                children: <Widget>[
-                  MainTextInputField(
-                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
-                    hint: StringManager.email,
-                  ),
-                  const SizedBox(height: AppSize.s10),
-                  MainTextInputField(
-                    prefixIcon:
-                        SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
-                    suffixIcon: IconButton(
-                      icon: SvgPicture.asset(
-                        ImageAsset.outlinedEyeClosedSvg,
-                        height: 24,
-                        width: 24,
-                      ),
-                      onPressed: () {},
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    StreamBuilder(
+                      stream: _viewModel.outIsValidEmail,
+                      builder:
+                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        return MainTextInputField(
+                          controller: _emailTextEditingController,
+                          prefixIcon:
+                              SvgPicture.asset(ImageAsset.outlinedEmailSvg),
+                          hint: StringManager.email,
+                          errorText: (snapshot.data ?? true)
+                              ? null
+                              : "Email Can't Be Empty",
+                        );
+                      },
                     ),
-                    hint: StringManager.password,
-                  ),
-                ],
+                    const SizedBox(height: AppSize.s10),
+                    StreamBuilder(
+                      stream: _viewModel.outIsValidPassword,
+                      builder:
+                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        return MainTextInputField(
+                          controller: _passwordTextEditingController,
+                          prefixIcon: SvgPicture.asset(
+                              ImageAsset.outlinedLockPasswordSvg),
+                          suffixIcon: IconButton(
+                            icon: SvgPicture.asset(
+                              ImageAsset.outlinedEyeClosedSvg,
+                              height: 24,
+                              width: 24,
+                            ),
+                            onPressed: () {},
+                          ),
+                          hint: StringManager.password,
+                          errorText: (snapshot.data ?? true)
+                              ? null
+                              : "Password Can't Be Null",
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -67,9 +123,11 @@ class SignInScreen extends StatelessWidget {
                 height: AppSize.defaultButtonHeight,
                 width: double.infinity,
                 child: ElevatedButton(
-                  child: const Text(StringManager.signIn),
-                  onPressed: () => navigateToNavigationScreen(context),
-                ),
+                    child: const Text(StringManager.signIn),
+                    onPressed: () {
+                      _viewModel.login();
+                      // navigateToNavigationScreen(context);
+                    }),
               ),
               TextButton(
                 onPressed: () {},
@@ -81,8 +139,7 @@ class SignInScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const <IconAuthenticationButton>[
-                  IconAuthenticationButton(
-                      iconPath: ImageAsset.facebookLogoSvg),
+                  IconAuthenticationButton(iconPath: ImageAsset.facebookLogoSvg),
                   IconAuthenticationButton(iconPath: ImageAsset.googleLogoSvg),
                   IconAuthenticationButton(iconPath: ImageAsset.appleLogoSvg),
                 ],
@@ -105,13 +162,17 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
+
   void navigateToSignUpScreen(BuildContext context) {
     Navigator.pushReplacementNamed(context, Routes.signUpRoute);
   }
 
   // void navigateToMainScreen(BuildContext context) {
-  //   Navigator.popAndPushNamed(context, Routes.mainRoute);
-  // }
   void navigateToNavigationScreen(BuildContext context) {
     Navigator.pushReplacementNamed(context, Routes.navigationRoute);
   }

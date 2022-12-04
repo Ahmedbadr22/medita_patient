@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:medita_patient/app/main_app.dart';
+import 'package:medita_patient/app/app/main_app.dart';
 
 
 void main() {

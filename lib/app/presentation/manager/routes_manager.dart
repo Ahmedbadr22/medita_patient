@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:medita_patient/app/app/di.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
-import 'package:medita_patient/app/presentation/screens/appointment/appointment_scree.dart';
-import 'package:medita_patient/app/presentation/screens/main/view/main_screen.dart';
-import 'package:medita_patient/app/presentation/screens/navigation/view/navigation_screen.dart';
-import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/view/near_hospitals_screen.dart';
-import 'package:medita_patient/app/presentation/screens/on_boarding/view/on_boarding_screen.dart';
-import 'package:medita_patient/app/presentation/screens/profile/profile_screen.dart';
-import 'package:medita_patient/app/presentation/screens/schedule/schedule_screen.dart';
-import 'package:medita_patient/app/presentation/screens/sign_in/view/sign_in_screen.dart';
-import 'package:medita_patient/app/presentation/screens/sign_up/view/sign_up_screen.dart';
-import 'package:medita_patient/app/presentation/screens/splash/view/splash_screen.dart';
 
+import '../screens/appointment/appointment_scree.dart';
 import '../screens/articles/articles_screen.dart';
 import '../screens/authentication/view/authentication_screen.dart';
+import '../screens/main/view/main_screen.dart';
+import '../screens/navigation/view/navigation_screen.dart';
+import '../screens/near_hospitals_screen/view/near_hospitals_screen.dart';
+import '../screens/on_boarding/view/on_boarding_screen.dart';
+import '../screens/profile/profile_screen.dart';
+import '../screens/schedule/schedule_screen.dart';
+import '../screens/sign_in/view/sign_in_screen.dart';
+import '../screens/sign_up/view/sign_up_screen.dart';
+import '../screens/splash/view/splash_screen.dart';
 
 class Routes {
   static const splashRoute = "/";
@@ -40,7 +41,12 @@ class RouteGenerator {
       case Routes.authenticationRoute:
         return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
       case Routes.signInRoute:
-        return MaterialPageRoute(builder: (_) => const SignInScreen());
+        return MaterialPageRoute(
+          builder: (_) {
+            initLoginModule();
+            return const SignInScreen();
+          },
+        );
       case Routes.signUpRoute:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case Routes.mainRoute:
@@ -62,7 +68,8 @@ class RouteGenerator {
     }
   }
 
-  static Scaffold unDefinedRoute() => Scaffold(
+  static Scaffold unDefinedRoute() =>
+      Scaffold(
         appBar: AppBar(),
         body: const Center(
           child: Text(StringManager.unDefinedText),
