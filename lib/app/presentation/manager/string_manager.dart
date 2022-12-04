@@ -54,4 +54,8 @@ class StringManager {
   static const onBoarding3Text =
       "The application has a widget reminding you about medications";
   static const unDefinedText = "unDefined Route!!";
+
+  // logic strings
+  static const String emailCantBeEmpty = "Email Can't Be Empty";
+  static const String passwordCantBeEmpty = "Password Can't Be Empty";
 }

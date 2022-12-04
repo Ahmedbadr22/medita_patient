@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:medita_patient/app/base/base_view_model.dart';
 import 'package:medita_patient/app/domain/use_cases/login_use_case.dart';
 import 'package:medita_patient/app/presentation/common/freezed_data_classes.dart';
+import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 
 class LoginViewModel extends BaseViewModel with LoginViewModelInputs, LoginViewModelOutputs {
   final StreamController _emailStreamController = StreamController<String>.broadcast();
@@ -10,6 +11,8 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInputs, LoginViewM
   final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
+
+  bool isObscurePassword = true;
 
   LoginObject loginObject = LoginObject("", "");
 
@@ -44,48 +47,66 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInputs, LoginViewM
 
   // outputs
   @override
-  Stream<bool> get outIsValidEmail =>
+  Stream<String?> get outIsValidEmail =>
       _emailStreamController.stream.map((email) => isValidEmail(email));
 
   @override
-  Stream<bool> get outIsValidPassword => _passwordStreamController.stream
+  Stream<String?> get outIsValidPassword => _passwordStreamController.stream
       .map((password) => isValidPassword(password));
 
-  bool isValidEmail(String email) {
-    return email.isNotEmpty;
+  String? isValidEmail(String email) {
+    if (email.isNotEmpty) {
+      return null;
+    } else {
+      return StringManager.emailCantBeEmpty;
+    }
   }
 
-  bool isValidPassword(String password) {
-    return password.isNotEmpty;
+  String? isValidPassword(String password) {
+    if (password.isNotEmpty) {
+      return null;
+    } else {
+      return StringManager.passwordCantBeEmpty;
+    }
   }
 
   @override
-  setEmail(String email) {
+  void setEmail(String email) {
     inputEmail.add(email);
     loginObject = loginObject.copyWith(email: email);
   }
 
   @override
-  setPassword(String password) {
+  void setPassword(String password) {
     inputPassword.add(password);
     loginObject = loginObject.copyWith(password: password);
+  }
+
+  @override
+  void convertObscurePasswordState() {
+
   }
 }
 
 abstract class LoginViewModelInputs {
-  setEmail(String email);
+  /// this function set the user entered email in the LoginObject instance
+  void setEmail(String email);
 
-  setPassword(String password);
+  /// this function set the user entered password in the LoginObject instance
+  void setPassword(String password);
 
-  login();
+  /// this function execute the login api call
+  void login();
 
+  /// this function change the obscure icon state
+  convertObscurePasswordState();
   Sink get inputEmail;
 
   Sink get inputPassword;
 }
 
 abstract class LoginViewModelOutputs {
-  Stream<bool> get outIsValidEmail;
+  Stream<String?> get outIsValidEmail;
 
-  Stream<bool> get outIsValidPassword;
+  Stream<String?> get outIsValidPassword;
 }

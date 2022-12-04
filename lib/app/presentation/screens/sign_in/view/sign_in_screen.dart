@@ -72,15 +72,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     StreamBuilder(
                       stream: _viewModel.outIsValidEmail,
                       builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                          (BuildContext context, AsyncSnapshot<String?> snapshot) {
                         return MainTextInputField(
                           controller: _emailTextEditingController,
                           prefixIcon:
                               SvgPicture.asset(ImageAsset.outlinedEmailSvg),
                           hint: StringManager.email,
-                          errorText: (snapshot.data ?? true)
-                              ? null
-                              : "Email Can't Be Empty",
+                          errorText: snapshot.data,
                         );
                       },
                     ),
@@ -88,7 +86,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     StreamBuilder(
                       stream: _viewModel.outIsValidPassword,
                       builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                          (BuildContext context, AsyncSnapshot<String?> snapshot) {
                         return MainTextInputField(
                           controller: _passwordTextEditingController,
                           prefixIcon: SvgPicture.asset(
@@ -102,9 +100,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             onPressed: () {},
                           ),
                           hint: StringManager.password,
-                          errorText: (snapshot.data ?? true)
-                              ? null
-                              : "Password Can't Be Null",
+                          errorText: snapshot.data
                         );
                       },
                     ),
