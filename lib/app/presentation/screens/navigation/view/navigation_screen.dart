@@ -3,13 +3,13 @@ import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
-import 'package:medita_patient/app/presentation/screens/appointment/appointment_scree.dart';
+import 'package:medita_patient/app/presentation/screens/appointment/view/appointment_scree.dart';
 import 'package:medita_patient/app/presentation/screens/main/view/main_screen.dart';
-import 'package:medita_patient/app/presentation/screens/profile/profile_screen.dart';
-import 'package:medita_patient/app/presentation/screens/schedule/schedule_screen.dart';
+import 'package:medita_patient/app/presentation/screens/profile/view/profile_screen.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/view/schedule_screen.dart';
 import 'package:medita_patient/app/presentation/widgets/bottom_navigation_item/bottom_navigation_item.dart';
 
-import '../../articles/articles_screen.dart';
+import '../../articles/view/articles_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
