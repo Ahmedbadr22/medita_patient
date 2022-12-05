@@ -37,7 +37,7 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.onBoardingRoute:
-        return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
+        return MaterialPageRoute(builder: (_) =>  OnBoardingScreen());
       case Routes.authenticationRoute:
         return MaterialPageRoute(builder: (_) => const AuthenticationScreen());
       case Routes.signInRoute:

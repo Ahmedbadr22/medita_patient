@@ -7,12 +7,11 @@ import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 class LoginViewModel extends BaseViewModel with LoginViewModelInputs, LoginViewModelOutputs {
   final StreamController _emailStreamController = StreamController<String>.broadcast();
   final StreamController _passwordStreamController = StreamController<String>.broadcast();
+  final StreamController _obscurePasswordStatus = StreamController<bool>.broadcast();
 
   final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
-
-  bool isObscurePassword = true;
 
   LoginObject loginObject = LoginObject("", "");
 
@@ -32,6 +31,7 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInputs, LoginViewM
 
   @override
   Sink get inputPassword => _passwordStreamController.sink;
+
 
   @override
   login() async {
@@ -82,10 +82,6 @@ class LoginViewModel extends BaseViewModel with LoginViewModelInputs, LoginViewM
     loginObject = loginObject.copyWith(password: password);
   }
 
-  @override
-  void convertObscurePasswordState() {
-
-  }
 }
 
 abstract class LoginViewModelInputs {
@@ -98,8 +94,6 @@ abstract class LoginViewModelInputs {
   /// this function execute the login api call
   void login();
 
-  /// this function change the obscure icon state
-  convertObscurePasswordState();
   Sink get inputEmail;
 
   Sink get inputPassword;

@@ -11,7 +11,7 @@ class OnBoardingItem extends StatelessWidget {
     required this.onBoardingDataModel,
   }) : super(key: key);
 
-  final OnBoardingDataModel onBoardingDataModel;
+  final OnBoardingPageItemData onBoardingDataModel;
 
   Widget getImage(String path) {
     if(path.contains('.svg')) {

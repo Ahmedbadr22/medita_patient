@@ -85,19 +85,19 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(height: AppSize.s10),
                     StreamBuilder(
                       stream: _viewModel.outIsValidPassword,
-                      builder:
-                          (BuildContext context, AsyncSnapshot<String?> snapshot) {
+                      builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
                         return MainTextInputField(
                           controller: _passwordTextEditingController,
                           prefixIcon: SvgPicture.asset(
-                              ImageAsset.outlinedLockPasswordSvg),
+                              ImageAsset.outlinedLockPasswordSvg,
+                          ),
                           suffixIcon: IconButton(
                             icon: SvgPicture.asset(
                               ImageAsset.outlinedEyeClosedSvg,
                               height: 24,
                               width: 24,
                             ),
-                            onPressed: () {},
+                            onPressed: null,
                           ),
                           hint: StringManager.password,
                           errorText: snapshot.data
