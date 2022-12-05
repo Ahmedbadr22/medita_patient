@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => OnBoardingScreenCubit()..init()),
-        BlocProvider(create: (_) => SignInCubit(instance<LoginUseCase>())),
+        BlocProvider(create: (_) => SignInCubit(diInstance<LoginUseCase>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

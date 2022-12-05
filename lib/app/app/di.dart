@@ -11,39 +11,39 @@ import 'package:medita_patient/app/domain/use_cases/login_use_case.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final instance = GetIt.instance;
+final diInstance = GetIt.instance;
 
 Future<void> initAppModule() async {
 
   final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
   // shared preferences instance
-  instance.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  diInstance.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
   // network info instance
-  instance.registerLazySingleton<NetworkInfo>(() => NetworkInfoImp(InternetConnectionChecker()));
+  diInstance.registerLazySingleton<NetworkInfo>(() => NetworkInfoImp(InternetConnectionChecker()));
   
   // dio instance
-  instance.registerLazySingleton<DioFactory>(() => DioFactory());
+  diInstance.registerLazySingleton<DioFactory>(() => DioFactory());
 
-  Dio dio = await instance<DioFactory>().getDio();
+  Dio dio = await diInstance<DioFactory>().getDio();
 
   // app service client instance
-  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  diInstance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   // remote datasource instance
-  instance.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImp(instance<AppServiceClient>()));
+  diInstance.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImp(diInstance<AppServiceClient>()));
 
   // repository instance
-  instance.registerLazySingleton<LoginRepository>(() => LoginRepositoryImp(instance<RemoteDataSource>(), instance<NetworkInfo>()));
+  diInstance.registerLazySingleton<LoginRepository>(() => LoginRepositoryImp(diInstance<RemoteDataSource>(), diInstance<NetworkInfo>()));
 }
 
 void initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     // login use case instance
-    instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance<LoginRepository>()));
+    diInstance.registerFactory<LoginUseCase>(() => LoginUseCase(diInstance<LoginRepository>()));
 
     // login viewModel instance
-    instance.registerFactory<SignInCubit>(() => SignInCubit(instance<LoginUseCase>()));
+    diInstance.registerFactory<SignInCubit>(() => SignInCubit(diInstance<LoginUseCase>()));
   }
 }
