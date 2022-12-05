@@ -13,7 +13,7 @@ class _AppServiceClient implements AppServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://2c37-154-179-127-33.eu.ngrok.io/';
+    baseUrl ??= 'https://31ca-154-179-169-152.eu.ngrok.io/';
   }
 
   final Dio _dio;

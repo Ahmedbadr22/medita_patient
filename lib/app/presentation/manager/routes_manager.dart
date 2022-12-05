@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:medita_patient/app/app/di.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 
-import '../screens/appointment/appointment_scree.dart';
-import '../screens/articles/articles_screen.dart';
+import '../screens/appointment/view/appointment_scree.dart';
+import '../screens/articles/view/articles_screen.dart';
 import '../screens/authentication/view/authentication_screen.dart';
 import '../screens/main/view/main_screen.dart';
 import '../screens/navigation/view/navigation_screen.dart';
 import '../screens/near_hospitals_screen/view/near_hospitals_screen.dart';
 import '../screens/on_boarding/view/on_boarding_screen.dart';
-import '../screens/profile/profile_screen.dart';
-import '../screens/schedule/schedule_screen.dart';
+import '../screens/profile/view/profile_screen.dart';
+import '../screens/schedule/view/schedule_screen.dart';
 import '../screens/sign_in/view/sign_in_screen.dart';
 import '../screens/sign_up/view/sign_up_screen.dart';
 import '../screens/splash/view/splash_screen.dart';
@@ -44,7 +44,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) {
             initLoginModule();
-            return const SignInScreen();
+            return SignInScreen();
           },
         );
       case Routes.signUpRoute:

@@ -11,6 +11,8 @@ class MainTextInputField extends StatelessWidget {
     this.isObscureText,
     this.controller,
     this.errorText,
+    this.validator,
+    this.textInputType,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -20,11 +22,15 @@ class MainTextInputField extends StatelessWidget {
   final bool? isObscureText;
   final String? hint;
   final Function(String)? onChange;
+  final String? Function(String?)? validator;
+  final TextInputType? textInputType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       controller: controller,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         errorText: errorText,
         prefixIcon: SizedBox(

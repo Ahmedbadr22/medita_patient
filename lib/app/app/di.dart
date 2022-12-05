@@ -8,7 +8,7 @@ import 'package:medita_patient/app/data/network/network_info.dart';
 import 'package:medita_patient/app/data/repositories/login_repository_imp.dart';
 import 'package:medita_patient/app/domain/repositories/login_repository.dart';
 import 'package:medita_patient/app/domain/use_cases/login_use_case.dart';
-import 'package:medita_patient/app/presentation/screens/sign_in/view_model/sign_in_view_model.dart';
+import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance = GetIt.instance;
@@ -44,6 +44,6 @@ void initLoginModule() {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance<LoginRepository>()));
 
     // login viewModel instance
-    instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance<LoginUseCase>()));
+    instance.registerFactory<SignInCubit>(() => SignInCubit(instance<LoginUseCase>()));
   }
 }
