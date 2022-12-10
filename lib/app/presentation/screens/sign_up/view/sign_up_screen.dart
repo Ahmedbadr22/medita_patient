@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_cubit.dart';
+import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_status.dart';
 
 import '../../../manager/asset_manager.dart';
-import '../../../manager/routes_manager.dart';
 import '../../../manager/string_manager.dart';
 import '../../../manager/values_manager.dart';
 import '../../../widgets/authentication_divider/authentication_divider.dart';
+import '../../../widgets/error_text_viewer.dart';
 import '../../../widgets/social_authentication_button/icon_authentication_button.dart';
 import '../../../widgets/svg_icon_button/svg_icon_button.dart';
 import '../../../widgets/text_input_field/main_text_input_field.dart';
@@ -13,103 +16,141 @@ import '../../../widgets/text_input_field/main_text_input_field.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
-  final TextEditingController _emailTextEditingController =
-  TextEditingController();
-  final TextEditingController _passwordTextEditingController =
-  TextEditingController();
+  final TextEditingController _firstNameTextEditingController = TextEditingController();
+  final TextEditingController _lastNameTextEditingController = TextEditingController();
+  final TextEditingController _emailTextEditingController = TextEditingController();
+  final TextEditingController _passwordTextEditingController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p32),
-          child: Column(
-            children: <Widget>[
-              SvgPicture.asset(
-                ImageAsset.blackLogoImagePath,
-                height: AppSize.s100,
-              ),
-              const SizedBox(height: AppSize.s40),
-              Text(
-                StringManager.createNewAccount,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(height: AppSize.s20),
-              Form(
-                key: _formKey,
+    SignUpCubit signUpCubit = SignUpCubit.get(context);
+
+    _firstNameTextEditingController.addListener(() => signUpCubit.setFirstName(_firstNameTextEditingController.text));
+    _lastNameTextEditingController.addListener(() => signUpCubit.setLastName(_lastNameTextEditingController.text));
+    _emailTextEditingController.addListener(() => signUpCubit.setEmail(_emailTextEditingController.text));
+    _passwordTextEditingController.addListener(() => signUpCubit.setPassword(_passwordTextEditingController.text));
+
+    return BlocConsumer<SignUpCubit, SignUpState>(
+        listener: (_, state) {
+          if (state is SignUpSuccessSate) {
+            signUpCubit.navigateToSignInScreen(context);
+            signUpCubit.close();
+          }
+        },
+        builder: (_, __) {
+          return Scaffold(
+            appBar: AppBar(),
+            backgroundColor: Theme.of(context).backgroundColor,
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.all(AppPadding.p32),
                 child: Column(
-                  children: <Widget> [
-                    const SizedBox(height: AppSize.s10),
-                    MainTextInputField(
-                      prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
-                      hint: StringManager.email,
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      ImageAsset.blackLogoImagePath,
+                      height: AppSize.s100,
                     ),
-                    const SizedBox(height: AppSize.s10),
-                    MainTextInputField(
-                      prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
-                      suffixIcon: SvgIconButton(
-                        svgPath: ImageAsset.outlinedEyeClosedSvg,
-                        onPressed: (){},
-                      ),
-                      hint: StringManager.password,
+                    const SizedBox(height: AppSize.s40),
+                    Text(
+                      StringManager.createNewAccount,
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
-                    const SizedBox(height: AppSize.s10),
-                    MainTextInputField(
-                      prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
-                      suffixIcon: SvgIconButton(
-                        svgPath: ImageAsset.outlinedEyeClosedSvg,
-                        onPressed: (){},
+                    const SizedBox(height: AppSize.s20),
+                    ErrorTextViewer(
+                      isVisible: signUpCubit.errorText != null,
+                      errorText: signUpCubit.errorText,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          MainTextInputField(
+                            controller: _firstNameTextEditingController,
+                            prefixIcon: SvgPicture.asset(ImageAsset.outlinedUserRoundedSvg),
+                            hint: StringManager.firstName,
+                            validator: signUpCubit.isValidFirstName,
+                          ),
+                          const SizedBox(height: AppSize.s10),
+                          MainTextInputField(
+                            controller: _lastNameTextEditingController,
+                            prefixIcon: SvgPicture.asset(ImageAsset.outlinedUsersGroupRoundedSvg),
+                            hint: StringManager.lastName,
+                            validator: signUpCubit.isValidLastName,
+                          ),
+                          const SizedBox(height: AppSize.s10),
+                          MainTextInputField(
+                            controller: _emailTextEditingController,
+                            prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
+                            hint: StringManager.email,
+                            validator: signUpCubit.isValidEmail,
+                          ),
+                          const SizedBox(height: AppSize.s10),
+                          MainTextInputField(
+                            controller: _passwordTextEditingController,
+                            isObscureText: signUpCubit.isObscureText,
+                            prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
+                            suffixIcon: SvgIconButton(
+                              svgPath: signUpCubit.isObscureText ? ImageAsset.outlinedEyeClosedSvg : ImageAsset.outlinedEyeSvg,
+                              onPressed: signUpCubit.changeObscureTextState,
+                            ),
+                            hint: StringManager.password,
+                            validator: signUpCubit.isValidPassword,
+                          ),
+                        ],
                       ),
-                      hint: StringManager.confirmPassword,
+                    ),
+                    const SizedBox(height: AppSize.s30),
+                    SizedBox(
+                      height: AppSize.defaultButtonHeight,
+                      width: double.infinity,
+                      child: Visibility(
+                        visible: !signUpCubit.isLoadingState,
+                        replacement: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        child: ElevatedButton(
+                          child: const Text(StringManager.signUp),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              signUpCubit.register();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.s20),
+                    const AuthenticationDivider(
+                        text: StringManager.orContinueWith),
+                    const SizedBox(height: AppSize.s20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const <IconAuthenticationButton>[
+                        IconAuthenticationButton(iconPath: ImageAsset.facebookLogoSvg),
+                        IconAuthenticationButton(iconPath: ImageAsset.googleLogoSvg),
+                        IconAuthenticationButton(iconPath: ImageAsset.appleLogoSvg),
+                      ],
+                    ),
+                    const SizedBox(height: AppSize.s20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget> [
+                        const Text(StringManager.haveAnAccount),
+                        TextButton(
+                          onPressed: () => signUpCubit.navigateToSignInScreen(context),
+                          child: const Text(StringManager.signIn),
+                        )
+                      ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: AppSize.s30),
-              SizedBox(
-                height: AppSize.defaultButtonHeight,
-                width: double.infinity,
-                child: ElevatedButton(
-                  child: const Text(StringManager.signUp),
-                  onPressed: () {},
-                ),
-              ),
-              const SizedBox(height: AppSize.s20),
-              const AuthenticationDivider(text: StringManager.orContinueWith),
-              const SizedBox(height: AppSize.s20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const <IconAuthenticationButton>[
-                  IconAuthenticationButton(iconPath: ImageAsset.facebookLogoSvg),
-                  IconAuthenticationButton(iconPath: ImageAsset.googleLogoSvg),
-                  IconAuthenticationButton(iconPath: ImageAsset.appleLogoSvg),
-                ],
-              ),
-              const SizedBox(height: AppSize.s20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget> [
-                  const Text(StringManager.haveAnAccount),
-                  TextButton(
-                    onPressed: () => navigateToSignInScreen(context),
-                    child: const Text(StringManager.signIn),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        },
     );
   }
 
-  void navigateToSignInScreen(BuildContext context) {
-    Navigator.pushReplacementNamed(context, Routes.signInRoute);
-  }
 }

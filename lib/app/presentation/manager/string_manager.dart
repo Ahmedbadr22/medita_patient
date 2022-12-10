@@ -31,6 +31,8 @@ class StringManager {
   static const nearHospitals = "Near Hospitals ";
   static const hospitalName = "Temple University";
   static const search = "Search";
+  static const firstName = "First Name";
+  static const lastName = "Last Name";
 
 
   // bottom navigation view
@@ -58,6 +60,8 @@ class StringManager {
   // logic strings
   static const String emailCantBeEmpty = "Email Can't Be Empty";
   static const String passwordCantBeEmpty = "Password Can't Be Empty";
+  static const String firstNameCantBeEmpty = "First Name Can't Be Empty";
+  static const String lastNameCantBeEmpty = "Last Name Can't Be Empty";
 
   static const String loading = "Loading..";
   static const String retry = "Retry";
