@@ -58,4 +58,7 @@ class StringManager {
   // logic strings
   static const String emailCantBeEmpty = "Email Can't Be Empty";
   static const String passwordCantBeEmpty = "Password Can't Be Empty";
+
+  static const String loading = "Loading..";
+  static const String retry = "Retry";
 }

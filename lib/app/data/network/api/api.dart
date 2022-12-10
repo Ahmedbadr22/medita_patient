@@ -2,7 +2,7 @@ import 'package:medita_patient/app/app/constants.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
 
-import '../responses/login_response.dart';
+import '../../responses/login_response.dart';
 
 
 part 'api.g.dart';

@@ -11,7 +11,14 @@ import '../../../widgets/svg_icon_button/svg_icon_button.dart';
 import '../../../widgets/text_input_field/main_text_input_field.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
+
+  final TextEditingController _emailTextEditingController =
+  TextEditingController();
+  final TextEditingController _passwordTextEditingController =
+  TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,32 +41,35 @@ class SignUpScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: AppSize.s20),
-              Column(
-                children: <Widget> [
-                  const SizedBox(height: AppSize.s10),
-                  MainTextInputField(
-                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
-                    hint: StringManager.email,
-                  ),
-                  const SizedBox(height: AppSize.s10),
-                  MainTextInputField(
-                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
-                    suffixIcon: SvgIconButton(
-                      svgPath: ImageAsset.outlinedEyeClosedSvg,
-                      onPressed: (){},
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget> [
+                    const SizedBox(height: AppSize.s10),
+                    MainTextInputField(
+                      prefixIcon: SvgPicture.asset(ImageAsset.outlinedEmailSvg),
+                      hint: StringManager.email,
                     ),
-                    hint: StringManager.password,
-                  ),
-                  const SizedBox(height: AppSize.s10),
-                  MainTextInputField(
-                    prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
-                    suffixIcon: SvgIconButton(
-                      svgPath: ImageAsset.outlinedEyeClosedSvg,
-                      onPressed: (){},
+                    const SizedBox(height: AppSize.s10),
+                    MainTextInputField(
+                      prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
+                      suffixIcon: SvgIconButton(
+                        svgPath: ImageAsset.outlinedEyeClosedSvg,
+                        onPressed: (){},
+                      ),
+                      hint: StringManager.password,
                     ),
-                    hint: StringManager.confirmPassword,
-                  ),
-                ],
+                    const SizedBox(height: AppSize.s10),
+                    MainTextInputField(
+                      prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
+                      suffixIcon: SvgIconButton(
+                        svgPath: ImageAsset.outlinedEyeClosedSvg,
+                        onPressed: (){},
+                      ),
+                      hint: StringManager.confirmPassword,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: AppSize.s30),
               SizedBox(

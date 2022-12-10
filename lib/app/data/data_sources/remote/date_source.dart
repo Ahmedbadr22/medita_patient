@@ -1,4 +1,4 @@
-import 'package:medita_patient/app/data/network/api.dart';
+import 'package:medita_patient/app/data/network/api/api.dart';
 import 'package:medita_patient/app/data/network/requests/login_request.dart';
 import '../../responses/login_response.dart';
 

@@ -48,7 +48,7 @@ class RouteGenerator {
           },
         );
       case Routes.signUpRoute:
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        return MaterialPageRoute(builder: (_) => SignUpScreen());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => const MainScreen());
       case Routes.navigationRoute:

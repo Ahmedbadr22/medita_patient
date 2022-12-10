@@ -6,6 +6,7 @@ import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_states.dart';
+import 'package:medita_patient/app/presentation/widgets/error_text_viewer.dart';
 import 'package:medita_patient/app/presentation/widgets/text_input_field/main_text_input_field.dart';
 
 import '../../../widgets/authentication_divider/authentication_divider.dart';
@@ -14,8 +15,10 @@ import '../../../widgets/social_authentication_button/icon_authentication_button
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
-  final TextEditingController _emailTextEditingController = TextEditingController();
-  final TextEditingController _passwordTextEditingController = TextEditingController();
+  final TextEditingController _emailTextEditingController =
+      TextEditingController();
+  final TextEditingController _passwordTextEditingController =
+      TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -27,7 +30,12 @@ class SignInScreen extends StatelessWidget {
     _passwordTextEditingController.addListener(() => signInCubit.setPassword(_passwordTextEditingController.text));
 
     return BlocConsumer<SignInCubit, SignInState>(
-      listener: (_, __) {},
+      listener: (_, state) {
+        if (state is SignInSuccessSate) {
+          signInCubit.navigateToNavigationScreen(context);
+          signInCubit.close();
+        }
+      },
       builder: (_, __) {
         return Scaffold(
           appBar: AppBar(),
@@ -48,6 +56,10 @@ class SignInScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                   const SizedBox(height: AppSize.s20),
+                  ErrorTextViewer(
+                    isVisible: signInCubit.errorText != null,
+                    errorText: signInCubit.errorText,
+                  ),
                   Form(
                     key: _formKey,
                     child: Column(
@@ -98,14 +110,19 @@ class SignInScreen extends StatelessWidget {
                   SizedBox(
                     height: AppSize.defaultButtonHeight,
                     width: double.infinity,
-                    child: ElevatedButton(
-                      child: const Text(StringManager.signIn),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          signInCubit.login();
-                          // navigateToNavigationScreen(context);
-                        }
-                      },
+                    child: Visibility(
+                      visible: !signInCubit.isLoadingState,
+                      replacement: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      child: ElevatedButton(
+                        child: const Text(StringManager.signIn),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            signInCubit.login();
+                          }
+                        },
+                      ),
                     ),
                   ),
                   TextButton(
@@ -133,7 +150,8 @@ class SignInScreen extends StatelessWidget {
                     children: <Widget>[
                       const Text(StringManager.haveAnAccount),
                       TextButton(
-                        onPressed: () => signInCubit.navigateToSignUpScreen(context),
+                        onPressed: () =>
+                            signInCubit.navigateToSignUpScreen(context),
                         child: const Text(StringManager.signUp),
                       )
                     ],
