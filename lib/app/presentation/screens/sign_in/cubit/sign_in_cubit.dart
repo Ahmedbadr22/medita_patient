@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_states.dart';
 
 import '../../../../data/models/token.dart';
-import '../../../../data/network/failure.dart';
+import '../../../../data/models/failure.dart';
 import '../../../../domain/use_cases/login_use_case.dart';
 import '../../../common/freezed_data_classes.dart';
 import '../../../manager/routes_manager.dart';
@@ -24,8 +24,11 @@ class SignInCubit extends Cubit<SignInState> {
   /// this variable store the value of if the user want to remember his login token or not
   bool isRememberMe = false;
 
+  bool isLoadingState = false;
+
   static SignInCubit get(BuildContext context) => BlocProvider.of(context);
 
+  String? errorText;
 
   /// Email validation method using [email]
   /// is [password] is null or empty
@@ -62,15 +65,24 @@ class SignInCubit extends Cubit<SignInState> {
 
   /// Execute login using [loginObject]
   void login() async {
+    isLoadingState = true;
+    emit(SignInLoadingSate());
+
     String email = loginObject.email;
     String password = loginObject.password;
+
+
     LoginUseCaseInput loginUseCaseInput = LoginUseCaseInput(email, password);
     Either<Failure, Token> responseData = await _loginUseCase.execute(loginUseCaseInput);
     responseData.fold((failure) {
-      // TODO : handle on fail logic
+      errorText = failure.message;
+      emit(SignInFailSate());
     }, (token) => {
-      // TODO : handle on success logic
+      emit(SignInSuccessSate())
     });
+
+    isLoadingState = false;
+    emit(SignInProcessEndSate());
   }
 
   /// change [isObscureText] variable value
@@ -91,11 +103,13 @@ class SignInCubit extends Cubit<SignInState> {
   /// by passing [BuildContext] as the Current Screen BuildContext
   void navigateToSignUpScreen(BuildContext context) {
     Navigator.pushReplacementNamed(context, Routes.signUpRoute);
+    close();
   }
 
   /// this function allow you to navigate to Navigation Screen
   /// by passing [BuildContext] as the Current Screen BuildContext
   void navigateToNavigationScreen(BuildContext context) {
     Navigator.pushReplacementNamed(context, Routes.navigationRoute);
+    close();
   }
 }
