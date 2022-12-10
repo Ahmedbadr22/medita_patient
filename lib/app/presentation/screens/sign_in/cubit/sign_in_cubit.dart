@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_states.dart';
 
 import '../../../../data/models/token.dart';
-import '../../../../data/models/failure.dart';
-import '../../../../domain/use_cases/login_use_case.dart';
+import '../../../../data/models/data/failure/auth/auth_failure.dart';
+import '../../../../domain/use_cases/login/login_use_case.dart';
 import '../../../common/freezed_data_classes.dart';
 import '../../../manager/routes_manager.dart';
 import '../../../manager/string_manager.dart';
@@ -73,7 +73,7 @@ class SignInCubit extends Cubit<SignInState> {
 
 
     LoginUseCaseInput loginUseCaseInput = LoginUseCaseInput(email, password);
-    Either<Failure, Token> responseData = await _loginUseCase.execute(loginUseCaseInput);
+    Either<AuthenticationFailure, Token> responseData = await _loginUseCase.execute(loginUseCaseInput);
     responseData.fold((failure) {
       errorText = failure.message;
       emit(SignInFailSate());

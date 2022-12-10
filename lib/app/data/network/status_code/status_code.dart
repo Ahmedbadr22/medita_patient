@@ -1,4 +1,5 @@
-import 'package:medita_patient/app/data/models/failure.dart';
+import 'package:medita_patient/app/data/models/data/failure/auth/auth_failure.dart';
+import 'package:medita_patient/app/data/models/data/failure/registration/registration_failure.dart';
 
 enum StatusCode {
   success,
@@ -18,36 +19,36 @@ enum StatusCode {
 }
 
 extension StatusCodeExtension on StatusCode {
-  Failure getFailure() {
+  AuthenticationFailure getAuthenticationFailure() {
     switch(this){
       case StatusCode.success:
-        return Failure(ResponseCode.success, ResponseCodeMessage.success);
+        return AuthenticationFailure(ResponseCode.success, ResponseCodeMessage.success);
       case StatusCode.noContent:
-        return Failure(ResponseCode.noContent, ResponseCodeMessage.noContent);
+        return AuthenticationFailure(ResponseCode.noContent, ResponseCodeMessage.noContent);
       case StatusCode.badRequest:
-        return Failure(ResponseCode.badRequest, ResponseCodeMessage.badRequest);
+        return AuthenticationFailure(ResponseCode.badRequest, ResponseCodeMessage.badRequest);
       case StatusCode.forbidden:
-        return Failure(ResponseCode.forbidden, ResponseCodeMessage.forbidden);
+        return AuthenticationFailure(ResponseCode.forbidden, ResponseCodeMessage.forbidden);
       case StatusCode.unauthorised:
-        return Failure(ResponseCode.unauthorised, ResponseCodeMessage.unauthorised);
+        return AuthenticationFailure(ResponseCode.unauthorised, ResponseCodeMessage.unauthorised);
       case StatusCode.notFound:
-        return Failure(ResponseCode.notFound, ResponseCodeMessage.notFound);
+        return AuthenticationFailure(ResponseCode.notFound, ResponseCodeMessage.notFound);
       case StatusCode.internalServerError:
-        return Failure(ResponseCode.internalServerError, ResponseCodeMessage.internalServerError);
+        return AuthenticationFailure(ResponseCode.internalServerError, ResponseCodeMessage.internalServerError);
       case StatusCode.connectTimeout:
-        return Failure(ResponseCode.connectTimeout, ResponseCodeMessage.connectTimeout);
+        return AuthenticationFailure(ResponseCode.connectTimeout, ResponseCodeMessage.connectTimeout);
       case StatusCode.cancel:
-        return Failure(ResponseCode.cancel, ResponseCodeMessage.cancel);
+        return AuthenticationFailure(ResponseCode.cancel, ResponseCodeMessage.cancel);
       case StatusCode.receiveTimeout:
-        return Failure(ResponseCode.receiveTimeout, ResponseCodeMessage.receiveTimeout);
+        return AuthenticationFailure(ResponseCode.receiveTimeout, ResponseCodeMessage.receiveTimeout);
       case StatusCode.sendTimeout:
-        return Failure(ResponseCode.sendTimeout, ResponseCodeMessage.sendTimeout);
+        return AuthenticationFailure(ResponseCode.sendTimeout, ResponseCodeMessage.sendTimeout);
       case StatusCode.cacheError:
-        return Failure(ResponseCode.cacheError, ResponseCodeMessage.cacheError);
+        return AuthenticationFailure(ResponseCode.cacheError, ResponseCodeMessage.cacheError);
       case StatusCode.noInternetConnection:
-        return Failure(ResponseCode.noInternetConnection, ResponseCodeMessage.noInternetConnection);
+        return AuthenticationFailure(ResponseCode.noInternetConnection, ResponseCodeMessage.noInternetConnection);
       case StatusCode.defaultCode:
-        return Failure(ResponseCode.defaultCode, ResponseCodeMessage.defaultCode);
+        return AuthenticationFailure(ResponseCode.defaultCode, ResponseCodeMessage.defaultCode);
     }
   }
 }
