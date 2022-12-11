@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_api_service_client.dart';
+part of 'list_near_hospitals_api_service_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'login_api_service_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _LoginApiServiceClient implements LoginApiServiceClient {
-  _LoginApiServiceClient(
+class _HospitalApiServiceClient implements HospitalApiServiceClient {
+  _HospitalApiServiceClient(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,31 +21,28 @@ class _LoginApiServiceClient implements LoginApiServiceClient {
   String? baseUrl;
 
   @override
-  Future<LoginResponse> login(
-    email,
-    password,
-  ) async {
+  Future<List<HospitalResponse>> listNearHospitals() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {
-      'email': email,
-      'password': password,
-    };
+    final _data = <String, dynamic>{};
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<LoginResponse>(Options(
-      method: 'POST',
+        .fetch<List<dynamic>>(_setStreamType<List<HospitalResponse>>(Options(
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'authentication/login',
+              'clinic/list-hospitals',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = LoginResponse.fromJson(_result.data!);
+    var value = _result.data!
+        .map(
+            (dynamic i) => HospitalResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

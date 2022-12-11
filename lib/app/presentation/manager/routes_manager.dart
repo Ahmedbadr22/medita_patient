@@ -65,7 +65,10 @@ class RouteGenerator {
       case Routes.profileRoute:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case Routes.nearHospitals:
-        return MaterialPageRoute(builder: (_) => const NearHospitalsScreen());
+        return MaterialPageRoute(builder: (_) {
+          initListNearHospitalsModule();
+          return const NearHospitalsScreen();
+        });
       default:
         return MaterialPageRoute(builder: (_) => unDefinedRoute());
     }

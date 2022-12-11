@@ -4,7 +4,7 @@ import 'package:medita_patient/app/data/models/data/failure/auth/auth_failure.da
 import 'package:medita_patient/app/data/network/status_code/status_code.dart';
 
 class LoginExceptionHandler implements Exception {
-  late AuthenticationFailure failure;
+  late Failure failure;
 
   LoginExceptionHandler.handler(dynamic error) {
     if (error is DioError) {
@@ -15,7 +15,7 @@ class LoginExceptionHandler implements Exception {
   }
 }
 
-AuthenticationFailure _handleError(DioError error) {
+Failure _handleError(DioError error) {
   switch(error.type) {
     case DioErrorType.connectTimeout:
       return StatusCode.connectTimeout.getAuthenticationFailure();
@@ -28,7 +28,7 @@ AuthenticationFailure _handleError(DioError error) {
       if(error.response != null && error.response?.statusCode != null && error.response?.statusMessage != null) {
         Response<dynamic>? response = error.response;
         if (response == null) {
-          return AuthenticationFailure(0, "Null Response");
+          return Failure(0, "Null Response");
         }
         String errorMessage = "";
         if (response.data["detail"] != null) {
@@ -36,7 +36,7 @@ AuthenticationFailure _handleError(DioError error) {
         } else {
           errorMessage = "${response.data["email"]?[0] ?? ""}";
         }
-        return AuthenticationFailure(response.statusCode ?? 0, errorMessage);
+        return Failure(response.statusCode ?? 0, errorMessage);
       } else {
         return StatusCode.defaultCode.getAuthenticationFailure();
       }

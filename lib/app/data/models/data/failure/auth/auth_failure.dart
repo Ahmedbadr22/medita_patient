@@ -1,5 +1,5 @@
-class AuthenticationFailure {
+class Failure {
   int statusCode;
   String message;
-  AuthenticationFailure(this.statusCode, this.message);
+  Failure(this.statusCode, this.message);
 }

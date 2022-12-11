@@ -73,7 +73,7 @@ class SignInCubit extends Cubit<SignInState> {
 
 
     LoginUseCaseInput loginUseCaseInput = LoginUseCaseInput(email, password);
-    Either<AuthenticationFailure, Token> responseData = await _loginUseCase.execute(loginUseCaseInput);
+    Either<Failure, Token> responseData = await _loginUseCase.execute(loginUseCaseInput);
     responseData.fold((failure) {
       errorText = failure.message;
       emit(SignInFailSate());
