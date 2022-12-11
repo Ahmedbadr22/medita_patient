@@ -33,7 +33,6 @@ class SignInScreen extends StatelessWidget {
       listener: (_, state) {
         if (state is SignInSuccessSate) {
           signInCubit.navigateToNavigationScreen(context);
-          signInCubit.close();
         }
       },
       builder: (_, __) {
@@ -150,8 +149,7 @@ class SignInScreen extends StatelessWidget {
                     children: <Widget>[
                       const Text(StringManager.haveAnAccount),
                       TextButton(
-                        onPressed: () =>
-                            signInCubit.navigateToSignUpScreen(context),
+                        onPressed: () => signInCubit.navigateToSignUpScreen(context),
                         child: const Text(StringManager.signUp),
                       )
                     ],

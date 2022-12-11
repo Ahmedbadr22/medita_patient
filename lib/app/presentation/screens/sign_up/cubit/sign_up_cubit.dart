@@ -109,7 +109,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     String password = registerObject.password;
 
     RegistrationUseCaseInput registrationUseCaseInput = RegistrationUseCaseInput(firstName, lastName, email, password);
-    Either<AuthenticationFailure, Registration> responseData = await _registerUseCase.execute(registrationUseCaseInput);
+    Either<Failure, Registration> responseData = await _registerUseCase.execute(registrationUseCaseInput);
 
     responseData.fold((failure) {
       errorText = failure.message;

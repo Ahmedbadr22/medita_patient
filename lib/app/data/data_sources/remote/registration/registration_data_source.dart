@@ -1,5 +1,3 @@
-
-
 import 'package:medita_patient/app/data/network/api/registration/registration_api_service_client.dart';
 
 import '../../../network/requests/registration/registration_request.dart';
@@ -10,6 +8,8 @@ class RegistrationDataSource {
 
   RegistrationDataSource(this._registrationApiServiceClient);
 
+  /// call the registration api
+  /// return [Future] response of [RegistrationResponse]
   Future<RegistrationResponse> registration(RegistrationRequest registrationRequest) async {
     return await _registrationApiServiceClient.register(registrationRequest.firstName, registrationRequest.lastName, registrationRequest.email, registrationRequest.password);
   }

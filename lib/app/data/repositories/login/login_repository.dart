@@ -15,9 +15,14 @@ class LoginRepository {
 
   LoginRepository(this._loginDataSource, this._networkInfo);
 
-  Future<Either<AuthenticationFailure, Token>> login(LoginRequest loginRequest) async {
+  /// this function call check the internet Connection
+  /// then call the login api
+  /// and return [Either] object
+  /// [Token] if success call
+  /// and [Failure] object if call fail
+  Future<Either<Failure, Token>> login(LoginRequest loginRequest) async {
     if(!await _networkInfo.isConnected()) {
-      AuthenticationFailure noInternetConnectionFailure = StatusCode.noInternetConnection.getAuthenticationFailure();
+      Failure noInternetConnectionFailure = StatusCode.noInternetConnection.getAuthenticationFailure();
       return Left(noInternetConnectionFailure);
     }
 

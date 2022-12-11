@@ -8,6 +8,8 @@ class LoginDataSource  {
 
   LoginDataSource(this._appServiceClient);
 
+  /// call the login api
+  /// return [Future] response of [LoginResponse]
   Future<LoginResponse> login(LoginRequest loginRequest) async {
     return await _appServiceClient.login(loginRequest.email, loginRequest.password);
   }

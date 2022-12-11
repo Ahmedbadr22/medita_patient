@@ -15,9 +15,14 @@ class RegistrationRepository {
 
   RegistrationRepository(this._registrationDataSource, this._networkInfo);
 
-  Future<Either<AuthenticationFailure, Registration>> register(RegistrationRequest registrationRequest) async {
+  /// this function call check the internet Connection
+  /// then call the registration api
+  /// and return [Either] object
+  /// [Registration] object if success call
+  /// and [Failure] object if call fail
+  Future<Either<Failure, Registration>> register(RegistrationRequest registrationRequest) async {
     if(!await _networkInfo.isConnected()) {
-      AuthenticationFailure noInternetConnectionFailure = StatusCode.noInternetConnection.getAuthenticationFailure();
+      Failure noInternetConnectionFailure = StatusCode.noInternetConnection.getAuthenticationFailure();
       return Left(noInternetConnectionFailure);
     }
 
@@ -27,7 +32,7 @@ class RegistrationRepository {
       return Right(registration);
     } catch (error) {
       LoginExceptionHandler failureHandledError = LoginExceptionHandler.handler(error);
-      AuthenticationFailure failure = failureHandledError.failure;
+      Failure failure = failureHandledError.failure;
       return Left(failure);
     }
   }

@@ -17,9 +17,14 @@ class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Token> {
   final LoginRepository _loginRepository;
   
   LoginUseCase(this._loginRepository);
-  
+
+  /// This function execute the login api call
+  /// by passing [LoginUseCaseInput] object as a parameter
+  /// return [Either] object of
+  /// [Token] if success call or
+  /// [Failure] if fail call
   @override
-  Future<Either<AuthenticationFailure, Token>> execute(LoginUseCaseInput input) async {
+  Future<Either<Failure, Token>> execute(LoginUseCaseInput input) async {
     LoginRequest loginRequest = LoginRequest(input.email, input.password);
     return await _loginRepository.login(loginRequest);
   }

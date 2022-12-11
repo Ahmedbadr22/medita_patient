@@ -24,8 +24,13 @@ class RegisterUseCase implements BaseUseCase<RegistrationUseCaseInput, Registrat
 
   RegisterUseCase(this._registrationRepository);
 
+  /// This function execute the registration api call
+  /// by passing [RegistrationUseCaseInput] object as a parameter
+  /// return [Either] object of
+  /// [Registration] if success call or
+  /// [Failure] if fail call
   @override
-  Future<Either<AuthenticationFailure, Registration>> execute(RegistrationUseCaseInput registrationUseCaseInput) async {
+  Future<Either<Failure, Registration>> execute(RegistrationUseCaseInput registrationUseCaseInput) async {
     RegistrationRequest registrationRequest = RegistrationRequest(registrationUseCaseInput.firstName, registrationUseCaseInput.lastName, registrationUseCaseInput.email, registrationUseCaseInput.password);
     return await _registrationRepository.register(registrationRequest);
   }

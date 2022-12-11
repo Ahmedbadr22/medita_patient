@@ -17,3 +17,13 @@ extension NonNullInt on int? {
     }
   }
 }
+
+extension NonNullList on List<int>? {
+  List<int> orEmpty() {
+    if (this == null) {
+      return [];
+    } else {
+      return this!;
+    }
+  }
+}
