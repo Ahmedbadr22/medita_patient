@@ -1,7 +1,6 @@
-
 class ApiConstants {
   // Server baseUrl
-  static const String baseUrl = "https://fed7-197-56-88-67.eu.ngrok.io/";
+  static const String baseUrl = "https://6081-154-239-215-52.eu.ngrok.io/";
   // main app url
   static const String _authenticationUrl = "authentication";
   static const String _clinicUrl = "clinic";
