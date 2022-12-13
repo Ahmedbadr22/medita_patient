@@ -6,7 +6,12 @@ import '../../manager/string_manager.dart';
 import '../../manager/values_manager.dart';
 
 class HomeCard extends StatelessWidget {
-  const HomeCard({Key? key}) : super(key: key);
+  final String image;
+  final String title;
+  final String body;
+  const HomeCard(
+      {Key? key, required this.image, required this.body, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +22,12 @@ class HomeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSize.s16),
         ),
         child: Stack(
-          children: <Widget> [
+          children: <Widget>[
             ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(AppSize.s16)),
-              child: Image.asset(
-                ImageAsset.doctorModel,
+              borderRadius:
+                  const BorderRadius.all(Radius.circular(AppSize.s16)),
+              child: Image.network(
+                image,
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -33,14 +39,14 @@ class HomeCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Medical Checks!",
+                    title,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
                         ?.copyWith(color: ColorManager.white),
                   ),
                   Text(
-                    "Check your health condition regularly to minimize the incidence of of disease in the future",
+                    body,
                     style: Theme.of(context)
                         .textTheme
                         .caption

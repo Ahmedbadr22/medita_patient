@@ -26,8 +26,10 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SignInCubit signInCubit = SignInCubit.get(context);
 
-    _emailTextEditingController.addListener(() => signInCubit.setEmail(_emailTextEditingController.text));
-    _passwordTextEditingController.addListener(() => signInCubit.setPassword(_passwordTextEditingController.text));
+    _emailTextEditingController.addListener(
+        () => signInCubit.setEmail(_emailTextEditingController.text));
+    _passwordTextEditingController.addListener(
+        () => signInCubit.setPassword(_passwordTextEditingController.text));
 
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (_, state) {
@@ -118,7 +120,8 @@ class SignInScreen extends StatelessWidget {
                         child: const Text(StringManager.signIn),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            signInCubit.login();
+                            //  signInCubit.login();
+                            signInCubit.navigateToNavigationScreen(context);
                           }
                         },
                       ),
@@ -149,7 +152,8 @@ class SignInScreen extends StatelessWidget {
                     children: <Widget>[
                       const Text(StringManager.haveAnAccount),
                       TextButton(
-                        onPressed: () => signInCubit.navigateToSignUpScreen(context),
+                        onPressed: () =>
+                            signInCubit.navigateToSignUpScreen(context),
                         child: const Text(StringManager.signUp),
                       )
                     ],

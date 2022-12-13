@@ -30,7 +30,8 @@ class HospitalCardItem extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(AppSize.s20)),
                   child: Image.network(
                     hospital.imageUrl,
                     height: AppSize.s120,
@@ -77,7 +78,9 @@ class HospitalCardItem extends StatelessWidget {
                             color: ColorManager.gold,
                           ),
                           const SizedBox(width: AppSize.s5),
-                          Text(hospital.rates.isEmpty ? "0.0" : hospital.rates.length.toString()),
+                          Text(hospital.rates.isEmpty
+                              ? "0.0"
+                              : hospital.rates.length.toString()),
                           const SizedBox(width: AppSize.s5),
                           Text("(${hospital.rates.length} reviews)"),
                         ],
