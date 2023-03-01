@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_states.dart';
 
-import '../../../../data/models/token.dart';
+import '../../../../data/models/data/token.dart';
 import '../../../../data/models/data/failure/auth/auth_failure.dart';
 import '../../../../domain/use_cases/login/login_use_case.dart';
 import '../../../common/freezed_data_classes.dart';
@@ -71,10 +72,13 @@ class SignInCubit extends Cubit<SignInState> {
     String email = loginObject.email;
     String password = loginObject.password;
 
-
     LoginUseCaseInput loginUseCaseInput = LoginUseCaseInput(email, password);
     Either<Failure, Token> responseData = await _loginUseCase.execute(loginUseCaseInput);
+
     responseData.fold((failure) {
+      if (kDebugMode) {
+        print(failure.statusCode);
+      }
       errorText = failure.message;
       emit(SignInFailSate());
     }, (token) => {
@@ -109,7 +113,7 @@ class SignInCubit extends Cubit<SignInState> {
   /// this function allow you to navigate to Navigation Screen
   /// by passing [BuildContext] as the Current Screen BuildContext
   void navigateToNavigationScreen(BuildContext context) {
-    Navigator.pushReplacementNamed(context, Routes.navigationRoute);
+    Navigator.popAndPushNamed(context, Routes.navigationRoute);
     close();
   }
 }

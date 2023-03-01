@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
               flex: 3,
               child: Center(
                 child: SvgPicture.asset(
-                  brightness == Brightness.dark ? ImageAsset.blackLogoImagePath : ImageAsset.whiteLogoImagePath ,
+                  brightness == Brightness.dark ? ImageAsset.whiteLogoImagePath : ImageAsset.blackLogoImagePath,
                   width: AppSize.splashLogoWidth,
                 ),
               )

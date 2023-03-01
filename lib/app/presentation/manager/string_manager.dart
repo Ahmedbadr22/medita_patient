@@ -65,4 +65,11 @@ class StringManager {
 
   static const String loading = "Loading..";
   static const String retry = "Retry";
+
+  static const myAppointment = "My Appointment";
+  static const myAppointmentTxt1 = "You don\'t have an appointment yet";
+  static const myAppointmentTxt2 = "You don\'t have a doctor\'s appointment scheduled at the moment";
+  static const mostLiked = "Most Liked";
+  static const showAll = "Show all";
+  static const myBookmarks = "My Bookmarks";
 }

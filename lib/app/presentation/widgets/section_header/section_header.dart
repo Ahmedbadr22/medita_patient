@@ -7,10 +7,12 @@ class SectionHeader extends StatelessWidget {
     Key? key,
     required this.title,
     required this.buttonText,
+    required this.onClick
   }) : super(key: key);
 
   final String title;
   final String buttonText;
+  final void Function()? onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class SectionHeader extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: onClick,
           child: Text(buttonText),
         )
       ],

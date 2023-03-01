@@ -25,6 +25,9 @@ class ImageAsset {
   static const outlinedStethoscopeSvg = "$_mainIconPath/stethoscope_outlined.svg";
   static const outlinedUserRoundedSvg = "$_mainIconPath/user_rounded_outlined.svg";
   static const outlinedUsersGroupRoundedSvg = "$_mainIconPath/user_group_rounded_outlined.svg";
+  static const upcomingSvg = "$_mainIconPath/upcoming.svg";
+  static const completedSvg = "$_mainIconPath/completed.svg";
+  static const canceledSvg = "$_mainIconPath/canceled.svg";
   // images
   static const onBoardingImage1 = "$_mainImagePath/on_boarding_1.png";
   static const onBoardingImage4 = "$_mainImagePath/on_boarding_4.jpg";

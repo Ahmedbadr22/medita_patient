@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medita_patient/app/data/models/registration.dart';
+import 'package:medita_patient/app/data/models/data/registration.dart';
 import 'package:medita_patient/app/domain/use_cases/registration/registration_use_case.dart';
 import 'package:medita_patient/app/presentation/common/freezed_data_classes.dart';
 import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_status.dart';

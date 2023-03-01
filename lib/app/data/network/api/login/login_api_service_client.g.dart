@@ -13,7 +13,7 @@ class _LoginApiServiceClient implements LoginApiServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://fed7-197-56-88-67.eu.ngrok.io/';
+    baseUrl ??= 'https://bf4a-156-187-62-138.eu.ngrok.io/';
   }
 
   final Dio _dio;

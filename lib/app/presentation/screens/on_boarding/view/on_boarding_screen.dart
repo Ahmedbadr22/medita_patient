@@ -8,7 +8,7 @@ import 'package:medita_patient/app/presentation/screens/on_boarding/cubit/on_boa
 import 'package:medita_patient/app/presentation/screens/on_boarding/cubit/on_boarding_screen_states.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../data/models/on_boarding_data_model.dart';
+import '../../../../data/models/ui/on_boarding_data_model.dart';
 import '../../../widgets/on_boarding_item/on_boarding_item.dart';
 
 class OnBoardingScreen extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medita_patient/app/presentation/screens/on_boarding/cubit/on_boarding_screen_states.dart';
 
-import '../../../../data/models/on_boarding_data_model.dart';
+import '../../../../data/models/ui/on_boarding_data_model.dart';
 import '../../../manager/asset_manager.dart';
 import '../../../manager/routes_manager.dart';
 import '../../../manager/string_manager.dart';

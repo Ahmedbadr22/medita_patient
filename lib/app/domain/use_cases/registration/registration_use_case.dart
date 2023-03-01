@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:medita_patient/app/data/models/data/failure/auth/auth_failure.dart';
-import 'package:medita_patient/app/data/models/registration.dart';
+import 'package:medita_patient/app/data/models/data/registration.dart';
 import 'package:medita_patient/app/data/network/requests/registration/registration_request.dart';
 import 'package:medita_patient/app/data/repositories/registration/registration_repository.dart';
 import 'package:medita_patient/app/domain/use_cases/base/base_use_case.dart';

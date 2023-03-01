@@ -1,7 +1,7 @@
 import 'package:medita_patient/app/app/extensions.dart';
 import 'package:medita_patient/app/data/responses/registration/registration_response.dart';
 
-import '../../models/registration.dart';
+import '../../models/data/registration.dart';
 
 extension RegistrationResponseMapper on RegistrationResponse {
   /// this function map the [RegistrationResponse] object

@@ -15,10 +15,8 @@ import '../../../widgets/social_authentication_button/icon_authentication_button
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
-  final TextEditingController _emailTextEditingController =
-      TextEditingController();
-  final TextEditingController _passwordTextEditingController =
-      TextEditingController();
+  final TextEditingController _emailTextEditingController = TextEditingController();
+  final TextEditingController _passwordTextEditingController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -129,18 +127,14 @@ class SignInScreen extends StatelessWidget {
                     child: const Text(StringManager.forgotPassword),
                   ),
                   const SizedBox(height: AppSize.s10),
-                  const AuthenticationDivider(
-                      text: StringManager.orContinueWith),
+                  const AuthenticationDivider(text: StringManager.orContinueWith),
                   const SizedBox(height: AppSize.s20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const <IconAuthenticationButton>[
-                      IconAuthenticationButton(
-                          iconPath: ImageAsset.facebookLogoSvg),
-                      IconAuthenticationButton(
-                          iconPath: ImageAsset.googleLogoSvg),
-                      IconAuthenticationButton(
-                          iconPath: ImageAsset.appleLogoSvg),
+                      IconAuthenticationButton(iconPath: ImageAsset.facebookLogoSvg),
+                      IconAuthenticationButton(iconPath: ImageAsset.googleLogoSvg),
+                      IconAuthenticationButton(iconPath: ImageAsset.appleLogoSvg),
                     ],
                   ),
                   const SizedBox(height: AppSize.s20),

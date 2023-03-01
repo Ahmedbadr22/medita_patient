@@ -7,6 +7,8 @@ class SpecialityResponse {
   int? id;
   @JsonKey(name: "name")
   String? name;
+  @JsonKey(name: "icon")
+  String? iconPath;
 
   SpecialityResponse(this.id, this.name);
 

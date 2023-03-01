@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/models/on_boarding_data_model.dart';
+import '../../../data/models/ui/on_boarding_data_model.dart';
 import '../../manager/color_manager.dart';
 import '../../manager/values_manager.dart';
 

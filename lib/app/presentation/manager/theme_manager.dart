@@ -65,12 +65,14 @@ AppBarTheme _getLightAppBarTheme() {
 // elevated button theme
 ElevatedButtonThemeData _getElevatedButtonTheme() {
   return ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-          elevation: AppSize.s4,
-          shape: const StadiumBorder(),
-          textStyle: getRegularStyle(color: ColorManager.white),
-          disabledBackgroundColor: ColorManager.darkBlue,
-          disabledForegroundColor: ColorManager.white));
+    style: ElevatedButton.styleFrom(
+      elevation: AppSize.s4,
+      shape: const StadiumBorder(),
+      textStyle: getRegularStyle(color: ColorManager.white),
+      disabledBackgroundColor: ColorManager.darkBlue,
+      disabledForegroundColor: ColorManager.white,
+    ),
+  );
 }
 
 // outlined button theme

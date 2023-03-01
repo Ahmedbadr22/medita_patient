@@ -1,0 +1,6 @@
+
+abstract class SpecialityScreenState {}
+
+class SpecialityScreenInitState implements SpecialityScreenState {}
+class SpecialityScreenDoctorLoadedSuccessfullyState implements SpecialityScreenState {}
+class SpecialityScreenDoctorLoadingChangeState implements SpecialityScreenState {}

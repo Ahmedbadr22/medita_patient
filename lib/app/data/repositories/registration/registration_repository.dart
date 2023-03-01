@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:medita_patient/app/data/data_sources/remote/registration/registration_data_source.dart';
 import 'package:medita_patient/app/data/mapper/registration/registration_response_mapper.dart';
-import 'package:medita_patient/app/data/models/registration.dart';
+import 'package:medita_patient/app/data/models/data/registration.dart';
 import 'package:medita_patient/app/data/network/network_info.dart';
 import 'package:medita_patient/app/data/network/requests/registration/registration_request.dart';
 

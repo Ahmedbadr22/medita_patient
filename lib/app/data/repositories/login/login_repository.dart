@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:medita_patient/app/data/handler/exception_handler/login/login_exception_handler.dart';
 import 'package:medita_patient/app/data/mapper/login/login_response_mapper.dart';
-import 'package:medita_patient/app/data/models/token.dart';
+import 'package:medita_patient/app/data/models/data/token.dart';
 import 'package:medita_patient/app/data/models/data/failure/auth/auth_failure.dart';
 import 'package:medita_patient/app/data/network/requests/login/login_request.dart';
 import 'package:medita_patient/app/data/network/status_code/status_code.dart';

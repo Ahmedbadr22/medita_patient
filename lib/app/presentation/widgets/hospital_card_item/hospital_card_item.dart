@@ -3,71 +3,59 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medita_patient/app/data/models/data/hospital/hospital.dart';
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
-import 'package:medita_patient/app/presentation/widgets/svg_icon_button/svg_icon_button.dart';
 import '../../manager/values_manager.dart';
 
 class HospitalCardItem extends StatelessWidget {
-  const HospitalCardItem({
-    Key? key,
-    required this.hospital,
-  }) : super(key: key);
+  const HospitalCardItem({Key? key, required this.hospital, required this.size})
+      : super(key: key);
 
   final Hospital hospital;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
-      child: Card(
-        elevation: AppSize.s0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s25),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSize.s8),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+      child: SizedBox(
+        height: 150,
+        width: size.width,
+        child: Card(
+          elevation: AppSize.s0,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSize.s25)),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSize.s8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(AppSize.s20)),
                   child: Image.network(
                     hospital.imageUrl,
                     height: AppSize.s120,
                     fit: BoxFit.cover,
+                    width: 130,
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
+                Container(
+                  width: size.width - 166,
                   padding: const EdgeInsets.only(left: AppSize.s16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              hospital.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                              maxLines: 2,
-                            ),
-                          ),
-                          SvgIconButton(
-                            svgPath: ImageAsset.outlinedHeartSvg,
-                            onPressed: () {},
-                          )
-                        ],
+                      Text(
+                        hospital.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+                        maxLines: 2,
                       ),
                       const Divider(),
-                      Row(
-                        children: [
-                          Text("Location : ${hospital.location}"),
-                        ],
+                      Text(
+                        hospital.location,
+                        maxLines: 2,
                       ),
                       const SizedBox(height: AppSize.s5),
                       Row(
@@ -77,7 +65,9 @@ class HospitalCardItem extends StatelessWidget {
                             color: ColorManager.gold,
                           ),
                           const SizedBox(width: AppSize.s5),
-                          Text(hospital.rates.isEmpty ? "0.0" : hospital.rates.length.toString()),
+                          Text(hospital.rates.isEmpty
+                              ? "0.0"
+                              : hospital.rates.length.toString()),
                           const SizedBox(width: AppSize.s5),
                           Text("(${hospital.rates.length} reviews)"),
                         ],
@@ -85,8 +75,8 @@ class HospitalCardItem extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -42,11 +42,4 @@ class NearHospitalsScreenCubit extends Cubit<NearHospitalsScreenState> {
     emit(NearHospitalsScreenSuccessGetDataProcessState());
   }
 
-  /// This function build the HospitalCardItem and return it
-  /// by passing the [position] of the item
-  /// and return the [HospitalCardItem] widget
-  HospitalCardItem hospitalCardItemBuilder(_, int position) {
-    Hospital hospital = hospitals[position];
-    return HospitalCardItem(hospital: hospital);
-  }
 }

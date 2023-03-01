@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
+import 'package:medita_patient/app/data/models/data/banner/banner.dart';
 
 import '../../manager/color_manager.dart';
 import '../../manager/string_manager.dart';
 import '../../manager/values_manager.dart';
 
 class HomeCard extends StatelessWidget {
-  const HomeCard({Key? key}) : super(key: key);
+  const HomeCard({Key? key, required this.banner }) : super(key: key);
 
+  final MedicalBanner banner;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s16)),
         child: Stack(
           children: <Widget> [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(AppSize.s16)),
-              child: Image.asset(
-                ImageAsset.doctorModel,
+              child: Image.network(
+                banner.imagePath,
                 fit: BoxFit.cover,
                 width: double.infinity,
+                height: double.infinity,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorManager.darkBlack.withOpacity(0.4),
+                borderRadius: const BorderRadius.all(Radius.circular(AppSize.s16)),
               ),
             ),
             Padding(
@@ -33,14 +39,14 @@ class HomeCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Medical Checks!",
+                    banner.title,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
                         ?.copyWith(color: ColorManager.white),
                   ),
                   Text(
-                    "Check your health condition regularly to minimize the incidence of of disease in the future",
+                    banner.body,
                     style: Theme.of(context)
                         .textTheme
                         .caption
@@ -51,7 +57,8 @@ class HomeCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: ColorManager.white,
                         foregroundColor: Theme.of(context).primaryColor,
-                        elevation: AppSize.s0),
+                        elevation: AppSize.s0,
+                    ),
                     child: const Text(StringManager.checkNow),
                   )
                 ],

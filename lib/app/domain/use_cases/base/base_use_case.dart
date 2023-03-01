@@ -4,3 +4,7 @@ import 'package:medita_patient/app/data/models/data/failure/auth/auth_failure.da
 abstract class BaseUseCase<In, Out> {
   Future<Either<Failure, Out>> execute(In input);
 }
+
+abstract class BaseGetUseCase<Out> {
+  Future<Either<Failure, Out>> execute() ;
+}

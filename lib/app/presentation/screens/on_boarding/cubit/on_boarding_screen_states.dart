@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/on_boarding_data_model.dart';
+import '../../../../data/models/ui/on_boarding_data_model.dart';
 
 @immutable
 abstract class OnBoardingScreenState {}

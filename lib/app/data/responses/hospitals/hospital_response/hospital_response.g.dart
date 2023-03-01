@@ -15,6 +15,8 @@ HospitalResponse _$HospitalResponseFromJson(Map<String, dynamic> json) =>
           ?.map((e) => SpecialityResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['rates'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      (json['latitude'] as num?)?.toDouble(),
+      (json['longitude'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$HospitalResponseToJson(HospitalResponse instance) =>
@@ -24,4 +26,6 @@ Map<String, dynamic> _$HospitalResponseToJson(HospitalResponse instance) =>
       'location': instance.location,
       'specialities': instance.specialities,
       'rates': instance.rates,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };

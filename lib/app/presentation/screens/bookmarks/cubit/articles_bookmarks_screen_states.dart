@@ -1,0 +1,5 @@
+
+abstract class ArticlesBookMarksScreenState {}
+class ArticlesBookMarksScreenInitState implements ArticlesBookMarksScreenState {}
+class ArticlesBookMarksScreenLoadingState implements ArticlesBookMarksScreenState {}
+class ArticlesBookMarksScreenSuccessDataState implements ArticlesBookMarksScreenState {}

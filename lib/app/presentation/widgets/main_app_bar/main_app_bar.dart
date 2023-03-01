@@ -35,7 +35,7 @@ AppBar mainAppBar(BuildContext context) {
       SvgIconButton(
         svgPath: ImageAsset.outlinedBellSvg,
         onPressed: (){
-          Navigator.pushNamed(context, Routes.nearHospitals);
+
         },
       ),
       SvgIconButton(

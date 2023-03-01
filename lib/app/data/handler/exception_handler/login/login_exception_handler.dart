@@ -15,6 +15,18 @@ class LoginExceptionHandler implements Exception {
   }
 }
 
+class BaseExceptionHandler implements Exception {
+  late Failure failure;
+
+  handler(dynamic error) {
+    if (error is DioError) {
+      failure = _handleError(error);
+    } else {
+      failure = StatusCode.defaultCode.getAuthenticationFailure();
+    }
+  }
+}
+
 Failure _handleError(DioError error) {
   switch(error.type) {
     case DioErrorType.connectTimeout:

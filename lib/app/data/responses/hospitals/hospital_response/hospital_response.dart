@@ -15,8 +15,12 @@ class HospitalResponse {
   List<SpecialityResponse>? specialities;
   @JsonKey(name: "rates")
   List<int>? rates;
+  @JsonKey(name: "latitude")
+  double? latitude;
+  @JsonKey(name: "longitude")
+  double? longitude;
 
-  HospitalResponse(this.name, this.imageUrl, this.location, this.specialities, this.rates);
+  HospitalResponse(this.name, this.imageUrl, this.location, this.specialities, this.rates, this.latitude, this.longitude);
 
   /// fromJson named constructor to convert json to HospitalResponse object
   /// by giving [json] which is a map object as a parameter

@@ -131,7 +131,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   }
 
   void navigateToSignInScreen() {
-    Navigator.pushNamed(context, Routes.signInRoute);
+    Navigator.popAndPushNamed(context, Routes.signInRoute);
   }
 
   void navigateToSignUpScreen() {
