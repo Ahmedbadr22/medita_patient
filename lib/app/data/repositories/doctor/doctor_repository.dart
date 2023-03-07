@@ -2,8 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:medita_patient/app/data/data_sources/remote/doctor/doctor_data_source.dart';
 import 'package:medita_patient/app/data/mapper/doctor/doctor_mapper.dart';
+import 'package:medita_patient/app/data/mapper/doctor/favorit_doctor_mapper.dart';
+import 'package:medita_patient/app/data/models/data/doctor/favorite_doctor.dart';
 import 'package:medita_patient/app/data/network/network_info.dart';
 import 'package:medita_patient/app/data/responses/doctor/doctor_response.dart';
+import 'package:medita_patient/app/data/responses/doctor/favorite_doctor_response.dart';
 
 import '../../handler/exception_handler/login/login_exception_handler.dart';
 import '../../models/data/doctor/doctor.dart';
@@ -35,4 +38,22 @@ class DoctorRepository {
       return Left(baseExceptionHandler.failure);
     }
   }
+
+  Future<Either<Failure, List<FavoriteDoctor>>> listUserFavoriteDoctors(String accessToken) async {
+    if(!await _networkInfo.isConnected()) {
+      Failure noInternetConnectionFailure = StatusCode.noInternetConnection.getAuthenticationFailure();
+      return Left(noInternetConnectionFailure);
+    }
+
+    try {
+      List<FavoriteDoctorResponse> favoriteDoctorsResponse = await _doctorDataSource.listUserFavoriteDoctors(accessToken);
+      List<FavoriteDoctor> favoriteDoctors = favoriteDoctorsResponse.map((favoriteDoctor) => favoriteDoctor.toDomain()).toList();
+      return Right(favoriteDoctors);
+    } catch(error) {
+      BaseExceptionHandler baseExceptionHandler = BaseExceptionHandler();
+      baseExceptionHandler.handler(error);
+      return Left(baseExceptionHandler.failure);
+    }
+  }
+
 }

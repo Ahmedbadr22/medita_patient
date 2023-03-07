@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'doctor_client_api.dart';
+part of 'article_client_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'doctor_client_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _DoctorClientApi implements DoctorClientApi {
-  _DoctorClientApi(
+class _ArticleClientApi implements ArticleClientApi {
+  _ArticleClientApi(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,53 +21,78 @@ class _DoctorClientApi implements DoctorClientApi {
   String? baseUrl;
 
   @override
-  Future<List<DoctorResponse>> listDoctorsBySpecialityId(id) async {
+  Future<List<ArticleResponse>> listMostLikedArticles() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<DoctorResponse>>(Options(
+        .fetch<List<dynamic>>(_setStreamType<List<ArticleResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'clinic/list-doctors-by-speciality/${id}',
+              'articles/list-most-liked-articles',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => DoctorResponse.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => ArticleResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<FavoriteDoctorResponse>> listUserFavoriteDoctors(access) async {
+  Future<List<CategoryResponse>> listArticleCategories() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': access};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<FavoriteDoctorResponse>>(Options(
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<CategoryResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'clinic/list-favorite-doctors',
+              'articles/list-categories',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) =>
-            FavoriteDoctorResponse.fromJson(i as Map<String, dynamic>))
+        .map(
+            (dynamic i) => CategoryResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<BookmarkResponse>> listUserArticlesBookMarks(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BookmarkResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'articles/list-user-bookmarks/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map(
+            (dynamic i) => BookmarkResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

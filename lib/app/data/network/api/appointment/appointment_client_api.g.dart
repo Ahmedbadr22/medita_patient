@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'specialty_client_api.dart';
+part of 'appointment_client_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'specialty_client_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _SpecialtyClientApi implements SpecialtyClientApi {
-  _SpecialtyClientApi(
+class _AppointmentClientApi implements AppointmentClientApi {
+  _AppointmentClientApi(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,27 +21,27 @@ class _SpecialtyClientApi implements SpecialtyClientApi {
   String? baseUrl;
 
   @override
-  Future<List<SpecialityResponse>> listSpecialities() async {
+  Future<List<AppointmentResponse>> listUserAppointments(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<SpecialityResponse>>(Options(
+        .fetch<List<dynamic>>(_setStreamType<List<AppointmentResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'clinic/list-specialities',
+              'clinic/list-appointments-by-user/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) =>
-            SpecialityResponse.fromJson(i as Map<String, dynamic>))
+            AppointmentResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

@@ -13,7 +13,7 @@ class _RegistrationApiServiceClient implements RegistrationApiServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://bf4a-156-187-62-138.eu.ngrok.io/';
+    baseUrl ??= 'https://e6f1-197-56-86-39.eu.ngrok.io/';
   }
 
   final Dio _dio;

@@ -1,0 +1,5 @@
+
+abstract class FavoriteDoctorsScreenState {}
+class FavoriteDoctorsScreenInitState extends FavoriteDoctorsScreenState {}
+class FavoriteDoctorsScreenSuccessState extends FavoriteDoctorsScreenState {}
+class FavoriteDoctorsScreenFailState extends FavoriteDoctorsScreenState {}

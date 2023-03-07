@@ -1,7 +1,7 @@
 
 class ApiConstants {
   // Server baseUrl
-  static const String baseUrl = "https://bf4a-156-187-62-138.eu.ngrok.io/";
+  static const String baseUrl = "https://e6f1-197-56-86-39.eu.ngrok.io/";
   // main app url
   static const String _authenticationUrl = "authentication";
   static const String _clinicUrl = "clinic";
@@ -19,6 +19,7 @@ class ApiConstants {
 
   // Doctor
   static const String listDoctorsBySpecialityId = "$_clinicUrl/list-doctors-by-speciality/{id}";
+  static const String listUserFavoriteDoctors = "$_clinicUrl/list-favorite-doctors";
 
   // Articles
   static const String listMostLikedArticles = "$_articlesUrl/list-most-liked-articles";
@@ -30,5 +31,10 @@ class ApiConstants {
   // Appointment
   static const String listUserAppointments = "$_clinicUrl/list-appointments-by-user/{id}";
 
+}
 
+class SharedPrefConstants {
+  // SharedPref
+  static const String accessToken = "accessToken";
+  static const String refreshToken = "refreshToken";
 }

@@ -3,4 +3,8 @@ class Token {
   String refresh;
 
   Token(this.access, this.refresh);
+
+  String getBearerToken() {
+    return "Bearer $access";
+  }
 }

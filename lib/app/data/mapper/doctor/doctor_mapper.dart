@@ -21,3 +21,13 @@ extension DoctorResponseMapper on DoctorResponse {
     return Doctor(id.orZero(), user, speciality, hospital, about.orEmpty(), yearsOfExp.orZero());
   }
 }
+
+extension NullableDoctorResponseMapper on DoctorResponse? {
+  Doctor toDomain() {
+    User user = this!.userResponse.toDomain();
+    Hospital hospital = this!.hospitalResponse.toDomain();
+    Speciality speciality = this!.specialityResponse.toDomain();
+
+    return Doctor(this!.id.orZero(), user, speciality, hospital, this!.about.orEmpty(), this!.yearsOfExp.orZero());
+  }
+}

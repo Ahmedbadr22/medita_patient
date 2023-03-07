@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 
 import '../../manager/asset_manager.dart';
-import '../../manager/routes_manager.dart';
 import '../../manager/string_manager.dart';
 import '../../manager/values_manager.dart';
 import '../svg_icon_button/svg_icon_button.dart';
@@ -40,7 +40,9 @@ AppBar mainAppBar(BuildContext context) {
       ),
       SvgIconButton(
         svgPath: ImageAsset.outlinedHeartSvg,
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushNamed(context, Routes.favoriteDoctors);
+        },
       ),
     ],
   );

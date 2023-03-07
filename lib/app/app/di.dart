@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:medita_patient/app/data/data_sources/local/sharedPref/token_local_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/appointment/appointment_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/article/article_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/banner/banner_data_source.dart';
@@ -26,24 +27,30 @@ import 'package:medita_patient/app/data/repositories/hospital/hospital_repositor
 import 'package:medita_patient/app/data/repositories/login/login_repository.dart';
 import 'package:medita_patient/app/data/repositories/registration/registration_repository.dart';
 import 'package:medita_patient/app/data/repositories/specialty/specialty_repository.dart';
+import 'package:medita_patient/app/data/repositories/token/token_repository.dart';
 import 'package:medita_patient/app/domain/use_cases/appointment/list_user_appointments_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/article/list_most_liked_articles_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/article/list_user_bookmarks_articles.dart';
 import 'package:medita_patient/app/domain/use_cases/banner/get_all_banners_usecase.dart';
 import 'package:medita_patient/app/domain/use_cases/doctor/list_doctors_by_speciality_id_use_case.dart';
+import 'package:medita_patient/app/domain/use_cases/doctor/list_user_favorite_doctors_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/hospital/list_near_hospitals.dart';
 import 'package:medita_patient/app/domain/use_cases/login/login_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/registration/registration_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/specialty/list_specialties_use_case.dart';
+import 'package:medita_patient/app/domain/use_cases/token/get_local_token_use_case.dart';
+import 'package:medita_patient/app/domain/use_cases/token/save_token_use_case.dart';
 import 'package:medita_patient/app/presentation/screens/appointment/cubit/appointment_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/articles/cubit/articles_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/bookmarks/cubit/article_bookmarls_screen_cubit.dart';
+import 'package:medita_patient/app/presentation/screens/favorite_doctors/cubit/favorite_doctors_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/home/view_model/home_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/navigation/viewModel/main_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/cubit/near_hospitals_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/speciality/cubit/SpecialityScreenCubit.dart';
+import 'package:medita_patient/app/presentation/screens/splash/cubit/splash_screen_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/data_sources/remote/specialty/speciality_data_source.dart';
@@ -66,6 +73,8 @@ Future<void> initAppModule() async {
 
   Dio dio = await diInstance<DioFactory>().getDio();
 
+
+  // Login
   // app service client instance
   diInstance.registerLazySingleton<LoginApiServiceClient>(
       () => LoginApiServiceClient(dio));
@@ -74,10 +83,18 @@ Future<void> initAppModule() async {
   diInstance.registerLazySingleton<LoginDataSource>(
       () => LoginDataSource(diInstance<LoginApiServiceClient>()));
 
+  diInstance.registerLazySingleton<TokenLocalDataSource>(
+          () => TokenLocalDataSource(diInstance<SharedPreferences>()));
+
+  diInstance.registerLazySingleton<TokenRepository>(
+          () => TokenRepository(diInstance<TokenLocalDataSource>()));
+
+
   // repository instance
   diInstance.registerLazySingleton<LoginRepository>(() => LoginRepository(
       diInstance<LoginDataSource>(), diInstance<NetworkInfo>()));
 
+  // Registration
   // app service client instance
   diInstance.registerLazySingleton<RegistrationApiServiceClient>(
       () => RegistrationApiServiceClient(dio));
@@ -170,15 +187,40 @@ Future<void> initAppModule() async {
   diInstance.registerFactory<ListUserAppointmentsUseCase>(() => ListUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
 }
 
+void initSplashScreen() {
+  if(!GetIt.I.isRegistered<GetLocalTokenUseCase>()) {
+    diInstance.registerFactory<GetLocalTokenUseCase>(
+            () => GetLocalTokenUseCase(diInstance<TokenRepository>()));
+
+    diInstance.registerFactory<SplashScreenCubit>(
+            () => SplashScreenCubit(diInstance<GetLocalTokenUseCase>()));
+  }
+}
+
+
 void initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     // login use case instance
+    diInstance.registerFactory<SaveTokenUseCase>(
+            () => SaveTokenUseCase(diInstance<TokenRepository>()));
+
     diInstance.registerFactory<LoginUseCase>(
-        () => LoginUseCase(diInstance<LoginRepository>()));
+            () => LoginUseCase(diInstance<LoginRepository>(),
+                diInstance<SaveTokenUseCase>()));
 
     // login viewModel instance
     diInstance.registerFactory<SignInCubit>(
         () => SignInCubit(diInstance<LoginUseCase>()));
+  }
+}
+
+void initFavoriteDoctorsModule() {
+  if (!GetIt.I.isRegistered<ListUserFavoriteDoctorsUseCase>()) {
+    diInstance.registerFactory<ListUserFavoriteDoctorsUseCase>(() => ListUserFavoriteDoctorsUseCase(diInstance<DoctorRepository>(), diInstance<GetLocalTokenUseCase>()));
+
+    // login viewModel instance
+    diInstance.registerFactory<FavoriteDoctorsScreenCubit>(
+            () => FavoriteDoctorsScreenCubit(diInstance<ListUserFavoriteDoctorsUseCase>()));
   }
 }
 

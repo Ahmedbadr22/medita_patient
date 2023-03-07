@@ -4,6 +4,7 @@ import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/screens/article_detail/view/article_detail.dart';
 import 'package:medita_patient/app/presentation/screens/bookmarks/view/article_bookmarks_screen.dart';
 import 'package:medita_patient/app/presentation/screens/doctor_detail/view/doctor_detail_screen.dart';
+import 'package:medita_patient/app/presentation/screens/favorite_doctors/view/favorite_doctors_screen.dart';
 import 'package:medita_patient/app/presentation/screens/specialities/view/specialities_screen.dart';
 import 'package:medita_patient/app/presentation/screens/speciality/view/speciality_screen.dart';
 
@@ -37,15 +38,17 @@ class Routes {
   static const specialitiesRoute = "/specialitiesRoute";
   static const specialityRoute = "/specialityRoute";
   static const doctorDetailRoute = "/doctorDetailRoute";
+  static const favoriteDoctors = "/favoriteDoctors";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case Routes.splashRoute:{
-        initAppModule();
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
-      }
+      case Routes.splashRoute:
+        {
+          initSplashScreen();
+          return MaterialPageRoute(builder: (_) => const SplashScreen());
+        }
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => OnBoardingScreen());
       case Routes.authenticationRoute:
@@ -88,6 +91,12 @@ class RouteGenerator {
             settings: routeSettings,
             builder: (_) => const DoctorDetailScreen(),
           );
+        }
+      case Routes.favoriteDoctors:
+        {
+          initFavoriteDoctorsModule();
+          return MaterialPageRoute(
+              builder: (_) => const FavoriteDoctorsScreen());
         }
       case Routes.appointmentRoute:
         return MaterialPageRoute(builder: (_) => const AppointmentScreen());
