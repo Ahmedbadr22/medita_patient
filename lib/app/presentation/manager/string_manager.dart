@@ -33,7 +33,8 @@ class StringManager {
   static const search = "Search";
   static const firstName = "First Name";
   static const lastName = "Last Name";
-
+  static const visualAcuityTest = "Visual Acuity Test";
+  static const fitnessSection = "Fitness Section";
 
   // bottom navigation view
   static const home = "Home";
@@ -68,7 +69,8 @@ class StringManager {
 
   static const myAppointment = "My Appointment";
   static const myAppointmentTxt1 = "You don\'t have an appointment yet";
-  static const myAppointmentTxt2 = "You don\'t have a doctor\'s appointment scheduled at the moment";
+  static const myAppointmentTxt2 =
+      "You don\'t have a doctor\'s appointment scheduled at the moment";
   static const mostLiked = "Most Liked";
   static const showAll = "Show all";
   static const myBookmarks = "My Bookmarks";
