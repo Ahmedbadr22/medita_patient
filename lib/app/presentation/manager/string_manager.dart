@@ -35,6 +35,25 @@ class StringManager {
   static const lastName = "Last Name";
   static const visualAcuityTest = "Visual Acuity Test";
   static const fitnessSection = "Fitness Section";
+  static const editProfile = "Edit Profile";
+  static const notification = "Notification";
+  static const payment = "Payment";
+  static const security = "Security";
+  static const language = "Language";
+  static const darkMode = "Dark Mode";
+  static const helpCenter = "Help Center";
+  static const inviteFriends = "Invite Friends";
+  static const logout = "Logout";
+  static const generalNotification = "General Notification";
+  static const sound = "Sound";
+  static const vibrate = "Vibrate";
+  static const specialOffers = "Special Offers";
+  static const promoAndDiscount = "Promo & Discount";
+  static const cashback = "Cashback";
+  static const appUpdates = "App Updates";
+  static const newServiceAvailable = "New Service Available";
+  static const newTipsAvailable = "New Tips Available";
+  static const update = "Update";
 
   // bottom navigation view
   static const home = "Home";
