@@ -54,6 +54,9 @@ class StringManager {
   static const newServiceAvailable = "New Service Available";
   static const newTipsAvailable = "New Tips Available";
   static const update = "Update";
+  static const selectDate = "Select Date";
+  static const selectHour = "Select Hour";
+  static const bookAppointMent = "Book Appointment";
 
   // bottom navigation view
   static const home = "Home";
