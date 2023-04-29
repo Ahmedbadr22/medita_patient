@@ -2,6 +2,7 @@ class ImageAsset {
   static const _mainSvgPath = "assets/svg";
   static const _mainImagePath = "assets/images";
   static const _mainIconPath = "assets/icons";
+  static const _mainVideosPath = "assets/videos";
   // svg
   static const whiteLogoImagePath = "$_mainSvgPath/medita_logo_white.svg";
   static const blackLogoImagePath = "$_mainSvgPath/medita_logo_black.svg";
@@ -46,4 +47,19 @@ class ImageAsset {
   static const topEyeTest = "$_mainImagePath/top.jpg";
   static const fitnessImage = "$_mainImagePath/fitness.png";
   static const eyeImage = "$_mainImagePath/eye-test.png";
+  static const lineImage = "$_mainImagePath/line.png";
+  static const yogaImage = "$_mainImagePath/yoga.png";
+  static const crunchImage = "$_mainImagePath/crunch.png";
+  static const puchupImage = "$_mainImagePath/pushup.png";
+  static const workout_1Image = "$_mainImagePath/workout1.png";
+  static const workout_2Image = "$_mainImagePath/workout2.png";
+  static const workout_3Image = "$_mainImagePath/workout3.png";
+
+  // videos
+  static const yogaVid = "$_mainVideosPath/yoga.mp4";
+  static const yoga_2Vid = "$_mainVideosPath/yoga2.mp4";
+  static const yoga_3Vid = "$_mainVideosPath/yoga3.mp4";
+  static const yoga_4Vid = "$_mainVideosPath/yoga4.mp4";
+  static const yoga_5Vid = "$_mainVideosPath/yoga5.mp4";
+  static const burpeesVid = "$_mainVideosPath/burpees.mp4";
 }

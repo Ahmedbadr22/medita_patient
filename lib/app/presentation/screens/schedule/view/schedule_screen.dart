@@ -5,6 +5,7 @@ import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/styles_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/eye_test_app/eye_test_screen.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/fitness_app/screens/fitness_section_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/model/test_section_model.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/model/welcome_examination_model.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/view/welcom_examinations_screen.dart';
@@ -62,27 +63,33 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               ));
             },
           ),
-          // testsSection(
-          //   asset: testsSectionData[1].imageUrl,
-          //   data: testsSectionData[1].testName,
-          //   onTap: () {
-          //     Navigator.of(context).push(MaterialPageRoute(
-          //       builder: (context) => WelcomeExaminationWidget(
-          //         assetName: welcomeExaminationData[1].assetName,
-          //         title: welcomeExaminationData[1].title,
-          //         subTitle: welcomeExaminationData[0].subTitle,
-          //         onPressed: navigateToFitnessSectionScreen,
-          //       ),
-          //     ),
-          //     );
-          //   },
-          // )
+          testsSection(
+            asset: testsSectionData[1].imageUrl,
+            data: testsSectionData[1].testName,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => WelcomeExaminationWidget(
+                    assetName: welcomeExaminationData[1].assetName,
+                    title: welcomeExaminationData[1].title,
+                    subTitle: welcomeExaminationData[0].subTitle,
+                    onPressed: navigateToFitnessSectionScreen,
+                  ),
+                ),
+              );
+            },
+          )
         ]);
   }
 
   navigateToEyeTestScreen() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const EyeTestScreen()));
+  }
+
+  navigateToFitnessSectionScreen() {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const FitnessSectionScreen()));
   }
 }
 
