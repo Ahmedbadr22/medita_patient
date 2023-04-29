@@ -5,6 +5,7 @@ import 'package:medita_patient/app/presentation/widgets/common_app_bar/common_ap
 import 'package:medita_patient/app/presentation/widgets/doctor_detail_card_item/doctor_detail_card_item.dart';
 
 import '../../../../data/models/data/doctor/doctor.dart';
+import '../../../manager/routes_manager.dart';
 
 class DoctorDetailScreen extends StatelessWidget {
   const DoctorDetailScreen({Key? key}) : super(key: key);
@@ -141,7 +142,8 @@ class DoctorDetailScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 child: const Text("Book Appointment"),
-                onPressed: () {},
+                onPressed: () {
+                },
               ),
             ),
           ),

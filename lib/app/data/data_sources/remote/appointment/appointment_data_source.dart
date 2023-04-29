@@ -7,7 +7,7 @@ class AppointmentDataSource {
 
   AppointmentDataSource(this._api);
 
-  Future<List<AppointmentResponse>>  listUserAppointments(int id) {
+  Future<List<AppointmentResponse>> listUserAppointments(int id) {
     return _api.listUserAppointments(id);
   }
 }

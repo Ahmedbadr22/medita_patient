@@ -13,7 +13,7 @@ class _BannerClientApi implements BannerClientApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://e6f1-197-56-86-39.eu.ngrok.io/';
+    baseUrl ??= 'https://medita-api.vercel.app/';
   }
 
   final Dio _dio;

@@ -108,7 +108,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     String email = registerObject.email;
     String password = registerObject.password;
 
-    RegistrationUseCaseInput registrationUseCaseInput = RegistrationUseCaseInput(firstName, lastName, email, password);
+    RegistrationUseCaseInput registrationUseCaseInput = RegistrationUseCaseInput("$firstName $lastName", email, password);
     Either<Failure, Registration> responseData = await _registerUseCase.execute(registrationUseCaseInput);
 
     responseData.fold((failure) {

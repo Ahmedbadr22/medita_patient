@@ -12,8 +12,7 @@ abstract class RegistrationApiServiceClient {
 
   @POST(ApiConstants.userRegistrationUrl)
   Future<RegistrationResponse> register(
-      @Field("first_name") String firstName,
-      @Field("last_name") String lastName,
+      @Field("fullname") String fullname,
       @Field("email") String email,
       @Field("password") String password,
   );
