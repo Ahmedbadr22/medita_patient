@@ -12,6 +12,7 @@ class ImageAsset {
   static const googleLogoSvg = "$_mainSvgPath/google_logo.svg";
   static const fitnessTrackerSvg = "$_mainSvgPath/Fitnesstracker-amico.svg";
   static const ophthalmologistSvg = "$_mainSvgPath/Ophthalmologist-amico.svg";
+  static const ambulanceSvg = "$_mainSvgPath/Ambulance-rafiki.svg";
   // icons
   static const outlinedBellSvg = "$_mainIconPath/bell_outlined.svg";
   static const outlinedClockCircleSvg =
@@ -54,6 +55,11 @@ class ImageAsset {
   static const workout_1Image = "$_mainImagePath/workout1.png";
   static const workout_2Image = "$_mainImagePath/workout2.png";
   static const workout_3Image = "$_mainImagePath/workout3.png";
+  static const cprImage = "$_mainImagePath/cpr.png";
+  static const chokingImage = "$_mainImagePath/choking.png";
+  static const neckImage = "$_mainImagePath/neck.png";
+  static const firstAidImage = "$_mainImagePath/first aid.png";
+  static const sprainImage = "$_mainImagePath/sprain.png";
 
   // videos
   static const yogaVid = "$_mainVideosPath/yoga.mp4";
@@ -62,4 +68,8 @@ class ImageAsset {
   static const yoga_4Vid = "$_mainVideosPath/yoga4.mp4";
   static const yoga_5Vid = "$_mainVideosPath/yoga5.mp4";
   static const burpeesVid = "$_mainVideosPath/burpees.mp4";
+  static const chokingVid = "$_mainVideosPath/choking.mp4";
+  static const cprVid = "$_mainVideosPath/cpr.mp4";
+  static const neakBreakVid = "$_mainVideosPath/neck_break.mp4";
+  static const sprainVid = "$_mainVideosPath/sprain.mp4";
 }

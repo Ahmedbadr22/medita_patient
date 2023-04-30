@@ -1,3 +1,12 @@
+// List<TestSectionModel> testsSectionData = [
+//   TestSectionModel(
+//       imageUrl: ImageAsset.eyeImage,
+//       testName: StringManager.visualAcuityTest),
+//   TestSectionModel(
+//       imageUrl: ImageAsset.fitnessImage,
+//       testName: StringManager.fitnessSection),
+// ];
+
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
@@ -5,6 +14,7 @@ import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/styles_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/eye_test_app/eye_test_screen.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/first_aid_app/screens/first_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/fitness_app/screens/fitness_section_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/model/test_section_model.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/model/welcome_examination_model.dart';
@@ -23,8 +33,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         imageUrl: ImageAsset.eyeImage,
         testName: StringManager.visualAcuityTest),
     TestSectionModel(
+        imageUrl: ImageAsset.firstAidImage,
+        testName: StringManager.firstAidTips),
+    TestSectionModel(
         imageUrl: ImageAsset.fitnessImage,
-        testName: StringManager.fitnessSection),
+        testName: StringManager.visualAcuityTest),
   ];
 
   List<WelcomeExaminationModel> welcomeExaminationData = [
@@ -35,6 +48,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           'This test is a mathematical demo. It has not been FDA approved. Do not use it as a substitute for medical opinion.',
     ),
     WelcomeExaminationModel(
+      assetName: ImageAsset.ambulanceSvg,
+      title: 'Welcome in First-Aid Tips',
+      subTitle:
+          'First-Aid helps make the recovery process faster, saves huge healthcare costs, and prevents the likelihood of injury from getting worse',
+    ),
+    WelcomeExaminationModel(
       assetName: ImageAsset.fitnessTrackerSvg,
       title: 'Welcome in Fitness Tracker',
       subTitle:
@@ -43,43 +62,60 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return GridView(
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: .9),
-        scrollDirection: Axis.vertical,
-        children: [
-          testsSection(
-            asset: testsSectionData[0].imageUrl,
-            data: testsSectionData[0].testName,
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => WelcomeExaminationWidget(
-                  assetName: welcomeExaminationData[0].assetName,
-                  title: welcomeExaminationData[0].title,
-                  subTitle: welcomeExaminationData[0].subTitle,
-                  onPressed: navigateToEyeTestScreen,
-                ),
-              ));
-            },
-          ),
-          testsSection(
-            asset: testsSectionData[1].imageUrl,
-            data: testsSectionData[1].testName,
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => WelcomeExaminationWidget(
-                    assetName: welcomeExaminationData[1].assetName,
-                    title: welcomeExaminationData[1].title,
-                    subTitle: welcomeExaminationData[0].subTitle,
-                    onPressed: navigateToFitnessSectionScreen,
-                  ),
-                ),
-              );
-            },
-          )
-        ]);
+    return SafeArea(
+      child: Column(children: [
+        testsSection(
+          asset: testsSectionData[0].imageUrl,
+          data: testsSectionData[0].testName,
+          color: Colors.purple.shade100.withOpacity(0.4),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => WelcomeExaminationWidget(
+                assetName: welcomeExaminationData[0].assetName,
+                title: welcomeExaminationData[0].title,
+                subTitle: welcomeExaminationData[0].subTitle,
+                onPressed: navigateToEyeTestScreen,
+              ),
+            ));
+          },
+        ),
+        testsSection(
+          asset: testsSectionData[1].imageUrl,
+          data: testsSectionData[1].testName,
+          color: Colors.orange.shade100.withOpacity(0.4),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => WelcomeExaminationWidget(
+                assetName: welcomeExaminationData[1].assetName,
+                title: welcomeExaminationData[1].title,
+                subTitle: welcomeExaminationData[1].subTitle,
+                onPressed: navigateToFirstAidSectionScreen,
+              ),
+            ));
+          },
+        ),
+        testsSection(
+          color: Colors.blue.shade100.withOpacity(0.4),
+          asset: testsSectionData[2].imageUrl,
+          data: testsSectionData[2].testName,
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => WelcomeExaminationWidget(
+                assetName: welcomeExaminationData[2].assetName,
+                title: welcomeExaminationData[2].title,
+                subTitle: welcomeExaminationData[2].subTitle,
+                onPressed: navigateToFitnessSectionScreen,
+              ),
+            ));
+          },
+        )
+      ]),
+    );
+  }
+
+  navigateToFitnessSectionScreen() {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const FitnessSectionScreen()));
   }
 
   navigateToEyeTestScreen() {
@@ -87,25 +123,30 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         .push(MaterialPageRoute(builder: (context) => const EyeTestScreen()));
   }
 
-  navigateToFitnessSectionScreen() {
+  navigateToFirstAidSectionScreen() {
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const FitnessSectionScreen()));
+        MaterialPageRoute(builder: (context) => const FirstAidSectionScreen()));
   }
 }
 
-Widget testsSection(
-    {required String asset,
-    required String data,
-    required VoidCallback onTap}) {
+Widget testsSection({
+  required String asset,
+  required String data,
+  required VoidCallback onTap,
+  required Color color,
+}) {
   return InkWell(
     onTap: onTap,
     child: Container(
+      height: AppSize.s120,
       margin: const EdgeInsets.all(AppSize.s16),
       decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(.1),
-          borderRadius: BorderRadius.circular(AppSize.s20)),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(asset, height: AppSize.s80),
+          color: color, borderRadius: BorderRadius.circular(AppSize.s20)),
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Image.asset(asset, height: AppSize.s80),
+        ),
         const SizedBox(height: AppSize.s10),
         Center(
           child: Text(
