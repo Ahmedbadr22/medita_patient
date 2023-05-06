@@ -25,22 +25,26 @@ class WelcomeExaminationWidget extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(AppSize.s20),
         child: Column(children: [
-          SvgPicture.asset(assetName, height: AppSize.s300),
-          const SizedBox(height: 20),
-          Text(title,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displayMedium
-              // getBoldStyle(
-              //     color: ColorManager.lightBlue, fontSize: AppSize.s20),
-              ),
-          const SizedBox(height: AppSize.s18),
-          Text(subTitle!,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: AppSize.s40),
-          SizedBox(
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(assetName, height: AppSize.s300),
+                const SizedBox(height: 20),
+                Text(title,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displayMedium),
+                const SizedBox(height: AppSize.s18),
+                Text(subTitle!,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium),
+              ],
+            ),
+          ),
+          Container(
               width: double.infinity,
               height: AppSize.s50,
+              margin: const EdgeInsets.only(bottom: AppSize.s20),
               child: ElevatedButton(
                   onPressed: onPressed, child: const Text(StringManager.next)))
         ]),

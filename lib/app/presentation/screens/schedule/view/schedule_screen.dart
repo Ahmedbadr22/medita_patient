@@ -18,6 +18,7 @@ import 'package:medita_patient/app/presentation/screens/schedule/first_aid_app/s
 import 'package:medita_patient/app/presentation/screens/schedule/fitness_app/screens/fitness_section_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/model/test_section_model.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/model/welcome_examination_model.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/plants_app/screens/plant_screen.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/view/welcom_examinations_screen.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -37,7 +38,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         testName: StringManager.firstAidTips),
     TestSectionModel(
         imageUrl: ImageAsset.fitnessImage,
-        testName: StringManager.visualAcuityTest),
+        testName: StringManager.fitnessSection),
+    TestSectionModel(
+        imageUrl: ImageAsset.plantImage, testName: StringManager.plantSection),
   ];
 
   List<WelcomeExaminationModel> welcomeExaminationData = [
@@ -59,58 +62,78 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       subTitle:
           'We help you to control your own health. This section allows you to track your health nutrition and workout metrics. ',
     ),
+    WelcomeExaminationModel(
+      assetName: ImageAsset.plantCollectionSvg,
+      title: 'Medicinal Herbs and Plants',
+      subTitle:
+          'Plants provide the essential foundation for life on Earth and are the single most important to life on Earth. ',
+    ),
   ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(children: [
-        testsSection(
-          asset: testsSectionData[0].imageUrl,
-          data: testsSectionData[0].testName,
-          color: Colors.purple.shade100.withOpacity(0.4),
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => WelcomeExaminationWidget(
-                assetName: welcomeExaminationData[0].assetName,
-                title: welcomeExaminationData[0].title,
-                subTitle: welcomeExaminationData[0].subTitle,
-                onPressed: navigateToEyeTestScreen,
-              ),
-            ));
-          },
-        ),
-        testsSection(
-          asset: testsSectionData[1].imageUrl,
-          data: testsSectionData[1].testName,
-          color: Colors.orange.shade100.withOpacity(0.4),
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => WelcomeExaminationWidget(
-                assetName: welcomeExaminationData[1].assetName,
-                title: welcomeExaminationData[1].title,
-                subTitle: welcomeExaminationData[1].subTitle,
-                onPressed: navigateToFirstAidSectionScreen,
-              ),
-            ));
-          },
-        ),
-        testsSection(
-          color: Colors.blue.shade100.withOpacity(0.4),
-          asset: testsSectionData[2].imageUrl,
-          data: testsSectionData[2].testName,
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => WelcomeExaminationWidget(
-                assetName: welcomeExaminationData[2].assetName,
-                title: welcomeExaminationData[2].title,
-                subTitle: welcomeExaminationData[2].subTitle,
-                onPressed: navigateToFitnessSectionScreen,
-              ),
-            ));
-          },
-        )
-      ]),
-    );
+        child: Column(children: [
+      testsSection(
+        asset: testsSectionData[0].imageUrl,
+        data: testsSectionData[0].testName,
+        color: Colors.purple.shade100.withOpacity(0.4),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => WelcomeExaminationWidget(
+              assetName: welcomeExaminationData[0].assetName,
+              title: welcomeExaminationData[0].title,
+              subTitle: welcomeExaminationData[0].subTitle,
+              onPressed: navigateToEyeTestScreen,
+            ),
+          ));
+        },
+      ),
+      testsSection(
+        asset: testsSectionData[1].imageUrl,
+        data: testsSectionData[1].testName,
+        color: Colors.orange.shade100.withOpacity(0.4),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => WelcomeExaminationWidget(
+              assetName: welcomeExaminationData[1].assetName,
+              title: welcomeExaminationData[1].title,
+              subTitle: welcomeExaminationData[1].subTitle,
+              onPressed: navigateToFirstAidSectionScreen,
+            ),
+          ));
+        },
+      ),
+      testsSection(
+        color: Colors.blue.shade100.withOpacity(0.4),
+        asset: testsSectionData[2].imageUrl,
+        data: testsSectionData[2].testName,
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => WelcomeExaminationWidget(
+              assetName: welcomeExaminationData[2].assetName,
+              title: welcomeExaminationData[2].title,
+              subTitle: welcomeExaminationData[2].subTitle,
+              onPressed: navigateToFitnessSectionScreen,
+            ),
+          ));
+        },
+      ),
+      testsSection(
+        color: const Color(0XFFC8E9B0).withOpacity(0.6),
+        asset: testsSectionData[3].imageUrl,
+        data: testsSectionData[3].testName,
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => WelcomeExaminationWidget(
+              assetName: welcomeExaminationData[3].assetName,
+              title: welcomeExaminationData[3].title,
+              subTitle: welcomeExaminationData[3].subTitle,
+              onPressed: navigatePlantScreen,
+            ),
+          ));
+        },
+      ),
+    ]));
   }
 
   navigateToFitnessSectionScreen() {
@@ -126,6 +149,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   navigateToFirstAidSectionScreen() {
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const FirstAidSectionScreen()));
+  }
+
+  navigatePlantScreen() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const PlantScreen()));
   }
 }
 
@@ -144,7 +172,7 @@ Widget testsSection({
           color: color, borderRadius: BorderRadius.circular(AppSize.s20)),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(AppSize.s18),
           child: Image.asset(asset, height: AppSize.s80),
         ),
         const SizedBox(height: AppSize.s10),

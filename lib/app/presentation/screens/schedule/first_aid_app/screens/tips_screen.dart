@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
-import 'package:medita_patient/app/presentation/screens/schedule/first_aid_app/data/first_aid_data.dart';
 import 'package:medita_patient/app/presentation/screens/schedule/first_aid_app/models/first_aid_model.dart';
 import 'package:video_player/video_player.dart';
 
@@ -66,7 +65,7 @@ class _TipsScreenState extends State<TipsScreen> {
               ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          ColorManager.lightBlue),
+                          Colors.blue.withOpacity(0.6)),
                       fixedSize: MaterialStateProperty.all(
                           const Size(AppSize.s50, AppSize.s50)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -78,8 +77,8 @@ class _TipsScreenState extends State<TipsScreen> {
               const Padding(padding: EdgeInsets.all(2)),
               ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(ColorManager.error),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.red.withOpacity(0.9)),
                       fixedSize: MaterialStateProperty.all<Size>(
                           const Size(AppSize.s50, AppSize.s50)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -92,7 +91,7 @@ class _TipsScreenState extends State<TipsScreen> {
               ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          ColorManager.lightBlue),
+                          Colors.blue.withOpacity(0.6)),
                       fixedSize: MaterialStateProperty.all(
                           const Size(AppSize.s50, AppSize.s50)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(

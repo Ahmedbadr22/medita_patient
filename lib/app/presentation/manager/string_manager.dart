@@ -36,6 +36,7 @@ class StringManager {
   static const visualAcuityTest = "Visual Acuity Test";
   static const fitnessSection = "Fitness Section";
   static const firstAidTips = "First Aid tips";
+  static const plantSection = "Medicinal Herbs and\nPlants";
   static const editProfile = "Edit Profile";
   static const notification = "Notification";
   static const payment = "Payment";

@@ -13,6 +13,7 @@ class ImageAsset {
   static const fitnessTrackerSvg = "$_mainSvgPath/Fitnesstracker-amico.svg";
   static const ophthalmologistSvg = "$_mainSvgPath/Ophthalmologist-amico.svg";
   static const ambulanceSvg = "$_mainSvgPath/Ambulance-rafiki.svg";
+  static const plantCollectionSvg = "$_mainSvgPath/Collection-amico.svg";
   // icons
   static const outlinedBellSvg = "$_mainIconPath/bell_outlined.svg";
   static const outlinedClockCircleSvg =
@@ -60,6 +61,7 @@ class ImageAsset {
   static const neckImage = "$_mainImagePath/neck.png";
   static const firstAidImage = "$_mainImagePath/first aid.png";
   static const sprainImage = "$_mainImagePath/sprain.png";
+  static const plantImage = "$_mainImagePath/plant.png";
 
   // videos
   static const yogaVid = "$_mainVideosPath/yoga.mp4";
