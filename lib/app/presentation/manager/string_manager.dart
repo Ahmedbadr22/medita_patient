@@ -33,7 +33,32 @@ class StringManager {
   static const search = "Search";
   static const firstName = "First Name";
   static const lastName = "Last Name";
-
+  static const visualAcuityTest = "Visual Acuity Test";
+  static const fitnessSection = "Fitness Section";
+  static const firstAidTips = "First Aid tips";
+  static const plantSection = "Medicinal Herbs and\nPlants";
+  static const editProfile = "Edit Profile";
+  static const notification = "Notification";
+  static const payment = "Payment";
+  static const security = "Security";
+  static const language = "Language";
+  static const darkMode = "Dark Mode";
+  static const helpCenter = "Help Center";
+  static const inviteFriends = "Invite Friends";
+  static const logout = "Logout";
+  static const generalNotification = "General Notification";
+  static const sound = "Sound";
+  static const vibrate = "Vibrate";
+  static const specialOffers = "Special Offers";
+  static const promoAndDiscount = "Promo & Discount";
+  static const cashback = "Cashback";
+  static const appUpdates = "App Updates";
+  static const newServiceAvailable = "New Service Available";
+  static const newTipsAvailable = "New Tips Available";
+  static const update = "Update";
+  static const selectDate = "Select Date";
+  static const selectHour = "Select Hour";
+  static const bookAppointMent = "Book Appointment";
 
   // bottom navigation view
   static const home = "Home";
@@ -68,7 +93,8 @@ class StringManager {
 
   static const myAppointment = "My Appointment";
   static const myAppointmentTxt1 = "You don\'t have an appointment yet";
-  static const myAppointmentTxt2 = "You don\'t have a doctor\'s appointment scheduled at the moment";
+  static const myAppointmentTxt2 =
+      "You don\'t have a doctor\'s appointment scheduled at the moment";
   static const mostLiked = "Most Liked";
   static const showAll = "Show all";
   static const myBookmarks = "My Bookmarks";

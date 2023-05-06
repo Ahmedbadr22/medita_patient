@@ -43,6 +43,7 @@ Failure _handleError(DioError error) {
           return Failure(0, "Null Response");
         }
         String errorMessage = "";
+        print("Error =>=============> ${response.data["detail"]}");
         if (response.data["detail"] != null) {
           errorMessage = response.data["detail"];
         } else {

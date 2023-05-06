@@ -11,6 +11,6 @@ class RegistrationDataSource {
   /// call the registration api
   /// return [Future] response of [RegistrationResponse]
   Future<RegistrationResponse> registration(RegistrationRequest registrationRequest) async {
-    return await _registrationApiServiceClient.register(registrationRequest.firstName, registrationRequest.lastName, registrationRequest.email, registrationRequest.password);
+    return await _registrationApiServiceClient.register(registrationRequest.fullName, registrationRequest.email, registrationRequest.password);
   }
 }

@@ -13,7 +13,7 @@ class _RegistrationApiServiceClient implements RegistrationApiServiceClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://e6f1-197-56-86-39.eu.ngrok.io/';
+    baseUrl ??= 'https://api.meditahealthcare.me/';
   }
 
   final Dio _dio;
@@ -22,8 +22,7 @@ class _RegistrationApiServiceClient implements RegistrationApiServiceClient {
 
   @override
   Future<RegistrationResponse> register(
-    firstName,
-    lastName,
+    fullname,
     email,
     password,
   ) async {
@@ -31,8 +30,7 @@ class _RegistrationApiServiceClient implements RegistrationApiServiceClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'first_name': firstName,
-      'last_name': lastName,
+      'fullname': fullname,
       'email': email,
       'password': password,
     };

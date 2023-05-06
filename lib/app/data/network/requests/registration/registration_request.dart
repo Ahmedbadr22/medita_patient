@@ -1,8 +1,7 @@
 class RegistrationRequest {
-  String firstName;
-  String lastName;
+  String fullName;
   String email;
   String password;
 
-  RegistrationRequest(this.firstName, this.lastName, this.email, this.password);
+  RegistrationRequest(this.fullName, this.email, this.password);
 }

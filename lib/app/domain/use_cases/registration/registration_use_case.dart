@@ -6,16 +6,15 @@ import 'package:medita_patient/app/data/repositories/registration/registration_r
 import 'package:medita_patient/app/domain/use_cases/base/base_use_case.dart';
 
 class RegistrationUseCaseInput {
-  String firstName;
-  String lastName;
+  String fullName;
   String email;
   String password;
 
-  RegistrationUseCaseInput(this.firstName, this.lastName, this.email, this.password);
+  RegistrationUseCaseInput(this.fullName, this.email, this.password);
 
   @override
   String toString() {
-    return "$firstName $lastName $email $password";
+    return "$fullName $email $password";
   }
 }
 
@@ -31,7 +30,7 @@ class RegisterUseCase implements BaseUseCase<RegistrationUseCaseInput, Registrat
   /// [Failure] if fail call
   @override
   Future<Either<Failure, Registration>> execute(RegistrationUseCaseInput registrationUseCaseInput) async {
-    RegistrationRequest registrationRequest = RegistrationRequest(registrationUseCaseInput.firstName, registrationUseCaseInput.lastName, registrationUseCaseInput.email, registrationUseCaseInput.password);
+    RegistrationRequest registrationRequest = RegistrationRequest(registrationUseCaseInput.fullName, registrationUseCaseInput.email, registrationUseCaseInput.password);
     return await _registrationRepository.register(registrationRequest);
   }
 }

@@ -1,7 +1,7 @@
 
 class ApiConstants {
   // Server baseUrl
-  static const String baseUrl = "https://e6f1-197-56-86-39.eu.ngrok.io/";
+  static const String baseUrl = "https://api.meditahealthcare.me/";
   // main app url
   static const String _authenticationUrl = "authentication";
   static const String _clinicUrl = "clinic";

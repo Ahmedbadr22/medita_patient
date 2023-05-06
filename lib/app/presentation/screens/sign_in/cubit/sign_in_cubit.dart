@@ -107,7 +107,6 @@ class SignInCubit extends Cubit<SignInState> {
   /// by passing [BuildContext] as the Current Screen BuildContext
   void navigateToSignUpScreen(BuildContext context) {
     Navigator.pushReplacementNamed(context, Routes.signUpRoute);
-    close();
   }
 
   /// this function allow you to navigate to Navigation Screen
