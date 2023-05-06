@@ -1,7 +1,7 @@
 
 class ApiConstants {
   // Server baseUrl
-  static const String baseUrl = "https://medita-api.vercel.app/";
+  static const String baseUrl = "https://api.meditahealthcare.me/";
   // main app url
   static const String _authenticationUrl = "authentication";
   static const String _clinicUrl = "clinic";

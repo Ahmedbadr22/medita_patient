@@ -13,7 +13,7 @@ class _DoctorClientApi implements DoctorClientApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://medita-api.vercel.app/';
+    baseUrl ??= 'https://api.meditahealthcare.me/';
   }
 
   final Dio _dio;
