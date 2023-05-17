@@ -12,8 +12,8 @@ AppointmentResponse _$AppointmentResponseFromJson(Map<String, dynamic> json) =>
       json['doctor'] == null
           ? null
           : DoctorResponse.fromJson(json['doctor'] as Map<String, dynamic>),
-      json['date'] as String?,
-      json['time'] as String?,
+      json['meeting_link'] as String?,
+      json['date_time'] as String?,
       json['problem_detail'] as String?,
       json['booking_request_date'] as String?,
       json['is_canceled'] as bool?,
@@ -24,8 +24,8 @@ Map<String, dynamic> _$AppointmentResponseToJson(
     <String, dynamic>{
       'id': instance.id,
       'doctor': instance.doctorResponse,
-      'date': instance.date,
-      'time': instance.time,
+      'meeting_link': instance.meetingLink,
+      'date_time': instance.dateTime,
       'problem_detail': instance.problemDetail,
       'booking_request_date': instance.bookingRequestDate,
       'is_canceled': instance.isCanceled,

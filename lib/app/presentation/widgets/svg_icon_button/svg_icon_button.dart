@@ -15,7 +15,12 @@ class SvgIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onPressed,
-      icon: SvgPicture.asset(svgPath),
+      icon: SvgPicture.asset(
+        svgPath,
+        width: 20,
+        height: 20,
+      ),
+      iconSize: 20,
     );
   }
 }

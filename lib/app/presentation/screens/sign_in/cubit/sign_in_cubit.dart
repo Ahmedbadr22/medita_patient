@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medita_patient/app/domain/use_cases/user/set_user_email_use_case.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_states.dart';
 
 import '../../../../data/models/data/token.dart';
@@ -12,10 +13,11 @@ import '../../../manager/routes_manager.dart';
 import '../../../manager/string_manager.dart';
 
 class SignInCubit extends Cubit<SignInState> {
-  SignInCubit(this._loginUseCase) : super(SignInInitSate());
+  SignInCubit(this._loginUseCase, this._setUserEmailUsecase) : super(SignInInitSate());
 
   /// this [LoginUseCase] instance allow us to call the use case methods
   final LoginUseCase _loginUseCase;
+  final SetUserEmailUsecase _setUserEmailUsecase;
 
   LoginObject loginObject = LoginObject("", "");
 
@@ -82,6 +84,7 @@ class SignInCubit extends Cubit<SignInState> {
       errorText = failure.message;
       emit(SignInFailSate());
     }, (token) => {
+      _setUserEmailUsecase.execute(email),
       emit(SignInSuccessSate())
     });
 

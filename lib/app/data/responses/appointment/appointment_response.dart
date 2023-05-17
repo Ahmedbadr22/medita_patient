@@ -10,10 +10,10 @@ class AppointmentResponse {
   int? id;
   @JsonKey(name: "doctor")
   DoctorResponse? doctorResponse;
-  @JsonKey(name: "date")
-  String? date;
-  @JsonKey(name: "time")
-  String? time;
+  @JsonKey(name: "meeting_link")
+  String? meetingLink;
+  @JsonKey(name: "date_time")
+  String? dateTime;
   @JsonKey(name: "problem_detail")
   String? problemDetail;
   @JsonKey(name: "booking_request_date")
@@ -23,7 +23,7 @@ class AppointmentResponse {
 
 
 
-  AppointmentResponse(this.id, this.doctorResponse, this.date, this.time, this.problemDetail, this.bookingRequestDate, this.isCanceled);
+  AppointmentResponse(this.id, this.doctorResponse, this.meetingLink, this.dateTime, this.problemDetail, this.bookingRequestDate, this.isCanceled);
 
   /// fromJson named constructor to convert json to ArticleResponse object
   /// by giving [json] which is a map object as a parameter

@@ -10,11 +10,12 @@ import 'package:medita_patient/app/presentation/widgets/fake_search_button/fake_
 import 'package:medita_patient/app/presentation/widgets/home_card/home_card.dart';
 import 'package:medita_patient/app/presentation/widgets/hospital_card_item/hospital_card_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../common/builders/builders.dart';
+import '../../../../data/models/data/speciality/speciality.dart';
 import '../../../manager/color_manager.dart';
 import '../../../manager/routes_manager.dart';
 import '../../../widgets/main_app_bar/main_app_bar.dart';
 import '../../../widgets/section_header/section_header.dart';
+import '../../../widgets/speciality_button/speciality_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,6 +38,11 @@ class HomeScreen extends StatelessWidget {
 
     separatorItemBuilder(BuildContext context, int index) {
       return 10.pw;
+    }
+
+    SpecialityButton specialtyItemBuilder(_, int index) {
+      Speciality speciality = homeScreenCubit.specialities[index];
+      return SpecialityButton(speciality: speciality);
     }
 
     return BlocConsumer<HomeScreenCubit, HomeScreenState>(
@@ -101,16 +107,12 @@ class HomeScreen extends StatelessWidget {
                         height: homeScreenCubit.getSpecialitiesGridHeight(),
                         child: GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
                             mainAxisSpacing: 4.0,
                           ),
                           itemCount: homeScreenCubit.specialities.length,
-                          itemBuilder: (_, int index) => specialtyItemBuilder(
-                            index,
-                            homeScreenCubit.specialities,
-                          ),
+                          itemBuilder: specialtyItemBuilder,
                         ),
                       ),
                       SectionHeader(

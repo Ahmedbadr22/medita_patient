@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/app/di.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
+import 'package:medita_patient/app/presentation/screens/appointment/view/appointment_detail_screen.dart';
 import 'package:medita_patient/app/presentation/screens/article_detail/view/article_detail.dart';
+import 'package:medita_patient/app/presentation/screens/book_appointment/screen/book_appointment_screen.dart';
 import 'package:medita_patient/app/presentation/screens/bookmarks/view/article_bookmarks_screen.dart';
 import 'package:medita_patient/app/presentation/screens/doctor_detail/view/doctor_detail_screen.dart';
 import 'package:medita_patient/app/presentation/screens/favorite_doctors/view/favorite_doctors_screen.dart';
@@ -39,6 +41,8 @@ class Routes {
   static const specialityRoute = "/specialityRoute";
   static const doctorDetailRoute = "/doctorDetailRoute";
   static const favoriteDoctors = "/favoriteDoctors";
+  static const bookAppointmentScreenRoute = "/bookAppointmentScreenRoute";
+  static const appointmentDetailScreenRoute = "/appointmentDetailScreenRoute";
 }
 
 class RouteGenerator {
@@ -126,6 +130,17 @@ class RouteGenerator {
           initListNearHospitalsModule();
           return const NearHospitalsScreen();
         });
+      case Routes.bookAppointmentScreenRoute:
+        initBookAppointmentModule();
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const BookAppointmentScreen(),
+        );
+      case Routes.appointmentDetailScreenRoute:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const AppointmentDetailScreen(),
+        );
       default:
         return MaterialPageRoute(builder: (_) => unDefinedRoute());
     }

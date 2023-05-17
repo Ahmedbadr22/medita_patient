@@ -13,6 +13,8 @@ class MainTextInputField extends StatelessWidget {
     this.errorText,
     this.validator,
     this.textInputType,
+    this.expands = false,
+    this.maxLines
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -24,6 +26,8 @@ class MainTextInputField extends StatelessWidget {
   final Function(String)? onChange;
   final String? Function(String?)? validator;
   final TextInputType? textInputType;
+  final bool expands;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,9 @@ class MainTextInputField extends StatelessWidget {
           minWidth: 24,
         ),
       ),
+      textAlign: TextAlign.justify,
+      maxLines: maxLines,
+      expands: expands,
       onChanged: onChange,
       obscureText: isObscureText ?? false,
     );

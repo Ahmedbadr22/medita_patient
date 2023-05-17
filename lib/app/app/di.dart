@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:medita_patient/app/app/constants.dart';
 import 'package:medita_patient/app/data/data_sources/local/sharedPref/token_local_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/appointment/appointment_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/article/article_data_source.dart';
@@ -14,6 +15,7 @@ import 'package:medita_patient/app/data/network/api/article/article_client_api.d
 import 'package:medita_patient/app/data/network/api/banner/banner_client_api.dart';
 import 'package:medita_patient/app/data/network/api/doctor/doctor_client_api.dart';
 import 'package:medita_patient/app/data/network/api/login/login_api_service_client.dart';
+import 'package:medita_patient/app/data/network/api/meeting/meeting_api_service_client.dart';
 import 'package:medita_patient/app/data/network/api/near_hospitals/list_near_hospitals/list_near_hospitals_api_service_client.dart';
 import 'package:medita_patient/app/data/network/api/registration/registration_api_service_client.dart';
 import 'package:medita_patient/app/data/network/api/specialty/specialty_client_api.dart';
@@ -25,9 +27,11 @@ import 'package:medita_patient/app/data/repositories/banner/banner_repository.da
 import 'package:medita_patient/app/data/repositories/doctor/doctor_repository.dart';
 import 'package:medita_patient/app/data/repositories/hospital/hospital_repository.dart';
 import 'package:medita_patient/app/data/repositories/login/login_repository.dart';
+import 'package:medita_patient/app/data/repositories/meeting/meeting_repository.dart';
 import 'package:medita_patient/app/data/repositories/registration/registration_repository.dart';
 import 'package:medita_patient/app/data/repositories/specialty/specialty_repository.dart';
 import 'package:medita_patient/app/data/repositories/token/token_repository.dart';
+import 'package:medita_patient/app/domain/use_cases/appointment/add_user_appointments_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/appointment/list_user_appointments_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/article/list_most_liked_articles_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/article/list_user_bookmarks_articles.dart';
@@ -36,6 +40,7 @@ import 'package:medita_patient/app/domain/use_cases/doctor/list_doctors_by_speci
 import 'package:medita_patient/app/domain/use_cases/doctor/list_user_favorite_doctors_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/hospital/list_near_hospitals.dart';
 import 'package:medita_patient/app/domain/use_cases/login/login_use_case.dart';
+import 'package:medita_patient/app/domain/use_cases/metting/create_meeting_usecase.dart';
 import 'package:medita_patient/app/domain/use_cases/registration/registration_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/specialty/list_specialties_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/token/get_local_token_use_case.dart';
@@ -53,13 +58,18 @@ import 'package:medita_patient/app/presentation/screens/speciality/cubit/Special
 import 'package:medita_patient/app/presentation/screens/splash/cubit/splash_screen_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/data_sources/remote/meetting/meeting_data_source.dart';
 import '../data/data_sources/remote/specialty/speciality_data_source.dart';
 import '../domain/use_cases/category/list_article_categories_use_case.dart';
+import '../domain/use_cases/user/get_user_email_use_case.dart';
+import '../domain/use_cases/user/set_user_email_use_case.dart';
+import '../presentation/screens/book_appointment/cubit/book_appointment_cubit.dart';
 
 final diInstance = GetIt.instance;
 
 Future<void> initAppModule() async {
-  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
 
   // shared preferences instance
   diInstance.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
@@ -73,7 +83,6 @@ Future<void> initAppModule() async {
 
   Dio dio = await diInstance<DioFactory>().getDio();
 
-
   // Login
   // app service client instance
   diInstance.registerLazySingleton<LoginApiServiceClient>(
@@ -84,11 +93,10 @@ Future<void> initAppModule() async {
       () => LoginDataSource(diInstance<LoginApiServiceClient>()));
 
   diInstance.registerLazySingleton<TokenLocalDataSource>(
-          () => TokenLocalDataSource(diInstance<SharedPreferences>()));
+      () => TokenLocalDataSource(diInstance<SharedPreferences>()));
 
   diInstance.registerLazySingleton<TokenRepository>(
-          () => TokenRepository(diInstance<TokenLocalDataSource>()));
-
+      () => TokenRepository(diInstance<TokenLocalDataSource>()));
 
   // repository instance
   diInstance.registerLazySingleton<LoginRepository>(() => LoginRepository(
@@ -122,7 +130,7 @@ Future<void> initAppModule() async {
       diInstance<HospitalDataSource>(), diInstance<NetworkInfo>()));
 
   diInstance.registerFactory<ListNearHospitalsUseCase>(
-          () => ListNearHospitalsUseCase(diInstance<HospitalRepository>()));
+      () => ListNearHospitalsUseCase(diInstance<HospitalRepository>()));
 
   /// Banner
   // app service client instance
@@ -146,81 +154,109 @@ Future<void> initAppModule() async {
       () => SpecialtyDataSource(diInstance<SpecialtyClientApi>()));
 
   // repository instance
-  diInstance.registerLazySingleton<SpecialtyRepository>(() => SpecialtyRepository(diInstance<SpecialtyDataSource>(), diInstance<NetworkInfo>()));
+  diInstance.registerLazySingleton<SpecialtyRepository>(() =>
+      SpecialtyRepository(
+          diInstance<SpecialtyDataSource>(), diInstance<NetworkInfo>()));
 
-  diInstance.registerFactory<ListSpecialtiesUseCase>(() => ListSpecialtiesUseCase(diInstance<SpecialtyRepository>()));
+  diInstance.registerFactory<ListSpecialtiesUseCase>(
+      () => ListSpecialtiesUseCase(diInstance<SpecialtyRepository>()));
 
   /// Doctor
   // app service client instance
   diInstance.registerLazySingleton<DoctorClientApi>(() => DoctorClientApi(dio));
 
   // remote datasource instance
-  diInstance.registerLazySingleton<DoctorDataSource>(() => DoctorDataSource(diInstance<DoctorClientApi>()));
+  diInstance.registerLazySingleton<DoctorDataSource>(
+      () => DoctorDataSource(diInstance<DoctorClientApi>()));
 
   // repository instance
-  diInstance.registerLazySingleton<DoctorRepository>(() => DoctorRepository(diInstance<DoctorDataSource>(), diInstance<NetworkInfo>()));
+  diInstance.registerLazySingleton<DoctorRepository>(() => DoctorRepository(
+      diInstance<DoctorDataSource>(), diInstance<NetworkInfo>()));
 
   /// Article
   // app service client instance
-  diInstance.registerLazySingleton<ArticleClientApi>(() => ArticleClientApi(dio));
+  diInstance
+      .registerLazySingleton<ArticleClientApi>(() => ArticleClientApi(dio));
 
   // remote datasource instance
-  diInstance.registerLazySingleton<ArticleDataSource>(() => ArticleDataSource(diInstance<ArticleClientApi>()));
+  diInstance.registerLazySingleton<ArticleDataSource>(
+      () => ArticleDataSource(diInstance<ArticleClientApi>()));
 
   // repository instance
-  diInstance.registerLazySingleton<ArticleRepository>(() => ArticleRepository(diInstance<ArticleDataSource>(), diInstance<NetworkInfo>()));
+  diInstance.registerLazySingleton<ArticleRepository>(() => ArticleRepository(
+      diInstance<ArticleDataSource>(), diInstance<NetworkInfo>()));
 
   // use case
-  diInstance.registerFactory<ListMostLikedArticlesUseCase>(() => ListMostLikedArticlesUseCase(diInstance<ArticleRepository>()));
-  diInstance.registerFactory<ListArticleCategoriesUseCase>(() => ListArticleCategoriesUseCase(diInstance<ArticleRepository>()));
-  diInstance.registerFactory<ListUserBookmarksArticlesUseCase>(() => ListUserBookmarksArticlesUseCase(diInstance<ArticleRepository>()));
+  diInstance.registerFactory<ListMostLikedArticlesUseCase>(
+      () => ListMostLikedArticlesUseCase(diInstance<ArticleRepository>()));
+  diInstance.registerFactory<ListArticleCategoriesUseCase>(
+      () => ListArticleCategoriesUseCase(diInstance<ArticleRepository>()));
+  diInstance.registerFactory<ListUserBookmarksArticlesUseCase>(
+      () => ListUserBookmarksArticlesUseCase(diInstance<ArticleRepository>()));
 
   // Appointments
   // app service client instance
-  diInstance.registerLazySingleton<AppointmentClientApi>(() => AppointmentClientApi(dio));
+  diInstance.registerLazySingleton<AppointmentClientApi>(
+      () => AppointmentClientApi(dio));
 
   // remote datasource instance
-  diInstance.registerLazySingleton<AppointmentDataSource>(() => AppointmentDataSource(diInstance<AppointmentClientApi>()));
+  diInstance.registerLazySingleton<AppointmentDataSource>(
+      () => AppointmentDataSource(diInstance<AppointmentClientApi>()));
 
   // repository instance
-  diInstance.registerLazySingleton<AppointmentRepository>(() => AppointmentRepository(diInstance<AppointmentDataSource>(), diInstance<NetworkInfo>()));
-  diInstance.registerFactory<ListUserAppointmentsUseCase>(() => ListUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
+  diInstance.registerLazySingleton<AppointmentRepository>(() =>
+      AppointmentRepository(
+          diInstance<AppointmentDataSource>(), diInstance<NetworkInfo>()));
+  diInstance.registerFactory<ListUserAppointmentsUseCase>(
+      () => ListUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
+
+  //  use case instance
+  diInstance.registerLazySingleton<MeetingApiServiceClient>(
+      () => MeetingApiServiceClient(dio, baseUrl: ApiConstants.meetingBaseUrl));
+  diInstance.registerLazySingleton<MeetingRemoteDatasource>(
+      () => MeetingRemoteDatasource(diInstance<MeetingApiServiceClient>()));
+  diInstance.registerLazySingleton<MeetingRepository>(() => MeetingRepository(
+      diInstance<MeetingRemoteDatasource>(), diInstance<NetworkInfo>()));
 }
 
 void initSplashScreen() {
-  if(!GetIt.I.isRegistered<GetLocalTokenUseCase>()) {
+  if (!GetIt.I.isRegistered<GetLocalTokenUseCase>()) {
     diInstance.registerFactory<GetLocalTokenUseCase>(
-            () => GetLocalTokenUseCase(diInstance<TokenRepository>()));
+        () => GetLocalTokenUseCase(diInstance<TokenRepository>()));
 
     diInstance.registerFactory<SplashScreenCubit>(
-            () => SplashScreenCubit(diInstance<GetLocalTokenUseCase>()));
+        () => SplashScreenCubit(diInstance<GetLocalTokenUseCase>()));
   }
 }
-
 
 void initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
     // login use case instance
     diInstance.registerFactory<SaveTokenUseCase>(
-            () => SaveTokenUseCase(diInstance<TokenRepository>()));
+        () => SaveTokenUseCase(diInstance<TokenRepository>()));
 
-    diInstance.registerFactory<LoginUseCase>(
-            () => LoginUseCase(diInstance<LoginRepository>(),
-                diInstance<SaveTokenUseCase>()));
+    diInstance.registerFactory<LoginUseCase>(() => LoginUseCase(
+        diInstance<LoginRepository>(), diInstance<SaveTokenUseCase>()));
+
+    diInstance.registerFactory<SetUserEmailUsecase>(
+        () => SetUserEmailUsecase(diInstance<SharedPreferences>()));
 
     // login viewModel instance
-    diInstance.registerFactory<SignInCubit>(
-        () => SignInCubit(diInstance<LoginUseCase>()));
+    diInstance.registerFactory<SignInCubit>(() => SignInCubit(
+        diInstance<LoginUseCase>(), diInstance<SetUserEmailUsecase>()));
   }
 }
 
 void initFavoriteDoctorsModule() {
   if (!GetIt.I.isRegistered<ListUserFavoriteDoctorsUseCase>()) {
-    diInstance.registerFactory<ListUserFavoriteDoctorsUseCase>(() => ListUserFavoriteDoctorsUseCase(diInstance<DoctorRepository>(), diInstance<GetLocalTokenUseCase>()));
+    diInstance.registerFactory<ListUserFavoriteDoctorsUseCase>(() =>
+        ListUserFavoriteDoctorsUseCase(diInstance<DoctorRepository>(),
+            diInstance<GetLocalTokenUseCase>()));
 
     // login viewModel instance
-    diInstance.registerFactory<FavoriteDoctorsScreenCubit>(
-            () => FavoriteDoctorsScreenCubit(diInstance<ListUserFavoriteDoctorsUseCase>()));
+    diInstance.registerFactory<FavoriteDoctorsScreenCubit>(() =>
+        FavoriteDoctorsScreenCubit(
+            diInstance<ListUserFavoriteDoctorsUseCase>()));
   }
 }
 
@@ -239,7 +275,8 @@ void initRegistrationModule() {
 void initMainScreenModule() {
   if (!GetIt.I.isRegistered<GetAllBannersUseCase>()) {
     // getAllBannersUseCase instance
-    diInstance.registerFactory<GetAllBannersUseCase>(() => GetAllBannersUseCase(diInstance<BannerRepository>()));
+    diInstance.registerFactory<GetAllBannersUseCase>(
+        () => GetAllBannersUseCase(diInstance<BannerRepository>()));
 
     diInstance.registerFactory<HomeScreenCubit>(() => HomeScreenCubit(
           diInstance<GetAllBannersUseCase>(),
@@ -247,9 +284,10 @@ void initMainScreenModule() {
           diInstance<ListNearHospitalsUseCase>(),
         ));
 
-    diInstance.registerFactory<AppointmentScreenCubit>(() => AppointmentScreenCubit(
-      diInstance<ListUserAppointmentsUseCase>(),
-    ));
+    diInstance
+        .registerFactory<AppointmentScreenCubit>(() => AppointmentScreenCubit(
+              diInstance<ListUserAppointmentsUseCase>(),
+            ));
 
     // MainScreen viewModel instance
     diInstance.registerFactory<MainScreenCubit>(() => MainScreenCubit());
@@ -266,31 +304,52 @@ void initListNearHospitalsModule() {
 
 void initArticlesScreenModule() {
   if (!GetIt.I.isRegistered<ArticleScreenCubit>()) {
-
     // cubit instance
     diInstance.registerFactory<ArticleScreenCubit>(() => ArticleScreenCubit(
-        diInstance<ListMostLikedArticlesUseCase>(),
-        diInstance<ListArticleCategoriesUseCase>(),
-    ));
+          diInstance<ListMostLikedArticlesUseCase>(),
+          diInstance<ListArticleCategoriesUseCase>(),
+        ));
   }
 }
 
 void initArticlesBookmarksScreenModule() {
   if (!GetIt.I.isRegistered<ArticlesBookMarksScreenCubit>()) {
-
     // cubit instance
-    diInstance.registerFactory<ArticlesBookMarksScreenCubit>(() => ArticlesBookMarksScreenCubit(
-      diInstance<ListUserBookmarksArticlesUseCase>(),
-    ));
+    diInstance.registerFactory<ArticlesBookMarksScreenCubit>(
+        () => ArticlesBookMarksScreenCubit(
+              diInstance<ListUserBookmarksArticlesUseCase>(),
+            ));
   }
 }
 
 void initSpecialityModule() {
   if (!GetIt.I.isRegistered<ListDoctorsBySpecialityIdUseCase>()) {
     //  use case instance
-    diInstance.registerFactory<ListDoctorsBySpecialityIdUseCase>(() => ListDoctorsBySpecialityIdUseCase(diInstance<DoctorRepository>()));
+    diInstance.registerFactory<ListDoctorsBySpecialityIdUseCase>(
+        () => ListDoctorsBySpecialityIdUseCase(diInstance<DoctorRepository>()));
 
     // cubit instance
-    diInstance.registerFactory<SpecialityScreenCubit>(() => SpecialityScreenCubit(diInstance<ListDoctorsBySpecialityIdUseCase>()));
+    diInstance.registerFactory<SpecialityScreenCubit>(() =>
+        SpecialityScreenCubit(diInstance<ListDoctorsBySpecialityIdUseCase>()));
+  }
+}
+
+void initBookAppointmentModule() {
+  if (!GetIt.I.isRegistered<CreateMeetingUseCase>()) {
+    diInstance.registerFactory<CreateMeetingUseCase>(
+        () => CreateMeetingUseCase(diInstance<MeetingRepository>()));
+    diInstance.registerFactory<GetUserEmailUsecase>(
+        () => GetUserEmailUsecase(diInstance<SharedPreferences>()));
+
+    diInstance.registerFactory<AddUserAppointmentsUseCase>(
+            () => AddUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
+
+    // cubit instance
+    diInstance.registerFactory<BookAppointmentCubit>(() => BookAppointmentCubit(
+          diInstance<CreateMeetingUseCase>(),
+          diInstance<GetUserEmailUsecase>(),
+          diInstance<GetLocalTokenUseCase>(),
+          diInstance<AddUserAppointmentsUseCase>(),
+        ));
   }
 }
