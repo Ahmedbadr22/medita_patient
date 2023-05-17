@@ -2,6 +2,7 @@
 class ApiConstants {
   // Server baseUrl
   static const String baseUrl = "https://api.meditahealthcare.me/";
+  static const String meetingBaseUrl = "http://google-meeting.meditahealthcare.me/";
   // main app url
   static const String _authenticationUrl = "authentication";
   static const String _clinicUrl = "clinic";
@@ -30,6 +31,9 @@ class ApiConstants {
   static const String listUserArticlesBookMarks = "$_articlesUrl/list-user-bookmarks/{id}";
   // Appointment
   static const String listUserAppointments = "$_clinicUrl/list-appointments-by-user/{id}";
+  static const String addAppointment = "$_clinicUrl/add-appointment";
+
+  static const String createMeeting = "api/create-meeting";
 
 }
 

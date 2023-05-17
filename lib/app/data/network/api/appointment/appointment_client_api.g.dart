@@ -46,6 +46,41 @@ class _AppointmentClientApi implements AppointmentClientApi {
     return value;
   }
 
+  @override
+  Future<AppointmentResponse> addUserAppointments(
+    doctorId,
+    patientId,
+    problemDetail,
+    dateTime,
+    meetingLink,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'doctor': doctorId,
+      'patient': patientId,
+      'problem_detail': problemDetail,
+      'date_time': dateTime,
+      'meeting_link': meetingLink,
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AppointmentResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'clinic/add-appointment',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AppointmentResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

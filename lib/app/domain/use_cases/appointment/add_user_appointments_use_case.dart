@@ -4,12 +4,12 @@ import 'package:medita_patient/app/data/repositories/appointment/appointment_rep
 
 import '../../../data/models/data/failure/auth/auth_failure.dart';
 
-class ListUserAppointmentsUseCase {
+class AddUserAppointmentsUseCase {
   late final AppointmentRepository _repository;
 
-  ListUserAppointmentsUseCase(this._repository);
+  AddUserAppointmentsUseCase(this._repository);
 
-  Future<Either<Failure, List<Appointment>>> execute() async {
-    return await _repository.listUserAppointments(1);
+  Future<Either<Failure, Appointment>> execute(int doctorId, int patientId, String problemDetail, String dateTime, String meetingLink) async {
+    return await _repository.addUserAppointments(doctorId, patientId, problemDetail, dateTime, meetingLink);
   }
 }

@@ -71,6 +71,7 @@ class SignInScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: AppSize.s10),
                         MainTextInputField(
+                          maxLines: 1,
                           controller: _passwordTextEditingController,
                           textInputType: TextInputType.text,
                           prefixIcon: SvgPicture.asset(

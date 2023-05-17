@@ -10,6 +10,6 @@ import 'package:medita_patient/app/data/responses/appointment/appointment_respon
 extension AppointmentResponseMapper on AppointmentResponse {
   Appointment toDomain() {
     Doctor doctor = doctorResponse!.toDomain();
-    return Appointment(id.orZero(), doctor, date.orEmpty(), time.orEmpty(), problemDetail.orEmpty(), bookingRequestDate.orEmpty(), isCanceled ?? false);
+    return Appointment(id.orZero(), doctor, dateTime.orEmpty(), meetingLink.orEmpty(), problemDetail.orEmpty(), bookingRequestDate.orEmpty(), isCanceled ?? false);
   }
 }

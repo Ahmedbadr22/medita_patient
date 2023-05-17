@@ -98,4 +98,5 @@ class StringManager {
   static const mostLiked = "Most Liked";
   static const showAll = "Show all";
   static const myBookmarks = "My Bookmarks";
+  static const problemDetail = "Problem Detail";
 }

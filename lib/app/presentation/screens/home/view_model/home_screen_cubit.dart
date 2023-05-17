@@ -21,6 +21,8 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   final ListSpecialtiesUseCase _listSpecialtiesUseCase;
   final ListNearHospitalsUseCase _listNearHospitalsUseCase;
 
+  bool isSpecialitiesLoaded = false;
+
   HomeScreenCubit(
     this._getAllBannersUseCase,
     this._listSpecialtiesUseCase,
@@ -65,11 +67,12 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       if (kDebugMode) {
         print("===> Fail ${failure.message}");
       }
-    },
-        (data) => {
-              specialities = data,
-              emit(HomeScreenSuccessGetSpecialitiesState())
-            });
+      isSpecialitiesLoaded = true;
+    }, (data) {
+      specialities = data;
+      isSpecialitiesLoaded = true;
+      emit(HomeScreenSuccessGetSpecialitiesState());
+    });
   }
 
   /// Execute the api call and get the hospitals list

@@ -44,5 +44,4 @@ class AppointmentScreenCubit extends Cubit<AppointmentScreenState> {
     emit(AppointmentScreenSuccessProcessState());
   }
 
-
 }

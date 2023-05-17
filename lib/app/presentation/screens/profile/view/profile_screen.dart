@@ -183,15 +183,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   AppBar _appBarSection() {
     return AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: ColorManager.darkBlack,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Text(
           StringManager.profile,
           style: Theme.of(context)

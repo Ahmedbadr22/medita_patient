@@ -5,8 +5,8 @@ import 'package:medita_patient/app/data/models/data/appointment/appointment.dart
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/screens/appointment/cubit/appointment_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/appointment/cubit/appointment_screen_state.dart';
+import 'package:medita_patient/app/presentation/screens/appointment/widget/appointment_card.dart';
 import 'package:medita_patient/app/presentation/widgets/common_app_bar/common_app_bar.dart';
-import 'package:medita_patient/app/presentation/widgets/doctor_card/main_doctor_card.dart';
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({super.key});
@@ -21,7 +21,7 @@ class AppointmentScreen extends StatelessWidget {
         itemCount: data.length,
         itemBuilder: (_, int index) {
           Appointment appointment = data[index];
-          return DoctorCard(doctor: appointment.doctor);
+          return AppointmentCard(appointment: appointment);
         },
       );
     }

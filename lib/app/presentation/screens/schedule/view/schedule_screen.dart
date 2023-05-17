@@ -1,12 +1,3 @@
-// List<TestSectionModel> testsSectionData = [
-//   TestSectionModel(
-//       imageUrl: ImageAsset.eyeImage,
-//       testName: StringManager.visualAcuityTest),
-//   TestSectionModel(
-//       imageUrl: ImageAsset.fitnessImage,
-//       testName: StringManager.fitnessSection),
-// ];
-
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
@@ -31,16 +22,21 @@ class ScheduleScreen extends StatefulWidget {
 class _ScheduleScreenState extends State<ScheduleScreen> {
   List<TestSectionModel> testsSectionData = [
     TestSectionModel(
-        imageUrl: ImageAsset.eyeImage,
-        testName: StringManager.visualAcuityTest),
+      imageUrl: ImageAsset.eyeImage,
+      testName: StringManager.visualAcuityTest,
+    ),
     TestSectionModel(
-        imageUrl: ImageAsset.firstAidImage,
-        testName: StringManager.firstAidTips),
+      imageUrl: ImageAsset.firstAidImage,
+      testName: StringManager.firstAidTips,
+    ),
     TestSectionModel(
-        imageUrl: ImageAsset.fitnessImage,
-        testName: StringManager.fitnessSection),
+      imageUrl: ImageAsset.fitnessImage,
+      testName: StringManager.fitnessSection,
+    ),
     TestSectionModel(
-        imageUrl: ImageAsset.plantImage, testName: StringManager.plantSection),
+      imageUrl: ImageAsset.plantImage,
+      testName: StringManager.plantSection,
+    ),
   ];
 
   List<WelcomeExaminationModel> welcomeExaminationData = [
@@ -69,71 +65,36 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           'Plants provide the essential foundation for life on Earth and are the single most important to life on Earth. ',
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Column(children: [
-      testsSection(
-        asset: testsSectionData[0].imageUrl,
-        data: testsSectionData[0].testName,
-        color: Colors.purple.shade100.withOpacity(0.4),
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => WelcomeExaminationWidget(
-              assetName: welcomeExaminationData[0].assetName,
-              title: welcomeExaminationData[0].title,
-              subTitle: welcomeExaminationData[0].subTitle,
-              onPressed: navigateToEyeTestScreen,
-            ),
-          ));
-        },
-      ),
-      testsSection(
-        asset: testsSectionData[1].imageUrl,
-        data: testsSectionData[1].testName,
-        color: Colors.orange.shade100.withOpacity(0.4),
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => WelcomeExaminationWidget(
-              assetName: welcomeExaminationData[1].assetName,
-              title: welcomeExaminationData[1].title,
-              subTitle: welcomeExaminationData[1].subTitle,
-              onPressed: navigateToFirstAidSectionScreen,
-            ),
-          ));
-        },
-      ),
-      testsSection(
-        color: Colors.blue.shade100.withOpacity(0.4),
-        asset: testsSectionData[2].imageUrl,
-        data: testsSectionData[2].testName,
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => WelcomeExaminationWidget(
-              assetName: welcomeExaminationData[2].assetName,
-              title: welcomeExaminationData[2].title,
-              subTitle: welcomeExaminationData[2].subTitle,
-              onPressed: navigateToFitnessSectionScreen,
-            ),
-          ));
-        },
-      ),
-      testsSection(
+    Widget itemBuilder(_, int index) {
+      return testsSection(
         color: const Color(0XFFC8E9B0).withOpacity(0.6),
-        asset: testsSectionData[3].imageUrl,
-        data: testsSectionData[3].testName,
+        asset: testsSectionData[index].imageUrl,
+        data: testsSectionData[index].testName,
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => WelcomeExaminationWidget(
-              assetName: welcomeExaminationData[3].assetName,
-              title: welcomeExaminationData[3].title,
-              subTitle: welcomeExaminationData[3].subTitle,
-              onPressed: navigatePlantScreen,
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => WelcomeExaminationWidget(
+                assetName: welcomeExaminationData[index].assetName,
+                title: welcomeExaminationData[index].title,
+                subTitle: welcomeExaminationData[index].subTitle,
+                onPressed: navigatePlantScreen,
+              ),
             ),
-          ));
+          );
         },
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView.builder(
+        itemBuilder: itemBuilder,
+        itemCount: testsSectionData.length,
       ),
-    ]));
+    );
   }
 
   navigateToFitnessSectionScreen() {
@@ -167,24 +128,32 @@ Widget testsSection({
     onTap: onTap,
     child: Container(
       height: AppSize.s120,
-      margin: const EdgeInsets.all(AppSize.s16),
+      margin: const EdgeInsets.symmetric(
+          horizontal: AppSize.s16, vertical: AppSize.s8),
       decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.circular(AppSize.s20)),
-      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.all(AppSize.s18),
-          child: Image.asset(asset, height: AppSize.s80),
-        ),
-        const SizedBox(height: AppSize.s10),
-        Center(
-          child: Text(
-            data,
-            textAlign: TextAlign.center,
-            style: getBoldStyle(
-                color: ColorManager.darkBlue, fontSize: AppSize.s18),
+        color: color,
+        borderRadius: BorderRadius.circular(AppSize.s20),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppSize.s18),
+            child: Image.asset(asset, height: AppSize.s80),
           ),
-        )
-      ]),
+          const SizedBox(height: AppSize.s10),
+          Center(
+            child: Text(
+              data,
+              textAlign: TextAlign.center,
+              style: getBoldStyle(
+                color: ColorManager.darkBlue,
+                fontSize: AppSize.s18,
+              ),
+            ),
+          )
+        ],
+      ),
     ),
   );
 }

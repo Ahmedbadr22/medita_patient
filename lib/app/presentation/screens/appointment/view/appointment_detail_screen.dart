@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/app/extensions.dart';
-import 'package:medita_patient/app/presentation/manager/values_manager.dart';
-import 'package:medita_patient/app/presentation/widgets/common_app_bar/common_app_bar.dart';
-import 'package:medita_patient/app/presentation/widgets/doctor_detail_card_item/doctor_detail_card_item.dart';
+import 'package:medita_patient/app/data/models/data/appointment/appointment.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../data/models/data/doctor/doctor.dart';
-import '../../../manager/routes_manager.dart';
+import '../../../manager/values_manager.dart';
+import '../../../widgets/common_app_bar/common_app_bar.dart';
 
-class DoctorDetailScreen extends StatelessWidget {
-  const DoctorDetailScreen({Key? key}) : super(key: key);
+class AppointmentDetailScreen extends StatelessWidget {
+  const AppointmentDetailScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
-    Doctor? doctor = ModalRoute.of(context)?.settings.arguments as Doctor;
 
-    void navigateToBookAppointmentScreen() {
-      Navigator.pushNamed(context, Routes.bookAppointmentScreenRoute, arguments: doctor);
+    Appointment appointment = ModalRoute.of(context)?.settings.arguments as Appointment;
+
+    void openMeetingUri() async {
+      String url = appointment.meetingLink;
+      Uri uri = Uri.parse(url);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
 
     return Scaffold(
-      appBar: commonAppBar(title: "Dr.${doctor.user.fullName}"),
+      appBar: commonAppBar(title: "My Appointment"),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
@@ -30,8 +33,8 @@ class DoctorDetailScreen extends StatelessWidget {
               Container(
                 height: 140,
                 decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
-                    color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  color: Colors.white,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(AppPadding.p16),
@@ -42,7 +45,7 @@ class DoctorDetailScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: const BorderRadius.all(Radius.circular(16)),
                           child: Image.network(
-                            doctor.user.profileImagePath,
+                            appointment.doctor.user.profileImagePath,
                             height: AppSize.s120,
                             fit: BoxFit.cover,
                           ),
@@ -55,14 +58,14 @@ class DoctorDetailScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              doctor.user.fullName,
+                              "Dr.${appointment.doctor.user.fullName}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                fontWeight: FontWeight.bold,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                               maxLines: 1,
                             ),
                             const Divider(),
@@ -72,12 +75,12 @@ class DoctorDetailScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    doctor.speciality.name,
+                                    appointment.doctor.speciality.name,
                                     style: const TextStyle(overflow: TextOverflow.ellipsis),
                                   ),
                                   10.ph,
                                   Text(
-                                    doctor.hospital.name,
+                                    appointment.doctor.hospital.name,
                                     style: const TextStyle(overflow: TextOverflow.ellipsis),
                                   ),
                                 ],
@@ -91,46 +94,37 @@ class DoctorDetailScreen extends StatelessWidget {
                 ),
               ),
               20.ph,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget> [
-                  const DoctorDetailCardItem(
-                    title: "+5,000",
-                    subtitle: "patients",
-                    icon: Icons.people,
-                  ),
-                  DoctorDetailCardItem(
-                    title: doctor.yearsOfExp.toString(),
-                    subtitle: "year of exp",
-                    icon: Icons.insert_chart_outlined,
-                  ),
-                  const DoctorDetailCardItem(
-                    title: "4.8",
-                    subtitle: "rating",
-                    icon: Icons.star_half,
-                  ),
-                  const DoctorDetailCardItem(
-                    title: "4,942",
-                    subtitle: "reviews",
-                    icon: Icons.message,
-                  ),
-                ],
-              ),
-              30.ph,
               Text(
-                "About me",
+                "Scheduled Appointment",
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
                     ?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis,
-                  fontSize: 20
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 20
                 ),
                 maxLines: 1,
               ),
               10.ph,
-              Text(doctor.about)
+              Text(appointment.getNamedDate()),
+              10.ph,
+              Text("${appointment.getTime(context)} (60 minutes) Meeting"),
+              40.ph,
+              Text(
+                "Problem Detail",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 20,
+                ),
+                maxLines: 1,
+              ),
+              10.ph,
+              Text(appointment.problemDetail),
             ],
           ),
         ),
@@ -146,8 +140,8 @@ class DoctorDetailScreen extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: navigateToBookAppointmentScreen,
-                child: const Text("Book Appointment"),
+                onPressed: openMeetingUri,
+                child: const Text("Open Meeting"),
               ),
             ),
           ),
