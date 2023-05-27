@@ -3,6 +3,8 @@ class ApiConstants {
   // Server baseUrl
   static const String baseUrl = "https://api.meditahealthcare.me/";
   static const String meetingBaseUrl = "http://google-meeting.meditahealthcare.me/";
+  static const String stomachDiseasePredictUrl = "https://ahmedbadrdev-stomach.hf.space/run/predict";
+  static const String brainDiseasePredictUrl = "https://ahmedbadrdev-brain.hf.space/run/predict";
   // main app url
   static const String _authenticationUrl = "authentication";
   static const String _clinicUrl = "clinic";

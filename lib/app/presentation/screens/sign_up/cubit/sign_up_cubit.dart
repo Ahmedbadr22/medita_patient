@@ -100,8 +100,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void register() async {
-    isLoadingState = true;
-    emit(SignUpLoadingSate());
+    emit(SignUpLoadingSate(true));
 
     String firstName = registerObject.firstName;
     String lastName = registerObject.lastname;
@@ -116,13 +115,11 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (kDebugMode) {
         print(errorText);
       }
-      emit(SignUpFailSate());
+      emit(SignUpLoadingSate(false));
     }, (registrationModel) {
+      emit(SignUpLoadingSate(false));
       emit(SignUpSuccessSate());
     });
-
-    isLoadingState = false;
-    emit(SignUpProcessEndSate());
   }
 
   void navigateToSignInScreen(BuildContext context) {

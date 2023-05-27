@@ -4,6 +4,7 @@ import 'package:medita_patient/app/data/models/data/hospital/hospital.dart';
 import 'package:medita_patient/app/presentation/manager/asset_manager.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
 import '../../manager/values_manager.dart';
+import '../loading/loading_shimmer.dart';
 
 class HospitalCardItem extends StatelessWidget {
   const HospitalCardItem({Key? key, required this.hospital, required this.size})
@@ -11,6 +12,14 @@ class HospitalCardItem extends StatelessWidget {
 
   final Hospital hospital;
   final Size size;
+
+  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) return child;
+    return const LoadingShimmer(
+      width: AppSize.s130,
+      height: AppSize.s130,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,8 @@ class HospitalCardItem extends StatelessWidget {
                     hospital.imageUrl,
                     height: AppSize.s120,
                     fit: BoxFit.cover,
-                    width: 130,
+                    width: AppSize.s130,
+                    loadingBuilder: loadingItemBuilder,
                   ),
                 ),
                 Container(

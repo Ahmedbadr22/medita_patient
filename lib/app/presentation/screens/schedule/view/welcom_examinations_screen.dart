@@ -31,22 +31,29 @@ class WelcomeExaminationWidget extends StatelessWidget {
               children: [
                 SvgPicture.asset(assetName, height: AppSize.s300),
                 const SizedBox(height: 20),
-                Text(title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayMedium),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
                 const SizedBox(height: AppSize.s18),
-                Text(subTitle!,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  subTitle!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ],
             ),
           ),
           Container(
-              width: double.infinity,
-              height: AppSize.s50,
-              margin: const EdgeInsets.only(bottom: AppSize.s20),
-              child: ElevatedButton(
-                  onPressed: onPressed, child: const Text(StringManager.next)))
+            width: double.infinity,
+            height: AppSize.s50,
+            margin: const EdgeInsets.only(bottom: AppSize.s20),
+            child: ElevatedButton(
+              onPressed: onPressed,
+              child: const Text(StringManager.next),
+            ),
+          )
         ]),
       ),
     );

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medita_patient/app/app/extensions.dart';
 import 'package:medita_patient/app/data/models/data/doctor/doctor.dart';
 import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 
 import '../../manager/asset_manager.dart';
 import '../../manager/color_manager.dart';
 import '../../manager/values_manager.dart';
+import '../loading/loading_shimmer.dart';
 import '../svg_icon_button/svg_icon_button.dart';
 
 class DoctorCard extends StatelessWidget {
@@ -16,12 +18,23 @@ class DoctorCard extends StatelessWidget {
 
   final Doctor doctor;
 
+  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) return child;
+    return const LoadingShimmer(
+      width: AppSize.s120,
+      height: AppSize.s120,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    void navigateToDoctorDetailScreen() {
+      Navigator.pushNamed(context, Routes.doctorDetailRoute, arguments: doctor);
+    }
+
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, Routes.doctorDetailRoute, arguments: doctor);
-      },
+      onTap: navigateToDoctorDetailScreen,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
         child: Card(
@@ -41,6 +54,7 @@ class DoctorCard extends StatelessWidget {
                       doctor.user.profileImagePath,
                       height: AppSize.s120,
                       fit: BoxFit.cover,
+                      loadingBuilder: loadingItemBuilder,
                     ),
                   ),
                 ),
@@ -49,8 +63,10 @@ class DoctorCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: AppSize.s16),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Expanded(
@@ -60,9 +76,9 @@ class DoctorCard extends StatelessWidget {
                                     .textTheme
                                     .titleMedium
                                     ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                ),
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                 maxLines: 1,
                               ),
                             ),
@@ -74,8 +90,15 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const Divider(),
                         Text(
-                          "${doctor.speciality.name} | ${doctor.hospital.name}",
-                          style: const TextStyle(overflow: TextOverflow.ellipsis),
+                          doctor.speciality.name,
+                          style:
+                              const TextStyle(overflow: TextOverflow.ellipsis),
+                        ),
+                        5.ph,
+                        Text(
+                          doctor.hospital.name,
+                          style:
+                              const TextStyle(overflow: TextOverflow.ellipsis),
                         ),
                         const SizedBox(height: AppSize.s5),
                         Row(

@@ -4,6 +4,7 @@ import 'package:medita_patient/app/data/models/data/appointment/appointment.dart
 import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
 
 import '../../../manager/values_manager.dart';
+import '../../../widgets/loading/loading_shimmer.dart';
 
 class AppointmentCard extends StatelessWidget {
   const AppointmentCard({
@@ -13,6 +14,13 @@ class AppointmentCard extends StatelessWidget {
 
   final Appointment appointment;
 
+  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) return child;
+    return const LoadingShimmer(
+      width: double.infinity,
+      height: AppSize.s120,
+    );
+  }
 
 
   @override
@@ -41,11 +49,13 @@ class AppointmentCard extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: const BorderRadius.all(
-                            Radius.circular(AppSize.s20)),
+                            Radius.circular(AppSize.s20),
+                        ),
                         child: Image.network(
                           appointment.doctor.user.profileImagePath,
                           height: AppSize.s120,
                           fit: BoxFit.cover,
+                          loadingBuilder: loadingItemBuilder,
                         ),
                       ),
                       Align(

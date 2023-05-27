@@ -6,6 +6,7 @@ import 'package:medita_patient/app/data/data_sources/local/sharedPref/token_loca
 import 'package:medita_patient/app/data/data_sources/remote/appointment/appointment_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/article/article_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/banner/banner_data_source.dart';
+import 'package:medita_patient/app/data/data_sources/remote/classification/classification_remote_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/doctor/doctor_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/hospital/hospital_data_source.dart';
 import 'package:medita_patient/app/data/data_sources/remote/login/login_date_source.dart';
@@ -24,6 +25,7 @@ import 'package:medita_patient/app/data/network/network_info.dart';
 import 'package:medita_patient/app/data/repositories/appointment/appointment_repository.dart';
 import 'package:medita_patient/app/data/repositories/article/article_repository.dart';
 import 'package:medita_patient/app/data/repositories/banner/banner_repository.dart';
+import 'package:medita_patient/app/data/repositories/classification/classification_repository.dart';
 import 'package:medita_patient/app/data/repositories/doctor/doctor_repository.dart';
 import 'package:medita_patient/app/data/repositories/hospital/hospital_repository.dart';
 import 'package:medita_patient/app/data/repositories/login/login_repository.dart';
@@ -36,6 +38,7 @@ import 'package:medita_patient/app/domain/use_cases/appointment/list_user_appoin
 import 'package:medita_patient/app/domain/use_cases/article/list_most_liked_articles_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/article/list_user_bookmarks_articles.dart';
 import 'package:medita_patient/app/domain/use_cases/banner/get_all_banners_usecase.dart';
+import 'package:medita_patient/app/domain/use_cases/classification/classify_stomach_disease_usecase.dart';
 import 'package:medita_patient/app/domain/use_cases/doctor/list_doctors_by_speciality_id_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/doctor/list_user_favorite_doctors_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/hospital/list_near_hospitals.dart';
@@ -52,6 +55,7 @@ import 'package:medita_patient/app/presentation/screens/favorite_doctors/cubit/f
 import 'package:medita_patient/app/presentation/screens/home/view_model/home_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/navigation/viewModel/main_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/cubit/near_hospitals_screen_cubit.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/screens/disease_test_screen/cubit/disease_test_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/speciality/cubit/SpecialityScreenCubit.dart';
@@ -61,6 +65,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../data/data_sources/remote/meetting/meeting_data_source.dart';
 import '../data/data_sources/remote/specialty/speciality_data_source.dart';
 import '../domain/use_cases/category/list_article_categories_use_case.dart';
+import '../domain/use_cases/classification/classify_brain_disease_usecase.dart';
 import '../domain/use_cases/user/get_user_email_use_case.dart';
 import '../domain/use_cases/user/set_user_email_use_case.dart';
 import '../presentation/screens/book_appointment/cubit/book_appointment_cubit.dart';
@@ -208,7 +213,10 @@ Future<void> initAppModule() async {
       AppointmentRepository(
           diInstance<AppointmentDataSource>(), diInstance<NetworkInfo>()));
   diInstance.registerFactory<ListUserAppointmentsUseCase>(
-      () => ListUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
+      () => ListUserAppointmentsUseCase(
+            diInstance<AppointmentRepository>(),
+            diInstance<GetLocalTokenUseCase>(),
+          ));
 
   //  use case instance
   diInstance.registerLazySingleton<MeetingApiServiceClient>(
@@ -217,6 +225,10 @@ Future<void> initAppModule() async {
       () => MeetingRemoteDatasource(diInstance<MeetingApiServiceClient>()));
   diInstance.registerLazySingleton<MeetingRepository>(() => MeetingRepository(
       diInstance<MeetingRemoteDatasource>(), diInstance<NetworkInfo>()));
+
+  // Disease Prediction
+  diInstance.registerFactory<ClassificationRemoteDataSource>(
+      () => ClassificationRemoteDataSource(dio));
 }
 
 void initSplashScreen() {
@@ -278,16 +290,19 @@ void initMainScreenModule() {
     diInstance.registerFactory<GetAllBannersUseCase>(
         () => GetAllBannersUseCase(diInstance<BannerRepository>()));
 
-    diInstance.registerFactory<HomeScreenCubit>(() => HomeScreenCubit(
-          diInstance<GetAllBannersUseCase>(),
-          diInstance<ListSpecialtiesUseCase>(),
-          diInstance<ListNearHospitalsUseCase>(),
-        ));
+    diInstance.registerFactory<HomeScreenCubit>(
+      () => HomeScreenCubit(
+        diInstance<GetAllBannersUseCase>(),
+        diInstance<ListSpecialtiesUseCase>(),
+        diInstance<ListNearHospitalsUseCase>(),
+      ),
+    );
 
-    diInstance
-        .registerFactory<AppointmentScreenCubit>(() => AppointmentScreenCubit(
-              diInstance<ListUserAppointmentsUseCase>(),
-            ));
+    diInstance.registerFactory<AppointmentScreenCubit>(
+      () => AppointmentScreenCubit(
+        diInstance<ListUserAppointmentsUseCase>(),
+      ),
+    );
 
     // MainScreen viewModel instance
     diInstance.registerFactory<MainScreenCubit>(() => MainScreenCubit());
@@ -342,7 +357,7 @@ void initBookAppointmentModule() {
         () => GetUserEmailUsecase(diInstance<SharedPreferences>()));
 
     diInstance.registerFactory<AddUserAppointmentsUseCase>(
-            () => AddUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
+        () => AddUserAppointmentsUseCase(diInstance<AppointmentRepository>()));
 
     // cubit instance
     diInstance.registerFactory<BookAppointmentCubit>(() => BookAppointmentCubit(
@@ -351,5 +366,26 @@ void initBookAppointmentModule() {
           diInstance<GetLocalTokenUseCase>(),
           diInstance<AddUserAppointmentsUseCase>(),
         ));
+  }
+}
+
+void initDiseaseClassificationModule() {
+  if (!GetIt.I.isRegistered<ClassifyStomachDiseaseUseCase>()) {
+    diInstance.registerFactory<ClassificationRepository>(() =>
+        ClassificationRepository(diInstance<ClassificationRemoteDataSource>()));
+
+    // UseCases
+    diInstance.registerFactory<ClassifyStomachDiseaseUseCase>(() =>
+        ClassifyStomachDiseaseUseCase(diInstance<ClassificationRepository>()));
+    diInstance.registerFactory<ClassifyBrainDiseaseUseCase>(() =>
+        ClassifyBrainDiseaseUseCase(diInstance<ClassificationRepository>()));
+
+    // Cubit
+    diInstance.registerFactory<DiseaseTestCubit>(
+      () => DiseaseTestCubit(
+        diInstance<ClassifyStomachDiseaseUseCase>(),
+        diInstance<ClassifyBrainDiseaseUseCase>(),
+      ),
+    );
   }
 }

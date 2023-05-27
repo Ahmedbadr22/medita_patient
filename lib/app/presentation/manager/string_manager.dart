@@ -1,5 +1,6 @@
 class StringManager {
   static const next = "Next";
+  static const appName = "Medita";
   static const getStarted = "Get Started";
   static const skip = "Skip";
   static const haveAnAccount = "Don't have an account?";
@@ -23,6 +24,7 @@ class StringManager {
   static const what = "What are you looking for?";
   static const welcomeBack = "welcomeBack!";
   static const doctors = "Doctors";
+  static const done = "Done";
   static const doctorsSpecialist = "Find Your Specialist";
   static const hospitals = "Hospitals";
   static const searchHospitals = "Search Top Hospitals";
@@ -99,4 +101,5 @@ class StringManager {
   static const showAll = "Show all";
   static const myBookmarks = "My Bookmarks";
   static const problemDetail = "Problem Detail";
+  static const diseaseTest = "Disease Test";
 }

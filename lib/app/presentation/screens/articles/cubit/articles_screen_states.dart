@@ -1,7 +1,15 @@
 
 
-abstract class ArticleScreenStates {}
+abstract class ArticleScreenStates {
+  bool mostLikedLoading;
+  ArticleScreenStates({this.mostLikedLoading = false});
+}
 
-class ArticleScreenInitState implements ArticleScreenStates {}
-class ArticleScreenDataLoadingState implements ArticleScreenStates {}
-class ArticleScreenDataSuccessLoadedState implements ArticleScreenStates {}
+class ArticleScreenInitState extends ArticleScreenStates {
+}
+class ArticleScreenDataLoadingState extends ArticleScreenStates {
+  ArticleScreenDataLoadingState(bool mostLikedLoading) : super(mostLikedLoading: mostLikedLoading);
+}
+class ArticleScreenDataSuccessLoadedState extends ArticleScreenStates {
+  ArticleScreenDataSuccessLoadedState(bool mostLikedLoading) : super(mostLikedLoading: mostLikedLoading);
+}

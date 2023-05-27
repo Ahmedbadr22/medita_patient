@@ -30,26 +30,25 @@ class ArticleScreenCubit extends Cubit<ArticleScreenStates> {
   }
 
   void listMostLikedArticles() async {
-    emit(ArticleScreenDataLoadingState());
+    emit(ArticleScreenDataLoadingState(true));
     Either<Failure, List<Article>> response =
         await _listMostLikedArticlesUseCase.execute();
-    response.fold(
-        (failure) => {print("===> Fail ${failure.message}")},
-        (data) => {
-              articles = data,
-              emit(ArticleScreenDataSuccessLoadedState()),
-            });
+    response.fold((failure) {
+      print("===> Fail ${failure.message}");
+    }, (data) {
+      articles = data;
+      emit(ArticleScreenDataSuccessLoadedState(false));
+    });
   }
 
   void listArticleCategories() async {
-    emit(ArticleScreenDataLoadingState());
-    Either<Failure, List<Category>> response =
-        await _listArticleCategoriesUseCase.execute();
-    response.fold(
-        (failure) => print("===> Fail ${failure.message}"),
-        (data) => {
-          categories = data,
-          emit(ArticleScreenDataSuccessLoadedState()),
-        });
+    emit(ArticleScreenDataLoadingState(true));
+    Either<Failure, List<Category>> response = await _listArticleCategoriesUseCase.execute();
+    response.fold((failure) {
+      print("===> Fail ${failure.message}");
+    }, (data) {
+      categories = data;
+      emit(ArticleScreenDataSuccessLoadedState(false));
+    });
   }
 }

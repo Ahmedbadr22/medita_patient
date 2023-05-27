@@ -62,6 +62,7 @@ class ImageAsset {
   static const firstAidImage = "$_mainImagePath/first aid.png";
   static const sprainImage = "$_mainImagePath/sprain.png";
   static const plantImage = "$_mainImagePath/plant.png";
+  static const placeholderImage = "$_mainImagePath/placeholder.png";
 
   // videos
   static const yogaVid = "$_mainVideosPath/yoga.mp4";

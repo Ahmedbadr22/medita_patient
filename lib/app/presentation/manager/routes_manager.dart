@@ -7,6 +7,7 @@ import 'package:medita_patient/app/presentation/screens/book_appointment/screen/
 import 'package:medita_patient/app/presentation/screens/bookmarks/view/article_bookmarks_screen.dart';
 import 'package:medita_patient/app/presentation/screens/doctor_detail/view/doctor_detail_screen.dart';
 import 'package:medita_patient/app/presentation/screens/favorite_doctors/view/favorite_doctors_screen.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/screens/disease_test_screen/screens/disease_test_screen.dart';
 import 'package:medita_patient/app/presentation/screens/specialities/view/specialities_screen.dart';
 import 'package:medita_patient/app/presentation/screens/speciality/view/speciality_screen.dart';
 
@@ -43,6 +44,7 @@ class Routes {
   static const favoriteDoctors = "/favoriteDoctors";
   static const bookAppointmentScreenRoute = "/bookAppointmentScreenRoute";
   static const appointmentDetailScreenRoute = "/appointmentDetailScreenRoute";
+  static const diseaseTestScreen = "/diseaseTestScreen";
 }
 
 class RouteGenerator {
@@ -105,7 +107,7 @@ class RouteGenerator {
       case Routes.appointmentRoute:
         return MaterialPageRoute(builder: (_) => const AppointmentScreen());
       case Routes.scheduleRoute:
-        return MaterialPageRoute(builder: (_) => const ScheduleScreen());
+        return MaterialPageRoute(builder: (_) => ScheduleScreen());
       case Routes.articlesRoute:
         {
           initArticlesScreenModule();
@@ -123,6 +125,13 @@ class RouteGenerator {
           initArticlesBookmarksScreenModule();
           return MaterialPageRoute(
             builder: (_) => const ArticlesBookmarksScreen(),
+          );
+        }
+        case Routes.diseaseTestScreen:
+        {
+          initDiseaseClassificationModule();
+          return MaterialPageRoute(
+            builder: (_) => const DiseaseTestScreen(),
           );
         }
       case Routes.nearHospitals:
