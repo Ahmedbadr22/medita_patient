@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:medita_patient/app/app/extensions.dart';
 import 'package:medita_patient/app/data/models/data/doctor/doctor.dart';
 import 'package:medita_patient/app/data/models/data/failure/auth/auth_failure.dart';
 import 'package:medita_patient/app/data/models/data/token.dart';
@@ -26,24 +28,9 @@ class BookAppointmentCubit extends Cubit<BookAppointmentState> {
   ];
 
   DateTime selectedDay = DateTime.now();
-  int selectedTimeIndex = 0;
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   late Doctor appDoctor;
-
-  List times = [
-    '09:00',
-    '09:30',
-    '10:00',
-    '10:30',
-    '11:00',
-    '11:30',
-    '12:00',
-    '12:30',
-    '01:00',
-    '01:30',
-    '02:00',
-    '02:30',
-  ];
 
   TextEditingController problemDetailController = TextEditingController();
   PageController pageController = PageController();
@@ -73,13 +60,16 @@ class BookAppointmentCubit extends Cubit<BookAppointmentState> {
 
   void onDaySelected(DateTime day, DateTime focusedDay) {
     selectedDay = day;
-
     emit(BookAppointmentDateChangeState());
   }
 
-  void onTimeSelected(int index) {
-    selectedTimeIndex = index;
-    emit(BookAppointmentDateChangeState());
+  void onSelectedTimeChanged(TimeOfDay? timeOfDay) {
+    if (timeOfDay == null) {
+      return;
+    }
+
+    selectedTime = timeOfDay;
+    emit(BookAppointmentTimeChangeState());
   }
 
   void onNextClick() async {
@@ -91,8 +81,8 @@ class BookAppointmentCubit extends Cubit<BookAppointmentState> {
         curve: Curves.fastOutSlowIn,
       );
     } else {
-      String dateTime =
-          "${dateFormatter.format(selectedDay)} ${times[selectedTimeIndex]}:00";
+      emit(BookAppointmentLoadingState(true));
+      String dateTime = "${dateFormatter.format(selectedDay)} ${selectedTime.to24hours()}:00";
 
       String userEmail = await getUserEmailUsecase.execute();
       Token? token = getLocalTokenUseCase.execute();
@@ -101,34 +91,50 @@ class BookAppointmentCubit extends Cubit<BookAppointmentState> {
 
       Either<Failure, Meeting> response = await createMeetingUseCase.invoke(
         "Doctor Appointment Meeting",
-        problemDetailController.text,
+        problemDetailController.text.orEmpty(),
         userEmail,
         appDoctor.user.email,
         dateTime,
       );
 
-      response.fold((fail) {
-        print("Error ${fail.message}");
-      }, (data) async {
+      response.fold((Failure fail) {
+        if (kDebugMode) {
+          print("Error ${fail.message}");
+        }
+      }, (Meeting meeting) async {
         var result = await addUserAppointmentsUseCase.execute(
           appDoctor.id,
           userId,
-          problemDetailController.text,
+          problemDetailController.text.orEmpty(),
           dateTime,
-          data.link,
+          meeting.link,
         );
 
-        result.fold((l) {
-          print("Fail App ${l.message}");
-        }, (r) {
-          print("Appointment Created Successfully");
+        result.fold((Failure error) {
+          if (kDebugMode) {
+            print("Fail App ${error.message}");
+          }
+        }, (_) {
+          if (kDebugMode) {
+            print("Appointment Created Successfully");
+          }
         });
-        print("Response $data");
+        emit(BookAppointmentLoadingState(false));
       });
     }
   }
 
   void setAppointmentDoctor(Doctor doctor) {
     appDoctor = doctor;
+  }
+}
+
+extension TimeOfDayConverter on TimeOfDay {
+  String to24hours() {
+    // to handle the difference of the time of egypt
+    int updatedHour = this.hour - 1;
+    final hour = updatedHour.toString().padLeft(2, "0");
+    final min = minute.toString().padLeft(2, "0");
+    return "$hour:$min";
   }
 }

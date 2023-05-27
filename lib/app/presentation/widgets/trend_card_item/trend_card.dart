@@ -6,11 +6,20 @@ import 'package:medita_patient/app/presentation/widgets/category_item/category_i
 
 import '../../../app/utils.dart';
 import '../../manager/values_manager.dart';
+import '../loading/loading_shimmer.dart';
 
 class TrendCard extends StatelessWidget {
   const TrendCard({Key? key, required this.article}) : super(key: key);
 
   final Article article;
+
+  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) return child;
+    return const LoadingShimmer(
+      width: AppSize.s100,
+      height: AppSize.s100,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +33,15 @@ class TrendCard extends StatelessWidget {
           height: AppSize.s200,
           width: AppSize.s210,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
               ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
                 child: Image.network(
                   article.coverImageUrl,
                   fit: BoxFit.cover,
+                  height: AppSize.s120,
+                  loadingBuilder: loadingItemBuilder,
                 ),
               ),
               8.ph,

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/app/extensions.dart';
 
@@ -8,6 +6,7 @@ import '../../../data/models/data/articles/article.dart';
 import '../../manager/routes_manager.dart';
 import '../../manager/values_manager.dart';
 import '../category_item/category_item.dart';
+import '../loading/loading_shimmer.dart';
 
 class HorizontalArticleCardItem extends StatelessWidget {
   const HorizontalArticleCardItem({
@@ -16,6 +15,14 @@ class HorizontalArticleCardItem extends StatelessWidget {
   }) : super(key: key);
 
   final Article article;
+
+  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) return child;
+    return const LoadingShimmer(
+      width: AppSize.s100,
+      height: AppSize.s100,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +41,9 @@ class HorizontalArticleCardItem extends StatelessWidget {
                 child: Image.network(
                   article.coverImageUrl,
                   fit: BoxFit.cover,
-                  width: 100,
-                  height: 100,
+                  width: AppSize.s100,
+                  height: AppSize.s100,
+                  loadingBuilder: loadingItemBuilder,
                 ),
               ),
             ),

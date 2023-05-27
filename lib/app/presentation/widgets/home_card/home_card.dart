@@ -4,9 +4,18 @@ import 'package:medita_patient/app/data/models/data/banner/banner.dart';
 import '../../manager/color_manager.dart';
 import '../../manager/string_manager.dart';
 import '../../manager/values_manager.dart';
+import '../loading/loading_shimmer.dart';
 
 class HomeCard extends StatelessWidget {
   const HomeCard({Key? key, required this.banner }) : super(key: key);
+
+  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+    if (loadingProgress == null) return child;
+    return const LoadingShimmer(
+      width: double.infinity,
+      height: double.infinity,
+    );
+  }
 
   final MedicalBanner banner;
   @override
@@ -24,6 +33,7 @@ class HomeCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
+                loadingBuilder: loadingItemBuilder,
               ),
             ),
             Container(
@@ -44,6 +54,8 @@ class HomeCard extends StatelessWidget {
                         .textTheme
                         .titleLarge
                         ?.copyWith(color: ColorManager.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     banner.body,
@@ -51,6 +63,8 @@ class HomeCard extends StatelessWidget {
                         .textTheme
                         .caption
                         ?.copyWith(color: Colors.white),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   ElevatedButton(
                     onPressed: () {},

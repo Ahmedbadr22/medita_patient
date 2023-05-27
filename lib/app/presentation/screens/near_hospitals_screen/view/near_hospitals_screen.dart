@@ -9,6 +9,8 @@ import 'package:medita_patient/app/presentation/widgets/svg_icon_button/svg_icon
 import '../../../../data/models/data/hospital/hospital.dart';
 import '../../../widgets/common_app_bar/common_app_bar.dart';
 import '../../../widgets/hospital_card_item/hospital_card_item.dart';
+import '../../../widgets/loading/doctor_card_shimmer.dart';
+import '../../../widgets/loading/loading_list.dart';
 
 
 class NearHospitalsScreen extends StatelessWidget {
@@ -47,7 +49,10 @@ class NearHospitalsScreen extends StatelessWidget {
             ),
             body: Visibility(
               visible: !nearHospitalsScreenCubit.isLoading,
-              replacement: const Center(child: CircularProgressIndicator()),
+              replacement: const LoadingList(
+                shimmerItem: DoctorCardShimmer(),
+                itemCount: 5,
+              ),
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 itemCount: nearHospitalsScreenCubit.hospitals.length,

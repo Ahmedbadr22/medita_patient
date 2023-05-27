@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
     List screens = [
       const HomeScreen(),
       const AppointmentScreen(),
-      const ScheduleScreen(),
+      ScheduleScreen(),
       const ArticlesScreen(),
       const ProfileScreen()
     ];

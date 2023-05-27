@@ -23,14 +23,14 @@ class DioFactory {
 
     dio.options = BaseOptions(baseUrl: ApiConstants.baseUrl, headers: headers, receiveTimeout: _timeOut, sendTimeout: _timeOut);
 
-    if (!kReleaseMode) {
-      dio.interceptors.add(PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseHeader: true,
-          responseBody: true
-      ));
-    }
+    // if (!kReleaseMode) {
+    //   dio.interceptors.add(PrettyDioLogger(
+    //       requestHeader: true,
+    //       requestBody: true,
+    //       responseHeader: true,
+    //       responseBody: true
+    //   ));
+    // }
 
     return dio;
   }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_status.dart';
+import 'package:medita_patient/app/presentation/widgets/loading/loading_dialog.dart';
 
 import '../../../manager/asset_manager.dart';
 import '../../../manager/string_manager.dart';
@@ -33,10 +34,18 @@ class SignUpScreen extends StatelessWidget {
     _passwordTextEditingController.addListener(() => signUpCubit.setPassword(_passwordTextEditingController.text));
 
     return BlocConsumer<SignUpCubit, SignUpState>(
-        listener: (_, state) {
+        listener: (_, SignUpState state) {
           if (state is SignUpSuccessSate) {
             signUpCubit.navigateToSignInScreen(context);
             signUpCubit.close();
+          }
+
+          if (state is SignUpLoadingSate) {
+            if (state.loading) {
+              showDialog(context: context, builder: (_) => const LoadingDialog());
+            } else {
+              Navigator.pop(context);
+            }
           }
         },
         builder: (_, __) {
@@ -90,6 +99,7 @@ class SignUpScreen extends StatelessWidget {
                           const SizedBox(height: AppSize.s10),
                           MainTextInputField(
                             controller: _passwordTextEditingController,
+                            maxLines: 1,
                             isObscureText: signUpCubit.isObscureText,
                             prefixIcon: SvgPicture.asset(ImageAsset.outlinedLockPasswordSvg),
                             suffixIcon: SvgIconButton(
@@ -106,28 +116,22 @@ class SignUpScreen extends StatelessWidget {
                     SizedBox(
                       height: AppSize.defaultButtonHeight,
                       width: double.infinity,
-                      child: Visibility(
-                        visible: !signUpCubit.isLoadingState,
-                        replacement: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        child: ElevatedButton(
-                          child: const Text(StringManager.signUp),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              signUpCubit.register();
-                            }
-                          },
-                        ),
+                      child: ElevatedButton(
+                        child: const Text(StringManager.signUp),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            signUpCubit.register();
+                          }
+                        },
                       ),
                     ),
                     const SizedBox(height: AppSize.s20),
                     const AuthenticationDivider(
                         text: StringManager.orContinueWith),
                     const SizedBox(height: AppSize.s20),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const <IconAuthenticationButton>[
+                      children: <IconAuthenticationButton>[
                         IconAuthenticationButton(iconPath: ImageAsset.facebookLogoSvg),
                         IconAuthenticationButton(iconPath: ImageAsset.googleLogoSvg),
                         IconAuthenticationButton(iconPath: ImageAsset.appleLogoSvg),

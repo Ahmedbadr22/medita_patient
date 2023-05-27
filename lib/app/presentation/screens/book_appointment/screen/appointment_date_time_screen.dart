@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medita_patient/app/app/extensions.dart';
 import 'package:medita_patient/app/presentation/manager/color_manager.dart';
+import 'package:medita_patient/app/presentation/manager/font_manager.dart';
 import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/values_manager.dart';
 import 'package:medita_patient/app/presentation/screens/book_appointment/cubit/book_appointment_cubit.dart';
-import 'package:medita_patient/app/presentation/screens/book_appointment/widget/time_chip.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../cubit/book_appointment_state.dart';
@@ -17,22 +17,20 @@ class AppointmentDateTimeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     BookAppointmentCubit cubit = BookAppointmentCubit.get(context);
 
-    Widget timeChipItemBuilder(_, int index) {
-      String time = cubit.times[index];
-      return TimeChip(
-        time: time,
-        isSelected: index == cubit.selectedTimeIndex,
-        onClick: (value) => cubit.onTimeSelected(index),
-      );
+    void onTimePickerClick() {
+      showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      ).then(cubit.onSelectedTimeChanged);
     }
 
     return BlocBuilder<BookAppointmentCubit, BookAppointmentState>(
-      builder: (BuildContext context, state) {
+      builder: (BuildContext context, BookAppointmentState state) {
         return Scaffold(
           backgroundColor: ColorManager.white,
           body: ListView(
             physics: const NeverScrollableScrollPhysics(),
-            children: <Widget> [
+            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
                   left: AppSize.s20,
@@ -77,8 +75,7 @@ class AppointmentDateTimeScreen extends StatelessWidget {
                         ),
                         availableGestures: AvailableGestures.all,
                         onDaySelected: cubit.onDaySelected,
-                        selectedDayPredicate: (day) =>
-                            isSameDay(day, cubit.selectedDay),
+                        selectedDayPredicate: (day) => isSameDay(day, cubit.selectedDay),
                       ),
                     ),
                     Text(
@@ -88,18 +85,21 @@ class AppointmentDateTimeScreen extends StatelessWidget {
                           .titleLarge
                           ?.copyWith(color: ColorManager.darkBlack),
                     ),
-                    10.ph,
-                    GridView.builder(
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisExtent: AppSize.s50,
-                        crossAxisSpacing: AppSize.s10,
-                        crossAxisCount: 3,
+                    20.ph,
+                    Center(
+                      child: Text(
+                        cubit.selectedTime.format(context).toString(),
+                        style: const TextStyle(fontSize: FontSize.s40),
                       ),
-                      scrollDirection: Axis.vertical,
-                      itemCount: cubit.times.length,
-                      itemBuilder: timeChipItemBuilder,
+                    ),
+                    20.ph,
+                    SizedBox(
+                      height: AppSize.s50,
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: onTimePickerClick,
+                        child: const Text("Pick Time"),
+                      ),
                     ),
                   ],
                 ),

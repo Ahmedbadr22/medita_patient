@@ -12,6 +12,7 @@ import 'package:medita_patient/app/domain/use_cases/login/login_use_case.dart';
 import 'package:medita_patient/app/domain/use_cases/metting/create_meeting_usecase.dart';
 import 'package:medita_patient/app/domain/use_cases/token/get_local_token_use_case.dart';
 import 'package:medita_patient/app/presentation/manager/routes_manager.dart';
+import 'package:medita_patient/app/presentation/manager/string_manager.dart';
 import 'package:medita_patient/app/presentation/manager/theme_manager.dart';
 import 'package:medita_patient/app/presentation/screens/appointment/cubit/appointment_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/articles/cubit/articles_screen_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:medita_patient/app/presentation/screens/home/view_model/home_scr
 import 'package:medita_patient/app/presentation/screens/navigation/viewModel/main_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/near_hospitals_screen/cubit/near_hospitals_screen_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/on_boarding/cubit/on_boarding_screen_cubit.dart';
+import 'package:medita_patient/app/presentation/screens/schedule/screens/disease_test_screen/cubit/disease_test_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_in/cubit/sign_in_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/sign_up/cubit/sign_up_cubit.dart';
 import 'package:medita_patient/app/presentation/screens/speciality/cubit/SpecialityScreenCubit.dart';
@@ -29,6 +31,8 @@ import 'package:medita_patient/app/presentation/screens/splash/cubit/splash_scre
 
 import '../domain/use_cases/appointment/add_user_appointments_use_case.dart';
 import '../domain/use_cases/article/list_user_bookmarks_articles.dart';
+import '../domain/use_cases/classification/classify_brain_disease_usecase.dart';
+import '../domain/use_cases/classification/classify_stomach_disease_usecase.dart';
 import '../domain/use_cases/registration/registration_use_case.dart';
 import '../domain/use_cases/specialty/list_specialties_use_case.dart';
 import '../domain/use_cases/user/get_user_email_use_case.dart';
@@ -97,14 +101,22 @@ class MyApp extends StatelessWidget {
                 diInstance<ListUserFavoriteDoctorsUseCase>())
               ..init()),
         BlocProvider(
-            create: (_) => BookAppointmentCubit(
-                  diInstance<CreateMeetingUseCase>(),
-                  diInstance<GetUserEmailUsecase>(),
-                  diInstance<GetLocalTokenUseCase>(),
-                  diInstance<AddUserAppointmentsUseCase>(),
-                )),
+          create: (_) => BookAppointmentCubit(
+            diInstance<CreateMeetingUseCase>(),
+            diInstance<GetUserEmailUsecase>(),
+            diInstance<GetLocalTokenUseCase>(),
+            diInstance<AddUserAppointmentsUseCase>(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => DiseaseTestCubit(
+            diInstance<ClassifyStomachDiseaseUseCase>(),
+            diInstance<ClassifyBrainDiseaseUseCase>(),
+          ),
+        ),
       ],
       child: MaterialApp(
+        title: StringManager.appName,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.splashRoute,

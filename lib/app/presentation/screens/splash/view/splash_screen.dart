@@ -27,9 +27,9 @@ class SplashScreen extends StatelessWidget {
 
     return BlocConsumer<SplashScreenCubit, SplashScreenState>(
       listener: (_, SplashScreenState state) {
-        if(state is SplashScreenIsAuthenticatedState) {
+        if (state is SplashScreenIsAuthenticatedState) {
           navigateToMain();
-        } else if(state is SplashScreenNotAuthenticatedState) {
+        } else if (state is SplashScreenNotAuthenticatedState) {
           navigateToOnBoarding();
         }
       },
@@ -42,19 +42,20 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               children: <Expanded>[
                 Expanded(
-                    flex: 3,
-                    child: Center(
-                      child: SvgPicture.asset(
-                        brightness == Brightness.dark
-                            ? ImageAsset.whiteLogoImagePath
-                            : ImageAsset.blackLogoImagePath,
-                        width: AppSize.splashLogoWidth,
-                      ),
-                    )),
+                  flex: 3,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      brightness == Brightness.dark
+                          ? ImageAsset.whiteLogoImagePath
+                          : ImageAsset.blackLogoImagePath,
+                      width: AppSize.splashLogoWidth,
+                    ),
+                  ),
+                ),
                 const Expanded(
                   flex: 1,
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: SizedBox(),
                   ),
                 ),
               ],
