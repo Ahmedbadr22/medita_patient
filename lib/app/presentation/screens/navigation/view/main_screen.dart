@@ -63,8 +63,8 @@ class MainScreen extends StatelessWidget {
                       mainScreenCubit.currentScreen,
                     ),
                     bottomNavigationItem(
-                      StringManager.history,
-                      ImageAsset.outlinedClockCircleSvg,
+                      StringManager.tools,
+                      ImageAsset.listSvg,
                       2,
                       mainScreenCubit.currentScreen,
                     ),

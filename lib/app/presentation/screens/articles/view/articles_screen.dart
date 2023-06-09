@@ -144,7 +144,7 @@ class ArticlesScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: horizontalArticleCardItemBuilder,
                     itemCount: cubit.articles.length,
-                    separatorBuilder: (_, __) => 10.ph,
+                    separatorBuilder: (_, __) => 12.ph,
                   ),
                 ),
               ),

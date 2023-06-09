@@ -65,7 +65,7 @@ class StringManager {
   // bottom navigation view
   static const home = "Home";
   static const appointments = "Appointments";
-  static const history = "History";
+  static const tools = "Tools";
   static const articles = "Articles";
   static const profile = "Profile";
   // social media

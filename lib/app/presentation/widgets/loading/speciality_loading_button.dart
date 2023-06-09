@@ -7,13 +7,13 @@ class SpecialityLoadingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: <Widget>[
-          LoadingShimmer(
-            borderRadius: AppSize.s50,
-            height: AppSize.s50,
-            width: AppSize.s50,
-          ),
+    return Column(
+      children: const <Widget>[
+        LoadingShimmer(
+          borderRadius: AppSize.s50,
+          height: AppSize.s50,
+          width: AppSize.s50,
+        ),
         SizedBox(height: AppSize.s10),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -26,5 +26,4 @@ class SpecialityLoadingButton extends StatelessWidget {
       ],
     );
   }
-
 }

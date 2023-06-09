@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medita_patient/app/app/extensions.dart';
 import 'package:medita_patient/app/data/models/data/articles/article.dart';
+import 'package:medita_patient/app/presentation/manager/color_manager.dart';
+import 'package:medita_patient/app/presentation/manager/styles_manager.dart';
 import 'package:medita_patient/app/presentation/widgets/common_app_bar/common_app_bar.dart';
 
 import '../../../../app/utils.dart';
@@ -30,13 +32,15 @@ class ArticleDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16, vertical: AppPadding.p8),
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppPadding.p16, vertical: AppPadding.p8),
           child: Column(
             children: <Widget>[
               SizedBox(
                 width: double.infinity,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(AppSize.s20)),
                   child: Image.network(
                     article.coverImageUrl,
                     fit: BoxFit.cover,
@@ -54,7 +58,7 @@ class ArticleDetailScreen extends StatelessWidget {
               10.ph,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget> [
+                children: <Widget>[
                   Text(
                     formatDate(article.dateOfPublish),
                     maxLines: 1,
@@ -66,14 +70,21 @@ class ArticleDetailScreen extends StatelessWidget {
                   10.pw,
                   CategoryItem(category: article.category),
                   10.pw,
-                  const Icon(Icons.star_half, color: Colors.orange,),
+                  const Icon(
+                    Icons.star_half,
+                    color: Colors.orange,
+                  ),
                   Text("(${article.likes.length})")
                 ],
               ),
               10.ph,
               const Divider(),
               10.ph,
-              Text(article.body)
+              Text(
+                article.body,
+                textAlign: TextAlign.justify,
+                style: getRegularStyle(color: ColorManager.lightBlack),
+              )
             ],
           ),
         ),

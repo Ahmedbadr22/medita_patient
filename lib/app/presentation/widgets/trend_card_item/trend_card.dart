@@ -13,7 +13,8 @@ class TrendCard extends StatelessWidget {
 
   final Article article;
 
-  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+  Widget loadingItemBuilder(
+      BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
     if (loadingProgress == null) return child;
     return const LoadingShimmer(
       width: AppSize.s100,
@@ -25,7 +26,8 @@ class TrendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, Routes.articleDetailRoute, arguments: article);
+        Navigator.pushNamed(context, Routes.articleDetailRoute,
+            arguments: article);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0),
@@ -34,9 +36,10 @@ class TrendCard extends StatelessWidget {
           width: AppSize.s210,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
+            children: <Widget>[
               ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(AppSize.s20)),
                 child: Image.network(
                   article.coverImageUrl,
                   fit: BoxFit.cover,
@@ -61,7 +64,7 @@ class TrendCard extends StatelessWidget {
                     ),
                     2.ph,
                     Row(
-                      children: <Widget> [
+                      children: <Widget>[
                         Text(
                           formatDate(article.dateOfPublish),
                           maxLines: 1,

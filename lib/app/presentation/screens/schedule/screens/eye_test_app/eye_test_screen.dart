@@ -299,7 +299,7 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                 _speechToText.stop();
               });
             },
-            icon: Icon(Icons.refresh_rounded,
+            icon: const Icon(Icons.refresh_rounded,
                 //color: ColorManager.white,
                 size: AppSize.s25)));
   }

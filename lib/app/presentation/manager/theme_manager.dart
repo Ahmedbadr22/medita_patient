@@ -53,10 +53,10 @@ AppBarTheme _getLightAppBarTheme() {
     iconTheme: const IconThemeData(color: Colors.black),
     elevation: AppSize.s0,
     backgroundColor: ColorManager.white,
-    systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarColor: ColorManager.white,
-      statusBarIconBrightness: Brightness.dark,
-    ),
+    // systemOverlayStyle: const SystemUiOverlayStyle(
+    //   statusBarColor: ColorManager.white,
+    //   statusBarIconBrightness: Brightness.dark,
+    // ),
     titleTextStyle:
         getMediumStyle(fontSize: FontSize.s20, color: ColorManager.darkBlack),
   );
