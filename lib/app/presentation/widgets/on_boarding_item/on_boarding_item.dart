@@ -14,13 +14,12 @@ class OnBoardingItem extends StatelessWidget {
   final OnBoardingPageItemData onBoardingDataModel;
 
   Widget getImage(String path) {
-    if(path.contains('.svg')) {
+    if (path.contains('.svg')) {
       return SvgPicture.asset(path);
     } else {
       return Image.asset(path);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +39,17 @@ class OnBoardingItem extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding:  const EdgeInsets.all(AppPadding.p18),
+              padding: const EdgeInsets.all(AppPadding.p18),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     onBoardingDataModel.title,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(color: ColorManager.darkBlack),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: ColorManager.darkBlack),
                   ),
                   Text(
                     onBoardingDataModel.text,

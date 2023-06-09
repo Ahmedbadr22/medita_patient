@@ -14,6 +14,7 @@ class ImageAsset {
   static const ophthalmologistSvg = "$_mainSvgPath/Ophthalmologist-amico.svg";
   static const ambulanceSvg = "$_mainSvgPath/Ambulance-rafiki.svg";
   static const plantCollectionSvg = "$_mainSvgPath/Collection-amico.svg";
+  static const listSvg = "$_mainSvgPath/list.svg";
   // icons
   static const outlinedBellSvg = "$_mainIconPath/bell_outlined.svg";
   static const outlinedClockCircleSvg =
@@ -39,6 +40,7 @@ class ImageAsset {
   static const upcomingSvg = "$_mainIconPath/upcoming.svg";
   static const completedSvg = "$_mainIconPath/completed.svg";
   static const canceledSvg = "$_mainIconPath/canceled.svg";
+
   // images
   static const onBoardingImage1 = "$_mainImagePath/on_boarding_1.png";
   static const onBoardingImage4 = "$_mainImagePath/on_boarding_4.jpg";
@@ -63,6 +65,7 @@ class ImageAsset {
   static const sprainImage = "$_mainImagePath/sprain.png";
   static const plantImage = "$_mainImagePath/plant.png";
   static const placeholderImage = "$_mainImagePath/placeholder.png";
+  static const medicalRobotImage = "$_mainImagePath/medical-robot.png";
 
   // videos
   static const yogaVid = "$_mainVideosPath/yoga.mp4";

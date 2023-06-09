@@ -14,11 +14,11 @@ class DoctorCardShimmer extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s25),
         ),
-        child: const Padding(
-          padding: EdgeInsets.all(AppSize.s8),
+        child: Padding(
+          padding: const EdgeInsets.all(AppSize.s8),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(AppSize.s20)),
@@ -31,13 +31,13 @@ class DoctorCardShimmer extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: EdgeInsets.only(left: AppSize.s16),
+                  padding: const EdgeInsets.only(left: AppSize.s16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
+                        children: const <Widget>[
                           Expanded(
                             flex: 2,
                             child: LoadingShimmer(
@@ -62,7 +62,9 @@ class DoctorCardShimmer extends StatelessWidget {
                         width: AppSize.s30,
                         borderRadius: AppSize.s5,
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       LoadingShimmer(
                         height: AppSize.s10,
                         width: double.infinity,

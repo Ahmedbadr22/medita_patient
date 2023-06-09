@@ -16,7 +16,7 @@ class ScheduleScreen extends StatelessWidget {
 
   final List<TestSectionModel> testsSectionData = [
     TestSectionModel(
-      imageUrl: ImageAsset.eyeImage,
+      imageUrl: ImageAsset.medicalRobotImage,
       testName: StringManager.diseaseTest,
     ),
     TestSectionModel(
@@ -39,7 +39,6 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     void navigateToDiseaseTestScreen() {
       Navigator.pushNamed(context, Routes.diseaseTestScreen);
     }
@@ -65,32 +64,38 @@ class ScheduleScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: <TestCard>[
-            TestCard(
-              testSectionModel: testsSectionData[0],
-              onTap: navigateToDiseaseTestScreen,
-            ),
-            TestCard(
-              testSectionModel: testsSectionData[1],
-              onTap: navigateToEyeTestScreen,
-            ),
-            TestCard(
-              testSectionModel: testsSectionData[2],
-              onTap: navigateToFirstAidSectionScreen,
-            ),
-            TestCard(
-              testSectionModel: testsSectionData[3],
-              onTap: navigateToFitnessSectionScreen,
-            ),
-            TestCard(
-              testSectionModel: testsSectionData[4],
-              onTap: navigatePlantScreen,
-            ),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: <TestCard>[
+              TestCard(
+                testSectionModel: testsSectionData[0],
+                color: Colors.purple.shade100.withOpacity(0.4),
+                onTap: navigateToDiseaseTestScreen,
+              ),
+              TestCard(
+                color: Colors.orange.shade100.withOpacity(0.4),
+                testSectionModel: testsSectionData[1],
+                onTap: navigateToEyeTestScreen,
+              ),
+              TestCard(
+                color: Colors.blue.shade100.withOpacity(0.4),
+                testSectionModel: testsSectionData[2],
+                onTap: navigateToFirstAidSectionScreen,
+              ),
+              TestCard(
+                color: const Color(0XFFF6E2DB).withOpacity(0.6),
+                testSectionModel: testsSectionData[3],
+                onTap: navigateToFitnessSectionScreen,
+              ),
+              TestCard(
+                color: const Color(0XFFC8E9B0).withOpacity(0.6),
+                testSectionModel: testsSectionData[4],
+                onTap: navigatePlantScreen,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -16,7 +16,8 @@ class HorizontalArticleCardItem extends StatelessWidget {
 
   final Article article;
 
-  Widget loadingItemBuilder(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+  Widget loadingItemBuilder(
+      BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
     if (loadingProgress == null) return child;
     return const LoadingShimmer(
       width: AppSize.s100,
@@ -28,16 +29,18 @@ class HorizontalArticleCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, Routes.articleDetailRoute, arguments: article);
+        Navigator.pushNamed(context, Routes.articleDetailRoute,
+            arguments: article);
       },
       child: SizedBox(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget> [
+          children: <Widget>[
             Expanded(
               flex: 1,
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(AppSize.s20)),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(AppSize.s20)),
                 child: Image.network(
                   article.coverImageUrl,
                   fit: BoxFit.cover,
@@ -66,7 +69,7 @@ class HorizontalArticleCardItem extends StatelessWidget {
                     ),
                     2.ph,
                     Row(
-                      children: <Widget> [
+                      children: <Widget>[
                         Text(
                           formatDate(article.dateOfPublish),
                           maxLines: 1,

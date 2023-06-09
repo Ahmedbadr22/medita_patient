@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medita_patient/app/app/di.dart';
 import 'package:medita_patient/app/domain/use_cases/appointment/list_user_appointments_use_case.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     return MultiBlocProvider(
       providers: [
         BlocProvider(
